@@ -8,7 +8,7 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 " Language servers
 lua require('lspconfig').clangd.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').texlab.setup{on_attach=require('completion').on_attach}
-lua require('lspconfig').pyls.setup{on_attach=require('completion').on_attach}
+lua require('lspconfig').pylsp.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').jdtls.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').bashls.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').vimls.setup{on_attach=require('completion').on_attach}
