@@ -2,4 +2,4 @@
 
 [[ $# == 0 ]] && pamixer --get-volume && exit
 
-pamixer --set-volume $1
+pamixer --set-volume $1 && xroot-status-update
