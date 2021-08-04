@@ -9,5 +9,5 @@ if [ -f "$userresources" ]; then
 fi
 
 # start some nice programs
-
-startdwm
+picom &
+dbus-launch startdwm

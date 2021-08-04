@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-sudo pacman -U linux-5.11.15.arch1-2-x86_64.pkg.tar.zst linux-headers-5.11.15.arch1-2-x86_64.pkg.tar.zst nvidia-dkms-460.67-1-x86_64.pkg.tar.zst nvidia-settings-460.67-1-x86_64.pkg.tar.zst nvidia-utils-460.67-1-x86_64.pkg.tar.zst dkms-2.8.4-1-any.pkg.tar.zst gcc-10.2.0-6-x86_64.pkg.tar.zst gcc-libs-10.2.0-6-x86_64.pkg.tar.zst

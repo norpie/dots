@@ -1,5 +1,5 @@
 #!/bin/zsh
 
-[[ $# == 0 ]] && pamixer --get-volume && exit
+[[ $# == 0 ]] && pamixer --get-volume && exit 1
 
 pamixer --set-volume $1

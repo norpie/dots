@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-[[ $# == 0 ]] && echo "provide choice name" && exit 1
-
-CHOICE=$1
-
-xwallpaper --output DP-2 --center $CHOICE.DP-2.png --output HDMI-0 --center $CHOICE.HDMI-0.png --output DP-4 --center $CHOICE.DP-4.png

@@ -1,3 +1,4 @@
 #!/usr/bin/zsh
-
-echo "$1" > /sys/class/backlight/*/brightness 2>&1/dev/null
+float=$(( $1.0 / 100 * 255 ))
+int=${float%.*}
+echo $int | sudo tee -a /sys/class/backlight/*/brightness >/dev/null

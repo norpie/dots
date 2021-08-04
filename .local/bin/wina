@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-google-chrome-stable "https://wiki.wina.be/examens/index.php/$1"
