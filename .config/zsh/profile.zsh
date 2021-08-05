@@ -1,4 +1,4 @@
-export ZDOTDIR="/home/konsta/.config/zsh"
+export ZDOTDIR="/home/$USER/.config/zsh"
 
 source "$ZDOTDIR/environment.zsh"
 

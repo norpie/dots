@@ -70,7 +70,7 @@ alias mv="mv -v"
 alias cp="cp -v"
 
 # Define home
-export HOME="/home/konsta"
+export HOME="/home/$USER"
 export SHOME="$HOME"
 
 # Exports
