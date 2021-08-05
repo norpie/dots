@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-[[ $# != 1 ]] && echo "enter directory of linecount" && exit 1
-
-find "$1" -type f | xargs cat | wc -l

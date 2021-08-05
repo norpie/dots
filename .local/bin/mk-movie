@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-[[ ! $# == 1 ]] && echo "needs atleast 1 argument" && exit 1
-
-mv $1 /disks/movies

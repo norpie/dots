@@ -1,4 +1,0 @@
-#!/bin/sh
-
-st >/dev/null & disown >/dev/null
-echo "Started new st session!"

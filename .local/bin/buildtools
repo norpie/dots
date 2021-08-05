@@ -1,7 +1,0 @@
-#!/usr/bin/zsh
-
-cd ~/repos/rpg-project/buildtools &&
-rm jars -rf &&
-java -jar BuildTools.jar --rev latest --compile spigot --generate-docs --generate-source -o jars &&
-rm ~/repos/rpg-project/server/server.jar -rf &&
-ln -s $(find ~/repos/rpg-project/buildtools/jars -type f | awk 'NR == 1 {print}') ~/repos/rpg-project/server/server.jar

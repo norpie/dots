@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-selection=$(find * -type f | cut -f1 -d"." | sort | uniq | fzf-img)
-[[ $selection == "" ]] && exit 1 
-cd "$HOME/.config/wallpaper/tripps" && tripple-wallpaper-set $selection

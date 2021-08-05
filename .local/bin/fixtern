@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-
-cp ~/.config/vim/bundle/YouCompleteMe/.tern-project .
