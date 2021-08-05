@@ -1,1 +1,1 @@
-/home/konsta/.config/zsh/profile.zsh
+.config/zsh/profile.zsh
