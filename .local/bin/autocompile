@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+find * -type f | entr make

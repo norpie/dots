@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+choice=$(echo "shutdown\nreboot" | dmenu -fn "Liberation Sans:pixelsize=16")
+if [[ $choice == "shutdown" ]]; then
+    shutdown
+elif [[ $choice == "reboot" ]]; then
+    reboot
+fi

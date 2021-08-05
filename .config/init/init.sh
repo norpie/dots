@@ -2,9 +2,9 @@
 
 source ~/.config/zsh/.zshrc
 
-ssh-add-defaults
-pulseaudio-restart
-xwallpaper --zoom ~/.config/wallpaper/wallpaper.png
-xroot-status-restart
-plex
-escapecaps
+ssh-add-defaults &
+pulseaudio-restart &
+tripple-wallpaper-set /home/konsta/.config/wallpaper/tripps/vastforest &
+xroot-status-restart &
+plex &
+escapecaps 
