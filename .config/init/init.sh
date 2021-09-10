@@ -2,7 +2,7 @@
 
 source ~/.config/zsh/.zshrc
 
-wallpaper &
+xwallpaper --zoom ~/.config/wallpaper/wallpaper.png &
 xroot-status-restart &
 ssh-add-defaults &
 escapecaps &

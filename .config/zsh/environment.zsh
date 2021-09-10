@@ -13,8 +13,14 @@ export WORKSPACE=$REPO_DIRECTORY
 # Custom Commands
 alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
 alias node80="sudo node app.js"
-alias update="yay -Syu --noconfirm"
 alias Make='make -C $(git root)'
+
+#pacman
+alias update="yay -Syu --noconfirm"
+alias p="sudo pacman"
+
+# Systemd
+alias sys="sudo systemctl"
 
 # Synonyms
 alias quit="exit"
