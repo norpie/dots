@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+sudo patch -p1 /usr/lib/systemd/system/getty@.service < ~/.local/share/script/autologin.diff
