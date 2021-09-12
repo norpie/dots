@@ -18,6 +18,7 @@ alias Make='make -C $(git root)'
 #pacman
 alias update="yay -Syu --noconfirm"
 alias p="sudo pacman"
+alias y="yay"
 
 # Systemd
 alias sys="sudo systemctl"
@@ -102,9 +103,9 @@ export REPO_DIRECTORY="$HOME/repos"
 export TODO_DIRECTORY="$REPO_DIRECTORY/todo"
 
 # Moving dot dirs to .config
-export VIMINIT="source $HOME/.config/vim/init.vim"
-export VIMDOTDIR="source $HOME/.config/vim"
-export VIMDIR="$HOME/.config/vim"
+export VIMINIT="source $HOME/.config/nvim/init.vim"
+export VIMDOTDIR="source $HOME/.config/nvim"
+export VIMDIR="$HOME/.config/nvim"
 export GNUPGHOME="$HOME/.config/gnupg"
 export __GL_SHADER_DISK_CACHE_PATH="$HOME/.config/nvidia"
 #export XAUTHORITY="$HOME/.config/X11/Xauthority"
