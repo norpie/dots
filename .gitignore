@@ -103,3 +103,5 @@ uni
 .config/xautoclick
 .local/share/autokey
 summaries
+.config/nvim/plugged
+.gitignore

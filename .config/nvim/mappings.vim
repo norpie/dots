@@ -4,16 +4,6 @@ let mapleader="<"
 " Custom aliases
 cnoreabbrev W w !sudo tee %
 
-" Disable arrows
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
-
 " Custom Plugin Mappings
 nmap <Leader>n :NERDTreeToggle<CR>
 nmap <Leader>t :TagbarToggle<CR>
@@ -34,3 +24,14 @@ function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
+" Fix kj with wrapping
+map j gj
+map k gk
+
+" Undo points at punctuation marks
+inoremap . .<C-g>u
+inoremap , ,<C-g>u
+inoremap ! !<C-g>u
+inoremap ? ?<C-g>u
+inoremap : :<C-g>u
