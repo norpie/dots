@@ -10,9 +10,9 @@
 [core]
 	editor = nvim
 	pager = less
-	sshCommand = ssh -o UserKnownHostsFile=~/.config/ssh/known_hosts -o StrictHostKeyChecking=no
+    sshCommand = ssh -o UserKnownHostsFile=~/.config/ssh/known_hosts -o StrictHostKeyChecking=no
 [url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
+ 	insteadOf = https://github.com/
 [init]
 	defaultBranch = main
 [alias]
