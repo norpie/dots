@@ -106,3 +106,4 @@ summaries
 .config/nvim/plugged
 .gitignore
 university
+.python_history
