@@ -29,6 +29,9 @@ endfunction
 map j gj
 map k gk
 
+" UNMAP CAPITAL Q PLS NEVER AGAIN
+map Q q
+
 " Undo points at punctuation marks
 inoremap . .<C-g>u
 inoremap , ,<C-g>u
