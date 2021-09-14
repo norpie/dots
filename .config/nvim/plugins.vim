@@ -56,12 +56,37 @@ call plug#end()
 
 filetype plugin indent on
 
+" Vimtex
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+
 " Configuration for the Language Server Protocol
 set completeopt=menuone,noinsert
+set omnifunc=v:lua.vim.lsp.omnifunc
+
 let g:completion_auto_change_source = 1
+
+let g:completion_enable_auto_hover = 1
+let g:completion_enable_auto_signature = 1
 let g:completion_enable_auto_popup = 1
 let g:completion_enable_snippet = "UltiSnips"
+
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_ignore_case = 1
+
+let g:completion_trigger_character = ['.', '::']
+let g:completion_trigger_keyword_length = 2 " default = 1
+let g:completion_trigger_on_delete = 1
+
+" non ins-complete method should be specified in 'mode'
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['vimtex']},
+    \{'complete_items': ['lsp']},
+    \{'complete_items': ['snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
 
 " Language servers
 lua require('lspconfig').clangd.setup{on_attach=require('completion').on_attach}
@@ -74,11 +99,6 @@ lua require('lspconfig').jsonls.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').cssls.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').html.setup{on_attach=require('completion').on_attach}
 lua require('lspconfig').tsserver.setup{on_attach=require('completion').on_attach}
-
-" Vimtex
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
 
 " Tex-conceal
 set conceallevel=1

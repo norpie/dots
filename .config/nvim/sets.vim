@@ -30,7 +30,6 @@ set cmdheight=1
 set updatetime=50
 set viminfo+=n~/.cache/nvim/viminfo
 set runtimepath+=~/.config/nvim
-set omnifunc=syntaxcomplete#Complete
 set ruler
 
 setlocal spell
