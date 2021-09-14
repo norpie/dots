@@ -1,3 +1,10 @@
 #!/bin/zsh
 
-[[ $1 == "sony" ]] && echo "38:18:4C:06:79:A9"
+declare -A devices
+devices=(
+    ["sony"]="38:18:4C:06:79:A9"
+    )
+
+[[ $# == 0 ]] && echo "${(k)devices}" && exit 1
+
+echo $devices[$1]
