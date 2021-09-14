@@ -10,4 +10,7 @@ fi
 
 # start some nice programs
 picom &
+pulseaudio &
+xroot-status-restart &
+ssh-add-defaults &
 dbus-launch startdwm
