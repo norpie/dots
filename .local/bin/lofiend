@@ -1,4 +1,0 @@
-#!/usr/bin/zsh
-
-kill $(pgrep mpv) >/dev/null
-wallpaper

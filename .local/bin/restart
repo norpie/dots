@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+pidofkill $1
+sleep 1
+$1 & disown

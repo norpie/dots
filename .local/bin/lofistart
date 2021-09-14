@@ -1,3 +1,0 @@
-#!/usr/bin/zsh
-
-mpv "https://www.youtube.com/watch?v=o33l32ZrIy8" --screen=2 --wid=0 --ytdl-format="best" --hwdec=d3d11va & disown

@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-pulseaudio -k
-sleep 2
-pulseaudio-start

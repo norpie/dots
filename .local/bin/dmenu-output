@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+switch_sink() {
+    echo switching default
+    pacmd set-default-sink $1 ||
+        echo failed
+    echo switching applications
+    pacmd list-sink-inputs |
+        awk '/index:/{print $2}' |
+        xargs -r -I{} pacmd move-sink-input {} $1 ||
+        echo failed
+}
+
+
+indexes=$(pacmd list-sinks | grep -E 'index:')
+descriptions=$(pacmd list-sinks | grep -E 'device.description =')
+devices=$(echo $indexes | wc -l)
+
+lines=""
+for i in $(seq $devices)
+do
+    line=$(echo $indexes | awk -F':' "NR==$i {print \$2}")
+    line+="  "$(echo $descriptions | awk "NR==$i {print \$3}")
+    lines+=$line"\n"
+done
+
+choice=$(echo $lines | grep . | dmenu | awk '{print $1}') 
+
+[[ $choice == "" ]] && exit 1
+
+switch_sink $choice
