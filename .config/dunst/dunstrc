@@ -1,16 +1,16 @@
 [global]
     monitor = 0
     follow = keyboard
-    geometry = "350x5-0+24"
+    geometry = "350x10-10+10"
     indicate_hidden = yes
     shrink = yes
-    transparency = 20
-    notification_height = 0
-    separator_height = 2
-    padding = 0
+    transparency = 40
+    notification_height = 10
+    separator_height = 0
+    padding = 8
     horizontal_padding = 8
-    frame_width = 3
-    frame_color = "#282828"
+    frame_width = 0
+    frame_color = "#000000"
 
     # Define a color for the separator.
     # possible values are:
@@ -18,14 +18,14 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = frame
+    separator_color = foreground
 
     # Sort messages by urgency.
     sort = yes
 
     idle_threshold = 120
-    font = Liberation Sans 14
-    line_height = 0
+    font = "Liberation Mono Regular 12"
+    line_height = 10
     markup = full
 
     # The format of the message.  Possible variables are:
@@ -38,7 +38,7 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "%a\n%s\n%b\n%p"
 
     alignment = left
     show_age_threshold = 60
@@ -66,19 +66,19 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#282828"
-    foreground = "#928374"
+    frame_color = "#1D918B"
+    foreground = "#FFEE79"
+    background = "#18191E"
     timeout = 5
-    # Icon for notifications with low urgency, uncomment to enable
-    #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#458588"
-    foreground = "#ebdbb2"
-    timeout = 5
-
+    frame_color = "#D16BB7"
+    foreground = "#FFEE79"
+    background = "#18191E"
+    timeout = 10
+    
 [urgency_critical]
-    background = "#cc2421"
-    foreground = "#ebdbb2"
-    frame_color = "#fabd2f"
-    timeout = 0
+    frame_color = "#FC2929"
+    foreground = "#FFFF00"
+    background = "#18191E"
+    timeout = 10
