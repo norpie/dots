@@ -1,9 +1,5 @@
 #!/bin/sh
 
-TEMPLATES_DIR=/home/konsta/.local/bin/templates
+TEMPLATES_DIR=$HOME/.local/share/templates
 
-[[ $# != 1 ]] && echo "1 argument needed" && exit 1
-
-[[ ! -f "$TEMPLATES_DIR/template.$1" ]] && echo "template for filetype \"$1\" does not exist." && exit 1
-
-cp "$TEMPLATES_DIR/template.$1" $(pwd)
+fzf $TEMPLATES_DIR
