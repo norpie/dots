@@ -1,5 +1,0 @@
-#!/bin/sh
-
-TEMPLATES_DIR=$HOME/.local/share/templates
-
-fzf $TEMPLATES_DIR
