@@ -1,6 +1,5 @@
 """"""""""""""""""""""""""""""""""""
-" Konsta Kuosmanen Vim Configuration
-""""""""""""""""""""""""""""""""""""
+" Konsta Kuosmanen Vim Configuration """"""""""""""""""""""""""""""""""""
 
 """""""""""
 " PLUGINS "
@@ -10,54 +9,35 @@ filetype off
 set rtp+=~/.config/nvim
 call plug#begin('~/.config/nvim/plugged')
 
-" Vim Lua dependancies
+Plug 'junegunn/vim-plug'
+
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
-" Plugin Manager
-Plug 'junegunn/vim-plug'
-Plug 'junegunn/fzf'
-
-" Utility Gui
 Plug 'preservim/tagbar'
 Plug 'preservim/nerdtree'
 
-" Auto-Complete
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-" Auto-Complete - Sub plugins
-Plug 'onsails/lspkind-nvim'
 
-" Generic Programming Helpers
-Plug 'Townk/vim-autoclose'
+Plug 'rstacruz/vim-closer'
 
-" Cool looks
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'itchyny/lightline.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
-" Writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" Colorschemes
 Plug 'flazz/vim-colorschemes'
 
-" Notetaking
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 Plug 'sirver/ultisnips'
 
-" Utilities
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
 
-" File browsing
 Plug 'nvim-telescope/telescope.nvim'
 
-" General Improvements
 Plug 'mbbill/undotree'
 
 call plug#end()
@@ -209,6 +189,15 @@ autocmd FileType python,java,cpp,c TagbarOpen
 autocmd FileType python,java,cpp,c set nowrap
 
 autocmd BufEnter * lua require'completion'.on_attach()
+
+function Compile()
+    silent !make compile&disown
+endfunction
+
+augroup latexautocompile
+    autocmd! 
+    autocmd BufWritePost *.tex call Compile()
+augroup END
 
 augroup writegroup
     autocmd!
