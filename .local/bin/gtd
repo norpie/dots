@@ -4,11 +4,11 @@ STUDY_MINUTES=25
 BREAK_MINUTES=5
 
 print_break() {
-    figlet -c break -w $(tput cols)
+    figlet -tc break -w $(tput cols)
 }
 
 print_study() {
-    figlet -c study -w $(tput cols)
+    figlet -tc study -w $(tput cols)
 }
 
 print_help() {
@@ -20,6 +20,7 @@ print_help() {
 
 countdown_study() {
     clear
+    printf "Time at start of heat " && st-time
     print_study
     seconds=$(($STUDY_MINUTES*60)); date1=$((`date +%s` + $seconds)); 
     while [ "$date1" -ge `date +%s` ]; do 
@@ -29,6 +30,7 @@ countdown_study() {
 
 countdown_break() {
     clear
+    printf "Time at start of heat " && st-time
     print_break
     seconds=$(($BREAK_MINUTES*60)); date1=$((`date +%s` + $seconds));
     while [ "$date1" -ge `date +%s` ]; do 

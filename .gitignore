@@ -102,8 +102,13 @@ uni
 .config/spicetify
 .config/xautoclick
 .local/share/autokey
+<<<<<<< HEAD
 summaries
 .config/nvim/plugged
 .gitignore
 university
 .python_history
+=======
+repos//home/konsta/.local/share/games
+.local/share/games
+>>>>>>> desktop

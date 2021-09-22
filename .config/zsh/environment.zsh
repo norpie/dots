@@ -15,13 +15,13 @@ alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
 alias node80="sudo node app.js"
 alias Make='make -C $(git root)'
 
-#pacman
+# Systemd
+alias sys="sudo systemctl"
+
+# Pacman/Yay commands
 alias update="yay -Syu --noconfirm"
 alias p="sudo pacman"
 alias y="yay"
-
-# Systemd
-alias sys="sudo systemctl"
 
 # Synonyms
 alias quit="exit"
@@ -42,6 +42,7 @@ alias pdf="zathura"
 # Git aliases
 alias g="git"
 alias gc="git commit"
+alias gb="git branch"
 alias gs="git status"
 alias gl="git log --oneline --decorate --all --graph"
 alias ga="git add"
