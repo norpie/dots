@@ -112,3 +112,10 @@ university
 repos//home/konsta/.local/share/games
 .local/share/games
 >>>>>>> desktop
+.xinitrc
+.config/MEGAX
+.config/emacs
+.config/vim
+.renpy
+.jd
+pix
