@@ -1,5 +1,6 @@
-""""""""""""""""""""""""""""""""""""
-" Konsta Kuosmanen Vim Configuration """"""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""" 
+" norpie's Vim Configuration "
+""""""""""""""""""""""""""""""
 
 """""""""""
 " PLUGINS "
@@ -190,13 +191,13 @@ autocmd FileType python,java,cpp,c set nowrap
 
 autocmd BufEnter * lua require'completion'.on_attach()
 
-function Compile()
-    silent !make compile&disown
-endfunction
-
 augroup latexautocompile
     autocmd! 
-    autocmd BufWritePost *.tex call Compile()
+    autocmd CursorHold *.tex write
+    autocmd CursorHoldI *.tex write
+    autocmd InsertEnter *.tex write
+    autocmd InsertLeave *.tex write
+    autocmd InsertChange *.tex write
 augroup END
 
 augroup writegroup
