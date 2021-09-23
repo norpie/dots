@@ -100,7 +100,7 @@ let g:completion_enable_snippet = "UltiSnips"
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_matching_ignore_case = 1
 let g:completion_trigger_character = ['.', '::']
-let g:completion_confirm_key = "\<tab>"
+" let g:completion_confirm_key = "<tab>"
 let g:completion_trigger_keyword_length = 1 " default = 1
 let g:completion_trigger_on_delete = 1
 let g:limelight_conceal_ctermfg = 100
