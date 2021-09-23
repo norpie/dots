@@ -17,28 +17,28 @@
 #define nord14 #A3BE8C
 #define nord15 #B48EAD
 
-st.foreground:      nord4
-st.background:      nord0
-st.cursorColor:     nord4
+*.foreground:      nord4
+*.background:      nord0
+*.cursorColor:     nord4
 *fading:            35
 *fadeColor:         nord3
 
-st.color0:          nord1
-st.color1:          nord11
-st.color2:          nord14
-st.color3:          nord13
-st.color4:          nord9
-st.color5:          nord15
-st.color6:          nord8
-st.color7:          nord5
-st.color8:          nord3
-st.color9:          nord11
-st.color10:         nord14
-st.color11:         nord13
-st.color12:         nord9
-st.color13:         nord15
-st.color14:         nord7
-st.color15:         nord6
+*.color0:          nord1
+*.color1:          nord11
+*.color2:          nord14
+*.color3:          nord13
+*.color4:          nord9
+*.color5:          nord15
+*.color6:          nord8
+*.color7:          nord5
+*.color8:          nord3
+*.color9:          nord11
+*.color10:         nord14
+*.color11:         nord13
+*.color12:         nord9
+*.color13:         nord15
+*.color14:         nord7
+*.color15:         nord6
 
 dmenu.background: #1D2021
 dmenu.selbackground: #689D6A
