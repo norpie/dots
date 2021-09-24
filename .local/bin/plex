@@ -1,4 +1,0 @@
-#!/usr/bin/zsh
-sudo pgrepkill Plex
-sudo rm "/root/Library/Application Support/Plex Media Server/plexmediaserver.pid"
-cd /usr/lib/plexmediaserver && HOME=/root sudo ./Plex\ Media\ Server & disown
