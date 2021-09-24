@@ -3,6 +3,7 @@
 declare -A devices
 devices=(
     ["sony"]="38:18:4C:06:79:A9"
+    ["wacom"]="E0:9F:2A:1C:43:2B"
     )
 
 [[ $# == 0 ]] && echo "${(k)devices}" && exit 1

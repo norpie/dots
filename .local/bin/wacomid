@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $# == 0 ]] && echo "enter device type" && exit 1
+
+xsetwacom --list | grep $1 | awk '{print $8}'
