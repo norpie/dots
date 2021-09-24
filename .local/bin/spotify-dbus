@@ -1,11 +1,15 @@
 #!/bin/sh
 
-[[ "$#" -ne 1 ]] && exit 1 && echo "spotify-dbus [play/playpause/pause/next/previous]"
+[[ $# == 0 ]] && exit 1 && echo "spotify-dbus [play/playpause/pause/next/previous]"
 
 alias send-to-active-dbus='dbus-send --bus=$DBUS_SESSION_BUS_ADDRESS --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2'
 
+[[ "$1" = "help" ]] && echo "play/playpause/pp/pause/next/previous"
+[[ "$1" = "-h" ]] && echo "play/playpause/pp/pause/next/previous"
+
 [[ "$1" = "play" ]] && send-to-active-dbus org.mpris.MediaPlayer2.Player.Play
 [[ "$1" = "playpause" ]] && send-to-active-dbus org.mpris.MediaPlayer2.Player.PlayPause
+[[ "$1" = "pp" ]] && send-to-active-dbus org.mpris.MediaPlayer2.Player.PlayPause
 [[ "$1" = "pause" ]] && send-to-active-dbus org.mpris.MediaPlayer2.Player.Pause
 [[ "$1" = "next" ]] && send-to-active-dbus org.mpris.MediaPlayer2.Player.Next
 [[ "$1" = "previous" ]] && send-to-active-dbus org.mpris.MediaPlayer2.Player.Previous
