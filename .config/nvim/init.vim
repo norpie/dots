@@ -179,6 +179,7 @@ inoremap ? ?<C-g>u
 inoremap : :<C-g>u
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap Y y$
 
 """"""""""""
 " AUTOCMDS "
