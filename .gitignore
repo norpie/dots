@@ -122,3 +122,14 @@ pix
 university//home/konsta/.config/syncthing
 .config/syncthing
 .config/inkscape
+.local/bin/google-oauthlib-tool
+.local/bin/pyrsa-decrypt
+.local/bin/pyrsa-encrypt
+.local/bin/pyrsa-keygen
+.local/bin/pyrsa-priv2pub
+.local/bin/pyrsa-sign
+.local/bin/pyrsa-verify
+.local/share/icons/
+.local/share/newsboat/
+.local/share/syncthing/
+.local/share/vulkan/
