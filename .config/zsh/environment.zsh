@@ -9,6 +9,7 @@ export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
 export GRADLE_HOME=$XDG_DATA_HOME/gradle
 export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
 export WORKSPACE=$REPO_DIRECTORY
+export UNIVERSITY=$HOME/university
 
 # Custom Commands
 alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
