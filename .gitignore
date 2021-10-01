@@ -134,3 +134,4 @@ university//home/konsta/.config/syncthing
 .local/share/syncthing/
 .local/share/vulkan/
 .texlive
+.local/share/latex/.SRCINFO
