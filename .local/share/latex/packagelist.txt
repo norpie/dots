@@ -1,6 +1,6 @@
-texlive-local-ifmtarg
-texlive-local-import
-texlive-local-translations
-texlive-local-transparent
-texlive-local-xifthen
-texlive-local-xstring
+ifmtarg
+import
+translations
+transparent
+xifthen
+xstring
