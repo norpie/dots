@@ -2,6 +2,9 @@ global !p
 def math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 
+def not_math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '0'
+
 def comment(): 
     return vim.eval('vimtex#syntax#in_comment()') == '1'
 
@@ -62,6 +65,7 @@ endsnippet
 
 # Math
 
+context "not_math()"
 snippet im "Math" wA
 $${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
@@ -71,6 +75,7 @@ else:
 `$2
 endsnippet
 
+context "not_math()"
 snippet dm "Math" wA
 \[
 $1
@@ -106,73 +111,91 @@ snippet tp "superscript" iA
 endsnippet
 
 context "math()"
-snippet deriv "derivative d/dx" wA
+snippet deriv "derivative d/dx" iA
 \\frac{d}{dx}$0
 endsnippet
 
 context "math()"
-snippet sqrt "square root" wA
+snippet sqrt "square root" iA
 \sqrt{$1}$0
 endsnippet
 
 context "math()"
-snippet vec "\vec" wA
+snippet vec "\vec" iA
 \vec{$1}$0
 endsnippet
 
 context "math()"
-snippet ln "natural logarithm" wA
+snippet ln "natural logarithm" iA
 \ln{$1}$0
 endsnippet
 
 context "math()"
-snippet log "logarithm" wA
+snippet log "logarithm" iA
 \log{$1}$0
 endsnippet
 
 context "math()"
-snippet sin "sin" wA
+snippet sin "sin" iA
 \sin$0
 endsnippet
 
 context "math()"
-snippet cos "cos" wA
+snippet cos "cos" iA
 \cos$0
 endsnippet
 
 context "math()"
-snippet tan "tan" wA
+snippet tan "tan" iA
 \tan$0
 endsnippet
 
 context "math()"
-snippet sec "sec" wA
+snippet sec "sec" iA
 \sec$0
 endsnippet
 
 context "math()"
-snippet cot "cot" wA
+snippet cot "cot" iA
 \cot$0
 endsnippet
 
 context "math()"
-snippet csc "csc" wA
+snippet csc "csc" iA
 \csc$0
 endsnippet
 
 context "math()"
-snippet sgn "sgn" wA
+snippet sgn "sgn" iA
 \sign$0
 endsnippet
 
 context "math()"
-snippet abs "abs" wA
+snippet abs "abs" iA
 |$1|$0
 endsnippet
 
 context "math()"
 snippet // "Fraction" iA
 \\frac{$1}{$2}$0
+endsnippet
+
+snippet theorem "theorem" bA
+\begin{theorem}
+	$0
+\end{theorem}
+endsnippet
+
+snippet example "example" bA
+\begin{example}{$1}
+	$0
+\end{example}
+endsnippet
+
+snippet definition "definition" bA
+\begin{definition}{$1}
+	$0
+\end{definition}
 endsnippet
 
 context "math()"
