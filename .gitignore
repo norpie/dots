@@ -102,16 +102,13 @@ uni
 .config/spicetify
 .config/xautoclick
 .local/share/autokey
-<<<<<<< HEAD
 summaries
 .config/nvim/plugged
 .gitignore
 university
 .python_history
-=======
 repos//home/konsta/.local/share/games
 .local/share/games
->>>>>>> desktop
 .xinitrc
 .config/MEGAX
 .config/emacs
@@ -119,7 +116,6 @@ repos//home/konsta/.local/share/games
 .renpy
 .jd
 pix
-university//home/konsta/.config/syncthing
 .config/syncthing
 .config/inkscape
 .local/bin/google-oauthlib-tool
@@ -135,3 +131,5 @@ university//home/konsta/.config/syncthing
 .local/share/vulkan/
 .texlive
 .local/share/latex/.SRCINFO
+.config/bashtop 
+.android
