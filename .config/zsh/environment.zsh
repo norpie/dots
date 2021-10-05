@@ -84,6 +84,8 @@ export PATH=$HOME/university/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
+export XDG_LOCAL_BIN=$HOME/.local/bin
+export XDG_DATA_GAMES=$HOME/.local/share/games
 
 # Locale
 export LANG="en_NZ.UTF-8"
