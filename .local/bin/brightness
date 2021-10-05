@@ -1,4 +1,58 @@
 #!/usr/bin/zsh
-float=$(( $1.0 / 100 * 255 ))
-int=${float%.*}
-echo $int | sudo tee -a /sys/class/backlight/*/brightness >/dev/null
+
+print_help() {
+    echo "--- Help ---"
+    echo "-h -- print this menu"
+    echo "-a -- set absolute brightness"
+    echo "-i -- increase brightness by an amount"
+    echo "-d -- decrease brightness by an amount"
+}
+
+set_brightness() {
+    float=$(( $1.0 / 100 * 255 ))
+    int=${float%.*}
+    echo "Setting brightness to : $int"
+    echo $int | sudo tee -a /sys/class/backlight/*/brightness >/dev/null
+}
+
+get_brightness() {
+    brightness_abs=$(cat /sys/class/backlight/*/brightness)
+    echo $(python -c "print(round($brightness_abs * 100 / 255))")
+}
+
+increase_brightness() {
+    echo "Increaseing by $1"
+    echo "Doing $(( $(get_brightness) + $1 ))"
+    set_brightness $(( $(get_brightness) + $1 ))
+}
+
+decrease_brightness() {
+    echo "Decreasing by $1"
+    echo "Doing $(( $(get_brightness) - $1 ))"
+    set_brightness $(( $(get_brightness) - $1 ))
+}
+
+while getopts "ha:i:d:" opt; do
+    case "$opt" in
+        h)
+            print_help
+            exit 0
+            ;;
+        a)
+            set_brightness $OPTARG
+            get_brightness
+            exit 0
+            ;;
+        i)
+            increase_brightness $OPTARG
+            get_brightness
+            exit 0
+            ;;
+        d)
+            decrease_brightness $OPTARG
+            get_brightness
+            exit 0
+            ;;
+
+    esac
+done
