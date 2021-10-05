@@ -11,6 +11,6 @@ fi
 picom &
 sleep 5 && pulseaudio &
 escapecaps &
-xroot-status-restart &
+sleep 5 && xroot-status-restart &
 ssh-add-defaults &
 dbus-launch startdwm
