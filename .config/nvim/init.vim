@@ -194,11 +194,8 @@ autocmd BufEnter * lua require'completion'.on_attach()
 
 augroup latexautocompile
     autocmd! 
-    autocmd CursorHold *.tex write
-    autocmd CursorHoldI *.tex write
     autocmd InsertEnter *.tex write
     autocmd InsertLeave *.tex write
-    autocmd InsertChange *.tex write
 augroup END
 
 augroup writegroup
