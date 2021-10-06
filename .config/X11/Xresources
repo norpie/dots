@@ -45,4 +45,4 @@ dmenu.selbackground: #689D6A
 dmenu.foreground: #EBDBB2
 dmenu.selforeground: #EBDBB2
 
-Xft.dpi: 130
+Xft.dpi: 92
