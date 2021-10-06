@@ -9,8 +9,7 @@ fi
 
 # start some nice programs
 picom &
-sleep 5 && pulseaudio &
 escapecaps &
-sleep 5 && xroot-status-restart &
+xroot-status-restart &
 ssh-add-defaults &
 dbus-launch startdwm
