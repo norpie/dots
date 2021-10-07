@@ -34,18 +34,15 @@ while getopts "ha:i:d:" opt; do
             exit 0
             ;;
         a)
-            set_brightness $OPTARG
-            get_brightness
+            set_brightness $OPTARG && xroot-status-update
             exit 0
             ;;
         i)
-            increase_brightness $OPTARG
-            get_brightness
+            increase_brightness $OPTARG && xroot-status-update
             exit 0
             ;;
         d)
-            decrease_brightness $OPTARG
-            get_brightness
+            decrease_brightness $OPTARG && xroot-status-update
             exit 0
             ;;
 
