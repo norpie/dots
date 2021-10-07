@@ -1,4 +1,4 @@
 38c38
 < ExecStart=-/sbin/agetty -o '-p -- \\u' --noclear %I $TERM
 ---
-> ExecStart=-/usr/bin/agetty --autologin konsta --noclear %I $TERM
+> ExecStart=-/usr/bin/agetty --autologin $USERNAME --noclear %I $TERM
