@@ -45,4 +45,6 @@ dmenu.selbackground: #689D6A
 dmenu.foreground: #EBDBB2
 dmenu.selforeground: #EBDBB2
 
-Xft.dpi: 92
+#ifdef SRVR_laptop
+    #define Xft.dpi: 130
+#endif
