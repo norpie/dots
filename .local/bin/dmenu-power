@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+powers="shutdown
+sleep
+reboot"
+
+choice=$(echo $powers | dmenu)
+
+[[ $choice == "shutdown" ]] && shutdown now
+[[ $choice == "sleep" ]] && blank
+[[ $choice == "reboot" ]] && reboot
