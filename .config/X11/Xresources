@@ -40,11 +40,17 @@
 *.color14:         nord7
 *.color15:         nord6
 
-dmenu.background: #1D2021
-dmenu.selbackground: #689D6A
-dmenu.foreground: #EBDBB2
-dmenu.selforeground: #EBDBB2
+dmenu.background: nord0
+dmenu.selbackground: nord1
+dmenu.foreground: nord4
+dmenu.selforeground: nord5
 
 #ifdef SRVR_laptop
     #define Xft.dpi: 130
 #endif
+dwm.normbordercolor: nord8
+dwm.normbgcolor: nord0
+dwm.normfgcolor: nord4
+dwm.selbordercolor: nord9
+dwm.selbgcolor: nord1
+dwm.selfgcolor: nord5
