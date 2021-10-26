@@ -37,6 +37,8 @@ alias sudo='sudo '
 # Shorter aliases
 alias c="clear"
 alias cn="clear && neofetch"
+alias cf="clear && neofetch"
+alias nf="neofetch"
 alias ct="cn"
 alias pdf="zathura"
 
