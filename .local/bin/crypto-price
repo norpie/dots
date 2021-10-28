@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+[[ $# == 0 ]] && echo "Needed 1 ticker symbol" && exit 1
+
+curl "eur.rate.sx/$1"
