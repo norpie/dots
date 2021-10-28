@@ -1,10 +1,9 @@
 """""""""""""""""""""""""""""" 
 " norpie's Vim Configuration "
 """"""""""""""""""""""""""""""
-
 """""""""""
 " PLUGINS "
-"""""""""""
+
 
 filetype off
 set rtp+=~/.config/nvim
@@ -20,8 +19,9 @@ Plug 'preservim/nerdtree'
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'aca/completion-tabnine', { 'do': './install.sh' }
 
-Plug 'rstacruz/vim-closer'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'itchyny/lightline.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -119,13 +119,13 @@ let g:lightline = {
     \}
 \}
 
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['vimtex']},
-    \{'complete_items': ['lsp']},
-    \{'complete_items': ['snippet']},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
+let g:completion_chain_complete_list = {
+    \ 'default': [
+    \       {'complete_items': ['vimtex', 'lsp', 'snippet', 'tabnine']},
+    \       {'mode': '<c-p>'},
+    \       {'mode': '<c-n>'}
+    \]
+\}
 
 setlocal spell
 
