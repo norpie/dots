@@ -133,6 +133,7 @@ pix
 .local/share/latex/.SRCINFO
 .config/bashtop 
 .android
+<<<<<<< HEAD
 .bitmonero
 .config/TabNine
 .config/btop
@@ -140,8 +141,22 @@ pix
 .local/bin/django-admin
 .local/bin/django-admin.py
 .local/bin/sqlformat
+=======
+>>>>>>> 317a39c (added ignores)
 .local/share/Bisq
 .local/share/TabNine
 .local/share/wallets
 .openjfx
+<<<<<<< HEAD
 .shared-ringdb
+=======
+.bitmonero
+.shared-ringdb
+.local/bin/sqlformat
+.local/bin/django-admin.py
+.local/bin/django-admin
+.config/monero-project
+.config/btop
+.config/TabNine
+.config/wallpaper/wallpaper.png
+>>>>>>> 317a39c (added ignores)
