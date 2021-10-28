@@ -1,9 +1,0 @@
-#!/usr/bin/zsh
-
-curl "eur.rate.sx/BTC"
-
-price=$(python ~/.local/bin/python/kraken-api.py | cut -c 1-5)
-amount=0.02962439
-total=$(python -c "print($amount * $price)")
-
-echo "You know have €$total in bitcoins"
