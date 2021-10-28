@@ -133,3 +133,15 @@ pix
 .local/share/latex/.SRCINFO
 .config/bashtop 
 .android
+.bitmonero
+.config/TabNine
+.config/btop
+.config/monero-project
+.local/bin/django-admin
+.local/bin/django-admin.py
+.local/bin/sqlformat
+.local/share/Bisq
+.local/share/TabNine
+.local/share/wallets
+.openjfx
+.shared-ringdb
