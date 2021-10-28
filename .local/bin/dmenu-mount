@@ -7,7 +7,7 @@ partition=/dev/$(lsblk --list | grep part | grep -v / | awk '{print $1 " " $4}' 
 [[ $partition == "/dev/" ]] && exit 1
 
 # If mount point exists in fstab mount and exit
-sudo mount $partition && exit 0
+mount $partition && exit 0
 
 # Select a mount point through dmenu
 mountpoint=$(cd /mnt && find * -maxdepth 1 -empty -type d | dmenu)
