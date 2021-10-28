@@ -54,7 +54,6 @@ alias gp="git push"
 alias gi="git ignore"
 
 # Dot aliases
-alias dots="git --git-dir=$HOME/.dots --work-tree=$HOME"
 alias ds="dots status"
 alias dl="dots log --oneline --decorate --all --graph"
 alias dc="dots commit"
@@ -80,7 +79,7 @@ export HOME="/home/$USER"
 export SHOME="$HOME"
 
 # Exports
-export PATH=$HOME/university/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH=$HOME/repos/dnm/.bin:$HOME/university/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
