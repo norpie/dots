@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+[[ $# == 1 ]] && touch .proj_root && exit 0
+
 while [ ! -f .proj_root ]; do 
     [[ `pwd` == "/" ]] && echo "not in project" && exit 1
     cd ..
