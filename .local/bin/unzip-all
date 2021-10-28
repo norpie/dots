@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+lines=$(find *)
+
+for line in $lines 
+do
+    unzip $(pwd)/$line
+done
