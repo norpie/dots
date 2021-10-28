@@ -10,6 +10,5 @@ fi
 # start some nice programs
 picom &
 escapecaps &
-xroot-status-restart &
 ssh-add-defaults &
 dbus-launch startdwm

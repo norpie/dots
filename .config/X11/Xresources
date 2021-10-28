@@ -48,6 +48,7 @@ dmenu.selforeground: nord5
 #ifdef SRVR_laptop
     #define Xft.dpi: 130
 #endif
+
 dwm.normbordercolor: nord8
 dwm.normbgcolor: nord0
 dwm.normfgcolor: nord4
