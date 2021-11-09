@@ -155,3 +155,4 @@ pix
 .config/TabNine
 .config/wallpaper/wallpaper.png
 .config/nvim/spell
+.local/share/script/autologin.diff
