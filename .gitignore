@@ -172,3 +172,17 @@ pix
 .local/share/cura
 .local/share/appimage
 .local/opt
+.local/bin/f2py2
+.local/bin/f2py2.7
+.local/bin/helpviewer
+.local/bin/img2png
+.local/bin/img2py
+.local/bin/img2xpm
+.local/bin/pycrust
+.local/bin/pyshell
+.local/bin/pyslices
+.local/bin/pyslicesshell
+.local/bin/pywxrc
+.local/bin/wxdemo
+.local/bin/wxdocs
+.local/bin/wxget
