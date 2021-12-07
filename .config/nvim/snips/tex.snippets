@@ -217,3 +217,13 @@ endsnippet
 snippet tit "\textit"
 \textit{$1} $0
 endsnippet
+
+snippet ink "\inkfig" bA
+\begin{figure}[ht]
+	\centering
+	\inkfig{$1}
+	\caption{$2}
+	\label{fig:$1}
+\end{figure}
+$0
+endsnippet
