@@ -158,3 +158,15 @@ pix
 .config/nvim/spell
 .local/share/script/autologin.diff
 .config/SideQuest
+.local/share/man
+.local/share/jupyter
+.local/bin/.
+.local/bin/f2py
+.local/bin/f2py3
+.local/bin/f2py3.9
+.local/bin/fonttools
+.local/bin/isympy
+.local/bin/pyftmerge
+.local/bin/pyftsubset
+.local/bin/ttx
+.ipython
