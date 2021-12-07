@@ -8,26 +8,15 @@
 \usepackage{amssymb} % More Math
 \usepackage{graphicx} % Images
 \usepackage{listings} % Code snippets
-\usepackage{/home/konsta/.local/share/latex/packages/translations/translations}
+\usepackage{translations}
+\usepackage{xstring}
+\usepackage{systeme}
 
 % Source custom environments
-\input{/home/konsta/.local/share/latex/environments.tex}
+\input{/home/$USERNAME/.local/share/latex/environments.tex}
+\input{/home/$USERNAME/.local/share/latex/commands.tex}
 
-\lstset
-{ %Formatting for code in appendix
-    language=Java,
-    basicstyle=\footnotesize,
-    frame=single,
-    numbers=left,
-    stepnumber=1,
-    showstringspaces=false,
-    tabsize=1,
-    breaklines=true,
-    breakatwhitespace=false,
-}
-
-
-\title{Document Title}
+\title{Document}
 \author{Konsta Kuosmanen}
 \date{\today}
 
@@ -41,6 +30,6 @@
 
 \pagebreak
 
-% Write contents of the document under this comment.
+% Write document here
 
 \end{document}
