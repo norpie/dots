@@ -80,7 +80,6 @@ uni
 .config/unity3d
 .config/whoozle.github.io
 .config/ghb
-.config/autostart
 .local/bin/__pycache__
 .config/autostart
 .local/share/Wonderdraft
@@ -147,13 +146,6 @@ pix
 .shared-ringdb
 .bitmonero
 .shared-ringdb
-.local/bin/sqlformat
-.local/bin/django-admin.py
-.local/bin/django-admin
-.config/monero-project
-.config/btop
-.config/SideQuest
-.config/TabNine
 .config/wallpaper/wallpaper.png
 .config/nvim/spell
 .local/share/script/autologin.diff
@@ -170,3 +162,13 @@ pix
 .local/bin/pyftsubset
 .local/bin/ttx
 .ipython
+.config/FreeCAD
+.config/cura
+.config/vlc
+.local/share/vlc
+.local/share/multimc
+.local/share/monero-gui
+.local/share/keyrings
+.local/share/cura
+.local/share/appimage
+.local/opt
