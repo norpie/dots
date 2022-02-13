@@ -186,3 +186,8 @@ pix
 .local/bin/wxdemo
 .local/bin/wxdocs
 .local/bin/wxget
+.config/systemd
+.config/../.local/bin/pylsp
+.npm
+.local/bin/pylsp
+.local/share/exec
