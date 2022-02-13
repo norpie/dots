@@ -108,7 +108,7 @@ export REPO_DIRECTORY="$HOME/repos"
 export TODO_DIRECTORY="$REPO_DIRECTORY/todo"
 
 # Moving dot dirs to .config
-export VIMINIT="source $HOME/.config/nvim/init.vim"
+export VIMINIT="source $HOME/.config/nvim/init.lua"
 export VIMDOTDIR="source $HOME/.config/nvim"
 export VIMDIR="$HOME/.config/nvim"
 export GNUPGHOME="$HOME/.config/gnupg"
