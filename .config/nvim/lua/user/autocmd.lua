@@ -1,8 +1,20 @@
 vim.cmd([[
-    autocmd User GoyoEnter Limelight
-    autocmd User GoyoLeave Limelight!
-    autocmd FileType python,java,cpp,c TagbarOpen
-    autocmd FileType python,java,cpp,c set nowrap
+    
+    augroup goyo
+        autocmd!
+        autocmd User GoyoEnter Limelight
+        autocmd User GoyoLeave Limelight!
+    augroup END
+
+    augroup filetype_settings
+        autocmd!
+        autocmd FileType python,java,cpp,c set nowrap
+    augroup END
+
+    augroup packer_user_config
+        autocmd!
+        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    augroup end
     
     augroup latexautocompile
         autocmd!
