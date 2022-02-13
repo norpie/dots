@@ -9,7 +9,7 @@ export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
 export GRADLE_HOME=$XDG_DATA_HOME/gradle
 export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
 export WORKSPACE=$REPO_DIRECTORY
-export UNIVERSITY=$HOME/university
+export UNIVERSITY=$HOME/uni
 
 # Custom Commands
 alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
@@ -79,7 +79,7 @@ export HOME="/home/$USER"
 export SHOME="$HOME"
 
 # Exports
-export PATH=$HOME/repos/dnm/.bin:$HOME/university/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH=$HOME/repos/dnm/.bin:$HOME/uni/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
