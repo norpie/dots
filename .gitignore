@@ -204,3 +204,9 @@ pix
 .local/share/user-places.xbel
 .local/share/user-places.xbel.bak
 .local/share/user-places.xbel.tbcache
+.local/bin/dmenu-insert
+.local/bin/dmenu-mount
+.local/bin/dmenu-output
+.local/bin/dmenu-power
+.local/bin/dmenu-restart
+.local/bin/dmenu-unmount
