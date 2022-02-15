@@ -15,6 +15,7 @@ export UNIVERSITY=$HOME/uni
 alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
 alias node80="sudo node app.js"
 alias Make='make -C $(git root)'
+alias chmox="chmod +x"
 
 # Systemd
 alias sys="sudo systemctl"
@@ -63,6 +64,7 @@ alias dp="dots push"
 alias di="dots ignore --dots"
 
 # Colors
+export LS_COLORS="tw=00;33:ow=01;33:"
 alias ls="ls -ovH --color=auto --group-directories-first"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"
@@ -101,6 +103,7 @@ export VISUAL='st nvim'
 # Runtimes
 export JAVA_HOME="/usr/lib/jvm/default"
 alias python3="python"
+alias activate="source .venv/bin/activate"
 
 # Config paths
 export SCRIPT_DIR="$HOME/.local/bin"
