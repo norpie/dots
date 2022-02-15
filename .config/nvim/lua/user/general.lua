@@ -18,6 +18,7 @@ set.smartindent = true
 set.number = true
 set.wrap = true
 set.ruler = true
+set.foldenable = false
 
 set.ignorecase = true
 set.smartcase = true

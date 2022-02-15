@@ -57,4 +57,7 @@ return require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
 
+    -- lsp utils
+    use 'folke/trouble.nvim'
+
 end)

@@ -10,6 +10,7 @@ end
 vim.g.mapleader = '<'
 
 map('n', '<Leader>g', ':Goyo<CR>', { silent = true })
+map('n', '<Leader>tr', ':TroubleToggle<CR>', { silent = true })
 
 map('', 'j', 'gj')
 map('', 'k', 'gk')
