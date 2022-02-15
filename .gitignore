@@ -192,3 +192,15 @@ pix
 .local/bin/pylsp
 .local/share/exec
 .config/nvim/plugin
+.config/Thunar
+.config/baloofileinformationrc
+.config/dolphinrc
+.config/kde.org
+.config/libfm
+.config/pcmanfm
+.config/session
+.config/xfce4
+.local/share/dolphin
+.local/share/user-places.xbel
+.local/share/user-places.xbel.bak
+.local/share/user-places.xbel.tbcache
