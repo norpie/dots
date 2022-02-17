@@ -6,3 +6,5 @@ require('user.plugin.treesitter')
 require('user.plugin.ultisnips')
 require('user.plugin.vimtex')
 require('user.plugin.shade')
+-- plugins that require setup call
+require('numb').setup()

@@ -33,6 +33,10 @@ return require('packer').startup(function(use)
     -- qol
     use 'matze/vim-move'
     use 'windwp/nvim-autopairs'
+    use 'nacro90/numb.nvim'
+    use "McAuleyPenney/tidy.nvim"
+    use 'use "McAuleyPenney/tidy.nvim"'
+    -- use 'abecodes/tabout.nvim'
 
     -- utils
     use 'nvim-telescope/telescope.nvim'
@@ -43,6 +47,8 @@ return require('packer').startup(function(use)
 
     -- treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use 'windwp/nvim-ts-autotag'
+    use 'p00f/nvim-ts-rainbow'
 
     -- writing
     use "folke/zen-mode.nvim"

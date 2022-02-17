@@ -34,6 +34,8 @@ map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true })
 map('n', '<C-p>', ':Telescope find_files<cr>', { silent = true })
 
 map('n', '<Leader>ps', ':PackerSync<CR>')
+map('n', '<Leader>pi', ':PackerInstall<CR>')
+map('n', '<Leader>pu', ':PackerUpdate<CR>')
 
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
