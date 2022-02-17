@@ -1,0 +1,8 @@
+require('user.plugin.autopairs')
+require('user.plugin.cmp')
+require('user.plugin.lualine')
+require('user.plugin.table-mode')
+require('user.plugin.treesitter')
+require('user.plugin.ultisnips')
+require('user.plugin.vimtex')
+require('user.plugin.shade')

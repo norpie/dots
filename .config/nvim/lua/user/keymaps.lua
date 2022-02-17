@@ -1,5 +1,5 @@
 -- Functional wrapper for mapping custom keybindings
-function map(mode, lhs, rhs, opts)
+local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then
         options = vim.tbl_extend("force", options, opts)
@@ -9,8 +9,15 @@ end
 
 vim.g.mapleader = '<'
 
-map('n', '<Leader>g', ':Goyo<CR>', { silent = true })
-map('n', '<Leader>tr', ':TroubleToggle<CR>', { silent = true })
+-- Modes
+--   normal_mode = "n",
+--   insert_mode = "i",
+--   visual_mode = "v",
+--   visual_block_mode = "x",
+--   term_mode = "t",
+--   command_mode = "c",
+
+map('n', '<Leader>z', ':ZenMode<CR>', { silent = true })
 
 map('', 'j', 'gj')
 map('', 'k', 'gk')
@@ -24,7 +31,33 @@ map('i', ':', ':<C-g>u', { noremap = true })
 map('i', ';', ';<C-g>u', { noremap = true })
 
 map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true })
-map('n', '<C-p>', ' <cmd>Telescope find_files<cr>', { silent = true })
+map('n', '<C-p>', ':Telescope find_files<cr>', { silent = true })
+
+map('n', '<Leader>ps', ':PackerSync<CR>')
+
+map('n', '<C-h>', '<C-w>h')
+map('n', '<C-j>', '<C-w>j')
+map('n', '<C-k>', '<C-w>k')
+map('n', '<C-l>', '<C-w>l')
+
+map('n', '<C-Up>', ':resize +2<CR>')
+map('n', '<C-Down>', ':resize -2<CR>')
+map('n', '<C-Left>', ':verical resize -2<CR>')
+map('n', '<C-Right>', ':vertical resize +2<CR>')
+
+map('n', '<Leader>sh', ':split<CR>')
+map('n', '<Leader>sv', ':vsplit<CR>')
+
+map('n', '<Leader>ld', ':lua vim.lsp.buf.definition()<CR>')
+map('n', '<Leader>lo', ':lua vim.lsp.buf.type_definition()<CR>')
+map('n', '<Leader>lh', ':lua vim.lsp.buf.hover()<CR>')
+map('n', '<Leader>lf', ':lua vim.lsp.buf.formatting()<CR>')
+map('n', '<Leader>lr', ':lua vim.lsp.buf.rename()<CR>')
+map('i', '<Leader>li', ':lua vim.lsp.buf.code_action()<CR>')
+
+map('n', '<Leader>eo', ':lua vim.diagnostic.open_float()<CR>')
+map('n', '<Leader>en', ':lua vim.diagnostic.goto_next()<CR>')
+map('n', '<Leader>ep', ':lua vim.diagnostic.goto_prev()<CR>')
 
 map('n', 'Y', 'y$')
 

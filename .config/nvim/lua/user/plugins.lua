@@ -9,7 +9,7 @@ end
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
+return require('packer').startup(function(use)
 
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
@@ -20,30 +20,34 @@ return require('packer').startup(function()
 
     -- customization
     use 'flazz/vim-colorschemes'
+    use 'EdenEast/nightfox.nvim'
+    use 'sunjon/shade.nvim'
     use 'onsails/lspkind-nvim'
-    use {
-        'nvim-lualine/lualine.nvim', 
-        requires = { 
-            'kyazdani42/nvim-web-devicons', 
-            opt = true 
-        }
-    }
+    use {'nvim-lualine/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+    use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+    use {'stevearc/dressing.nvim'}
+
+    -- coding
+    -- use 'danymat/neogen'
 
     -- qol
-    use 'jiangmiao/auto-pairs'
+    use 'matze/vim-move'
+    use 'windwp/nvim-autopairs'
 
     -- utils
     use 'nvim-telescope/telescope.nvim'
+    use 'Shougo/deoplete.nvim'
+    use 'NFrid/due.nvim'
+    -- use 'tpope/vim-fugitive' -- TODO: Maybe start using?
+    -- use 'kyazdani42/nvim-tree.lua' -- TODO: Maybe start using?
 
     -- treesitter
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
     -- writing
-    use 'junegunn/goyo.vim'
-    use 'junegunn/limelight.vim'
+    use "folke/zen-mode.nvim"
+    use 'dhruvasagar/vim-table-mode'
+    use 'lervag/vimtex'
 
     -- cmp
     use 'hrsh7th/nvim-cmp'
@@ -56,8 +60,5 @@ return require('packer').startup(function()
 
     use 'neovim/nvim-lspconfig'
     use 'hrsh7th/cmp-nvim-lsp'
-
-    -- lsp utils
-    use 'folke/trouble.nvim'
 
 end)

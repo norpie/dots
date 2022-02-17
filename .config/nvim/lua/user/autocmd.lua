@@ -1,5 +1,4 @@
 vim.cmd([[
-    
     augroup goyo
         autocmd!
         autocmd User GoyoEnter Limelight
@@ -14,7 +13,11 @@ vim.cmd([[
     augroup packer_user_config
         autocmd!
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-    augroup end
+    augroup END
+
+    augroup formatting
+        autocmd!
+    augroup END
     
     augroup latexautocompile
         autocmd!
