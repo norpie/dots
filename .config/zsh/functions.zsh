@@ -15,3 +15,4 @@ function back() {
 source $ZDOTDIR/functions/config.zsh
 source $ZDOTDIR/functions/script.zsh
 source $ZDOTDIR/functions/template.zsh
+source $ZDOTDIR/functions/ctrl-p.zsh
