@@ -9,6 +9,7 @@ print_help() {
 }
 
 set_brightness() {
+    [[ $(( get_brightness % 5 )) != 0 ]] && set_brightness 0
     float=$(( $1.0 / 100 * 255 ))
     int=${float%.*}
     echo $int | sudo tee -a /sys/class/backlight/*/brightness >/dev/null
