@@ -210,3 +210,7 @@ pix
 .local/bin/dmenu-power
 .local/bin/dmenu-restart
 .local/bin/dmenu-unmount
+.local/bin/f2py
+.local/bin/f2py3
+.local/bin/f2py3.10
+.local/bin/f2py3.9
