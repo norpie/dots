@@ -52,18 +52,7 @@ return require('packer').startup(function(use)
     -- writing
     use 'dhruvasagar/vim-table-mode'
     use 'lervag/vimtex'
-    use {
-        'folke/zen-mode.nvim',
-        config = function()
-            require('zen-mode').setup {
-                on_open = function()
-                end,
-                -- callback where you can add custom code when the Zen window closes
-                on_close = function()
-                end,
-            }
-       end
-    }
+    use 'folke/zen-mode.nvim'
 
     -- cmp
     use 'hrsh7th/nvim-cmp'
