@@ -237,3 +237,5 @@ pix
 .local/bin/pyright-python
 .local/bin/pyright-python-langserver
 .local/bin/qr
+.local/bin/dmenu-bluetooth-connect
+.local/bin/dmenu-bluetooth-disconnect
