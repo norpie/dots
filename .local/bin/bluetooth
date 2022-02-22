@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+bluetoothctl power on
+bluetoothctl agent on
+st zsh -c "bluetoothctl scan on && exit" & dmenu-bluetooth
