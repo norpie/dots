@@ -1,7 +1,7 @@
 compile:
 	mkdir ".cache" -p
-	pdflatex -jobname=output -output-directory=.cache document.tex
-	pdflatex -jobname=output -output-directory=.cache document.tex
+	pdflatex -jobname=output -halt-on-error -output-directory=.cache document.tex
+	pdflatex -jobname=output -halt-on-error -output-directory=.cache document.tex
 	cp .cache/output.pdf .
 
 open:
