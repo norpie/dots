@@ -28,6 +28,7 @@ alias y="yay"
 # Synonyms
 alias quit="exit"
 alias background="wallpaper"
+alias readme="README"
 
 # Permission aliases - don't @ me
 alias shutdown="sudo shutdown -h now"
