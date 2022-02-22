@@ -1,3 +1,6 @@
 #!/bin/zsh
+
+[[ $# != 2 ]] && echo "Requires 2 arguments" && echo "Usage: autocompile <filetype> <compilation command>"
+
 pidofkill entr
-find * -name "*.tex" | entr make
+find * -name "*.$1" | entr $2
