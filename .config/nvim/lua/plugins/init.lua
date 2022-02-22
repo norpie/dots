@@ -1,0 +1,11 @@
+require('plugins.autopairs')
+require('plugins.cmp')
+require('plugins.lualine')
+require('plugins.packer')
+require('plugins.shade')
+require('plugins.table-mode')
+require('plugins.treesitter')
+require('plugins.ultisnips')
+require('plugins.vimtex')
+-- plugins that require setup call
+require('numb').setup()

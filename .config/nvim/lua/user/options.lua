@@ -31,11 +31,10 @@ set.undodir = HOME .. "/.cache/nvim/undodir"
 
 set.termguicolors = true
 set.scrolloff = 20
-set.showmode = false
 set.cmdheight = 1
-set.updatetime = 50
+set.updatetime = 25
 set.background = 'dark'
-set.spelllang = 'nl,en_gn'
+set.spelllang = 'nl,en'
 set.laststatus = 2
 set.showmode = false
 set.conceallevel = 1

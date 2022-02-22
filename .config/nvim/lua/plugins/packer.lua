@@ -35,7 +35,6 @@ return require('packer').startup(function(use)
     use 'windwp/nvim-autopairs'
     use 'nacro90/numb.nvim'
     use "McAuleyPenney/tidy.nvim"
-    use 'use "McAuleyPenney/tidy.nvim"'
     -- use 'abecodes/tabout.nvim'
 
     -- utils
@@ -51,9 +50,20 @@ return require('packer').startup(function(use)
     use 'p00f/nvim-ts-rainbow'
 
     -- writing
-    use "folke/zen-mode.nvim"
     use 'dhruvasagar/vim-table-mode'
     use 'lervag/vimtex'
+    use {
+        'folke/zen-mode.nvim',
+        config = function()
+            require('zen-mode').setup {
+                on_open = function()
+                end,
+                -- callback where you can add custom code when the Zen window closes
+                on_close = function()
+                end,
+            }
+       end
+    }
 
     -- cmp
     use 'hrsh7th/nvim-cmp'

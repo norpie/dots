@@ -17,7 +17,7 @@ vim.g.mapleader = '<'
 --   term_mode = "t",
 --   command_mode = "c",
 
-map('n', '<Leader>z', ':ZenMode<CR>', { silent = true })
+map('n', '<Leader>z', ':ZenMode<CR>:lua require\'shade\'.toggle()<CR>', { silent = true })
 
 map('', 'j', 'gj')
 map('', 'k', 'gk')
@@ -49,6 +49,7 @@ map('n', '<C-Right>', ':vertical resize +2<CR>')
 
 map('n', '<Leader>sh', ':split<CR>')
 map('n', '<Leader>sv', ':vsplit<CR>')
+map('n', '<Leader>st', ':tabedit %<CR>')
 
 map('n', '<Leader>ld', ':lua vim.lsp.buf.definition()<CR>')
 map('n', '<Leader>lo', ':lua vim.lsp.buf.type_definition()<CR>')
