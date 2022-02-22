@@ -230,3 +230,10 @@ pix
 .local/bin/git-root
 .local/bin/git-sclone
 .local/bin/git-sremote
+.local/bin/nodeenv
+.local/bin/pycodestyle
+.local/bin/pyright
+.local/bin/pyright-langserver
+.local/bin/pyright-python
+.local/bin/pyright-python-langserver
+.local/bin/qr
