@@ -1,0 +1,8 @@
+#!/bin/zsh
+
+[[ $# != 2 ]] && echo "Requires 2 arguments" && echo "Usage: for-file-line <file> <command>" && exit 1
+
+while IFS='' read -r LINE || [ -n "${LINE}" ]; do
+    echo "processing line: ${LINE}"
+    $2 ${LINE}
+done < $1
