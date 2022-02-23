@@ -30,7 +30,6 @@ uni
 .config/pavucontrol.ini
 .config/p2
 .config/nvidia
-.config/neofetch
 .config/mutt
 .config/mimeapps.list
 .config/menus
@@ -130,7 +129,7 @@ pix
 .local/share/vulkan/
 .texlive
 .local/share/latex/.SRCINFO
-.config/bashtop 
+.config/bashtop
 .android
 .bitmonero
 .config/TabNine
