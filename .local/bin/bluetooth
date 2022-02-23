@@ -2,4 +2,4 @@
 
 bluetoothctl power on
 bluetoothctl agent on
-st zsh -c "bluetoothctl scan on && exit" & dmenu-bluetooth
+st zsh -c "bluetoothctl scan on && exit" & dmenu-bluetooth-connect
