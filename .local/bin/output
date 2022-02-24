@@ -1,11 +1,9 @@
 #!/bin/zsh
 
-
-
-
 [[ $1 == "fix" ]] &&
     pacmd update-sink-proplist alsa_output.pci-0000_2f_00.4.iec958-stereo device.description=\"Logitech Z906\" &&
     pacmd update-sink-proplist alsa_output.usb-Focusrite_Scarlett_2i2_USB-00.analog-stereo device.description=\"Focusrite Scarlett 2i2\" &&
+    pacmd set-card-profile alsa_card.pci-0000_2d_00.1 off &&
     echo "devices renamed" &&
     exit 0
 
