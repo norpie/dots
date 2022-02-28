@@ -64,6 +64,11 @@ alias dr="dots rm"
 alias dp="dots push"
 alias di="dots ignore --dots"
 
+# Monero
+alias monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero"
+alias monero-wallet-gui="monero-wallet-gui --log-file=/dev/null"
+alias monero-wallet-cli="monero-wallet-cli --log-file=/dev/null --shared-ringdb-dir=$XDG_DATA_HOME/shared-ringdb"
+
 # Colors
 export LS_COLORS="tw=00;33:ow=01;33:"
 alias ls="ls -ovH --color=auto --group-directories-first"
@@ -82,7 +87,7 @@ export HOME="/home/$USER"
 export SHOME="$HOME"
 
 # Exports
-export PATH=$HOME/repos/dnm/.bin:$HOME/uni/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH=$HOME/repos/dnm/.bin:$HOME/.local/share/monero/bin:$HOME/uni/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
