@@ -238,3 +238,8 @@ pix
 .local/bin/qr
 .local/bin/dmenu-bluetooth-connect
 .local/bin/dmenu-bluetooth-disconnect
+.local/share/shared-ringdb
+.local/share/monero
+.local/share/godot
+.local/share/bitmonero
+.config/sqlitebrowser
