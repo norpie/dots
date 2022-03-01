@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+xset -q | grep Monitor | awk '{print $3}'
