@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+while true; do
+    [[ $(monitor-state) == "On" ]] && output fix
+    sleep 10
+done
