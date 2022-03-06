@@ -5,11 +5,11 @@ def math():
 def not_math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '0'
 
-def comment(): 
+def comment():
     return vim.eval('vimtex#syntax#in_comment()') == '1'
 
 def env(name):
-    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+    [x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
     return x != '0' and x != '0'
 
 endglobal
@@ -112,6 +112,11 @@ endsnippet
 context "math()"
 snippet vec "\vec" iA
 \vec{$1}$0
+endsnippet
+
+context "math()"
+snippet int "\int" iA
+\int
 endsnippet
 
 context "math()"
