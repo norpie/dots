@@ -90,7 +90,6 @@ uni
 .local/share/mimeapps.list
 .local/share/nautilus
 .local/share/qBittorrent
-.local/share/nvim
 .local/share/ranger
 .local/share/recently-used.xbel
 .local/share/torbrowser/
@@ -243,3 +242,4 @@ pix
 .local/share/godot
 .local/share/bitmonero
 .config/sqlitebrowser
+.local/share/nvim
