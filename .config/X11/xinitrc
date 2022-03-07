@@ -11,4 +11,5 @@ fi
 picom &
 escapecaps &
 ssh-add-defaults &
+xrdb &
 dbus-launch startdwm
