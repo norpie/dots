@@ -1,0 +1,15 @@
+Host desktop
+    HostName 192.168.0.234
+    User norpie
+Host server
+    HostName 192.168.199
+    User norpie
+Host laptop
+    HostName 192.168.0.200
+    User norpie
+Host github.org
+    IdentityFile ~/.config/ssh/id_rsa
+Host *
+    StrictHostKeyChecking no
+    UserKnownHostsFile ~/.config/ssh/known_hosts
+    ConnectTimeout 10
