@@ -1,4 +1,3 @@
-.xinitrc
 .Xauthority
 .webclipse
 university
@@ -171,7 +170,6 @@ Downloads
 .config/systemd
 .config/syncthing
 .config/st
-.config/ssh
 .config/sqlitebrowser
 .config/spotify
 .config/spicetify
@@ -238,3 +236,5 @@ Downloads
 .cache
 .bitmonero
 .android
+.config/ssh/keys
+.config/ssh/known_hosts
