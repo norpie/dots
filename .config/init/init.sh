@@ -7,4 +7,5 @@ xresources-reload
 xwallpaper --zoom ~/.config/wallpaper/wallpaper.png
 xroot-status-restart
 restart output-fixer
+automount
 sleep 5 && xset s off
