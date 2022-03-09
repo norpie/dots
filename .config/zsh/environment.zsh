@@ -53,6 +53,7 @@ alias gl="git log --oneline --decorate --all --graph"
 alias ga="git add"
 alias gr="git rm"
 alias gp="git push"
+alias gpl="git pull"
 alias gi="git ignore"
 
 # Dot aliases
@@ -62,6 +63,7 @@ alias dc="dots commit"
 alias da="dots add"
 alias dr="dots rm"
 alias dp="dots push"
+alias dpl="dots pull"
 alias di="dots ignore --dots"
 
 # Monero
