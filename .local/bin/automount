@@ -4,7 +4,7 @@ config="$XDG_CONFIG_HOME/automount/mountpoints.conf"
 source $config
 
 for item in $mountpoints; do
-    mount $item >/dev/null 2&>1
+    sudo mount $item >/dev/null 2>&1
     [[ $? == 0 ]] && echo "Mounted $item"
     [[ $? == 1 ]] && echo "Unable to mount $item"
 done
