@@ -9,3 +9,4 @@ xroot-status-restart
 restart output-fixer
 automount
 sleep 5 && xset s off
+escapecaps
