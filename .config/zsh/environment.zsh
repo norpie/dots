@@ -22,6 +22,7 @@ alias sys="sudo systemctl"
 
 # Pacman/Yay commands
 alias update="yay -Syu --noconfirm"
+alias u="update"
 alias p="sudo pacman"
 alias y="yay"
 
