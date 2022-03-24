@@ -37,4 +37,4 @@ set.background = 'dark'
 set.spelllang = 'nl,en'
 set.laststatus = 2
 set.showmode = false
-set.conceallevel = 1
+set.conceallevel = 0
