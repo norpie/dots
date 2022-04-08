@@ -31,7 +31,7 @@ set.undodir = HOME .. "/.cache/nvim/undodir"
 
 set.termguicolors = true
 set.scrolloff = 20
-set.cmdheight = 1
+set.cmdheight = 0
 set.updatetime = 25
 set.background = 'dark'
 set.spelllang = 'nl,en'
