@@ -241,3 +241,5 @@ Downloads
 .config/X11/Xresources
 .config/chromium
 .config/mpv/watch_later
+.config/libreoffice
+.local/share/appimages
