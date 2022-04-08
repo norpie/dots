@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+installed=$(pacman -Q linux | awk '{print $2}' | sed -Ee 's/\.|-//g')
+running=$(uname -r | sed -Ee 's/\.|-//g')
+
+[[ $installed == $running ]] && echo "No reboot needed" && exit 0
+echo "Reboot needed" && exit 1
