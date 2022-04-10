@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+[[ $# != 1 ]] && echo "1 argument needed" && exit 1
+
+id=$(sudo dmesg | grep -i "$1" | grep 'usb' | awk 'NR==1 {print $3}' | sed 's/\://g')
+
+echo $id
