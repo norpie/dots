@@ -129,14 +129,6 @@ pix
 .local/bin/f2py2
 .local/bin/f2py
 .local/bin/f2py
-.local/bin/dmenu-unmount
-.local/bin/dmenu-restart
-.local/bin/dmenu-power
-.local/bin/dmenu-output
-.local/bin/dmenu-mount
-.local/bin/dmenu-insert
-.local/bin/dmenu-bluetooth-disconnect
-.local/bin/dmenu-bluetooth-connect
 .local/bin/django-admin.py
 .local/bin/django-admin
 .local/bin/.
@@ -243,3 +235,4 @@ Downloads
 .config/mpv/watch_later
 .config/libreoffice
 .local/share/appimages
+.local/bin/dmenu-*
