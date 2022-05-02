@@ -236,3 +236,5 @@ Downloads
 .config/libreoffice
 .local/share/appimages
 .local/bin/dmenu-*
+.worldpainter
+.local/share/webkitgtk
