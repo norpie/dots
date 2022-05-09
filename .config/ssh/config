@@ -7,6 +7,9 @@ Host server
 Host laptop
     HostName 192.168.0.200
     User norpie
+Host vbox
+    HostName 192.168.122.1
+    User norpie
 Host github.org
     IdentityFile ~/.config/ssh/id_rsa
 Host *
