@@ -5,10 +5,10 @@ alias v="nvim"
 alias vi="nvim"
 alias sim="sudo vim"
 # Vim envirnment
-export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
-export GRADLE_HOME=$XDG_DATA_HOME/gradle
-export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
-export WORKSPACE=$REPO_DIRECTORY
+# export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
+# export GRADLE_HOME=$XDG_DATA_HOME/gradle
+# export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
+export WORKSPACE=$REPO_DIRECTORY/fantasy/mc/workspace
 export UNIVERSITY=$HOME/uni
 
 # Custom Commands
