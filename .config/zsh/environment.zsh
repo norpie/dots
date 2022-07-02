@@ -83,7 +83,7 @@ alias l="ls -A"
 alias la="ls -a"
 alias mkdir="mkdir -p"
 alias mv="mv -v"
-alias cp="cp -v"
+alias cp="rsync -avz --progress"
 
 # Define home
 export HOME="/home/$USER"
@@ -128,11 +128,16 @@ export __GL_SHADER_DISK_CACHE_PATH="$HOME/.config/nvidia"
 #export XAUTHORITY="$HOME/.config/X11/Xauthority"
 export CARGO_HOME="$HOME/.local/share/cargo"
 export NVM_DIR="$HOME/.config/nvm"
+export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
 export LEIN_HOME="$XDG_DATA_HOME"/lein
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
 alias wget="wget --hsts-file $HOME/.config/wget/wget-hsts"
+alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
+export TEXMFHOME=$XDG_DATA_HOME/texmf
+export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
+export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 
 # SSH Environment
 alias ssh="ssh -F $HOME/.config/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"

@@ -28,16 +28,19 @@ function ctrl-p() {
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && $EDITOR $file
 }
+
 function template() {
     file=$(find $XDG_DATA_HOME/templates -maxdepth 1 | fzf --preview 'pygmentize {}')
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && clear && echo "Enter a filename: " && read filename && cp $file $filename
 }
+
 function config() {
     file=$(find $XDG_CONFIG_HOME -maxdepth 3 | fzf --preview 'pygmentize {}')
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && $EDITOR $file
 }
+
 function script() {
     if [[ $# == 0 ]]; then
         file=$(find $SCRIPT_DIR | fzf)
@@ -48,4 +51,8 @@ function script() {
         [ ! -f $SCRIPT_PATH ] && echo '#!/bin/zsh' > $SCRIPT_PATH && chmod +x $SCRIPT_PATH
         $EDITOR $SCRIPT_PATH
     fi
+}
+
+function workspace() {
+    cd $WORKSPACE
 }
