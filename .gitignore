@@ -250,3 +250,5 @@ Downloads
 .local/share/m2
 .local/share/plexmediaplayer
 .local/state
+.gradle
+.config/Raspberry Pi
