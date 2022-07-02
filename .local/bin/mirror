@@ -1,4 +1,4 @@
 #!/bin/zsh
 
-[[ $# == 0 ]] && scrcpy --bit-rate=30M --max-fps=120 --lock-video-orientation --v4l2-sink=/dev/video0 --tcpip=192.168.0.138 --no-display & sleep 1 && ffplay -fs -i /dev/video0 && exit
+[[ $# == 0 ]] && scrcpy --bit-rate=30M --max-fps=120 --lock-video-orientation --v4l2-sink=/dev/video0 --tcpip=192.168.0.250 --no-display & sleep 1 && ffplay -fs -i /dev/video0 && exit
 [[ $# == 1 ]] && scrcpy --bit-rate=30M --max-fps=120 --lock-video-orientation --v4l2-sink=/dev/video0 --tcpip=$1 --no-display & sleep 1 && ffplay -fs -i /dev/video0 && exit
