@@ -1,6 +1,9 @@
 Host desktop
     HostName 192.168.0.234
     User norpie
+Host desktop-ext
+    HostName 94.225.210.162
+    User norpie
 Host server
     HostName 192.168.199
     User norpie
