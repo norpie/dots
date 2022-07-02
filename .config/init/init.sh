@@ -7,5 +7,5 @@ xresources-reload
 xwallpaper --zoom ~/.config/wallpaper/wallpaper.png
 xroot-status-restart
 restart output-fixer
-sleep 5 && xset s off
+sleep 5 && xset s off && xset -dpms
 escapecaps
