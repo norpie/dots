@@ -238,3 +238,15 @@ Downloads
 .local/bin/dmenu-*
 .worldpainter
 .local/share/webkitgtk
+.config/jd-gui.cfg
+.config/plex.tv
+.config/ssh/authorized_keys
+.local/bin/dmypy
+.local/bin/gradlew
+.local/bin/mypy
+.local/bin/mypyc
+.local/bin/stubgen
+.local/bin/stubtest
+.local/share/m2
+.local/share/plexmediaplayer
+.local/state
