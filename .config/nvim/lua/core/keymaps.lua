@@ -64,5 +64,7 @@ map('n', '<Leader>ep', ':lua vim.diagnostic.goto_prev()<CR>')
 
 map('n', 'Y', 'y$')
 
+map('v', '<C-C>', '"+y')
+
 vim.cmd('cnoreabbrev Write w !sudo tee %')
 vim.cmd('cnoreabbrev W w')

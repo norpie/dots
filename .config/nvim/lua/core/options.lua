@@ -16,6 +16,7 @@ set.expandtab = true
 set.smartindent = true
 
 set.number = true
+set.mouse = 'a'
 set.wrap = true
 set.ruler = true
 set.foldenable = false
