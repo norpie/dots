@@ -120,27 +120,28 @@ export REPO_DIRECTORY="$HOME/repos"
 export TODO_DIRECTORY="$REPO_DIRECTORY/todo"
 
 # Moving dot dirs to .config
-export VIMINIT="source $HOME/.config/nvim/init.lua"
-export VIMDOTDIR="source $HOME/.config/nvim"
-export VIMDIR="$HOME/.config/nvim"
-export GNUPGHOME="$HOME/.config/gnupg"
-export __GL_SHADER_DISK_CACHE_PATH="$HOME/.config/nvidia"
-#export XAUTHORITY="$HOME/.config/X11/Xauthority"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.lua"
+export VIMDOTDIR="source $XDG_CONFIG_HOME/nvim"
+export VIMDIR="$XDG_CONFIG_HOME/nvim"
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export __GL_SHADER_DISK_CACHE_PATH="$XDG_CONFIG_HOME/nvidia"
+#export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"
 export CARGO_HOME="$HOME/.local/share/cargo"
-export NVM_DIR="$HOME/.config/nvm"
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
 export LEIN_HOME="$XDG_DATA_HOME"/lein
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
-alias wget="wget --hsts-file $HOME/.config/wget/wget-hsts"
+alias wget="wget --hsts-file $XDG_CONFIG_HOME/wget/wget-hsts"
 alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
 export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 
 # SSH Environment
-alias ssh="ssh -F $HOME/.config/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
-alias ssh-copy-id="ssh-copy-id -F $HOME/.config/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
+alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
+alias ssh-copy-id="ssh-copy-id -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
 
 export _JAVA_AWT_WM_NONREPARENTING=1    # Fix for Java applications in dwm
