@@ -252,3 +252,6 @@ Downloads
 .local/state
 .gradle
 .config/Raspberry Pi
+.local/share/gradle
+.config/features
+.config/plugins
