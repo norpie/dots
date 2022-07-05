@@ -1,7 +1,7 @@
-Host desktop
+Match Originalhost desktop exec "is-home"
     HostName 192.168.0.234
     User norpie
-Host desktop-ext
+Host desktop
     HostName 94.225.210.162
     User norpie
 Host server
@@ -13,8 +13,6 @@ Host laptop
 Host vbox
     HostName 192.168.122.1
     User norpie
-Host github.org
-    IdentityFile ~/.config/ssh/id_rsa
 Host *
     StrictHostKeyChecking no
     UserKnownHostsFile ~/.config/ssh/known_hosts
