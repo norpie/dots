@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+home="94.225.210.162"
+ip=$(curl "ifconfig.me" -s)
+
+if [[ $ip == $home ]]; then
+    echo "yes"
+    exit 0
+else
+    echo "no"
+    exit 1
+fi
