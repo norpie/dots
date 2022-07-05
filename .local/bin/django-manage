@@ -1,3 +1,5 @@
 #!/bin/zsh
-
-python `project-root`/manage.py $@
+current=$(pwd)
+cd `project-root`
+python manage.py $@
+cd $current
