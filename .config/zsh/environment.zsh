@@ -1,15 +1,29 @@
 # Vim aliases
-alias vim="nvim -p"
-alias nvim="nvim -p"
-alias v="nvim"
-alias vi="nvim"
+alias vim="vim -p"
+alias vi="vim"
+alias v="vim"
 alias sim="sudo vim"
+which nvim
+if [[ $? == 0 ]]; then
+    alias vim="nvim"
+fi
 # Vim envirnment
 # export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
 # export GRADLE_HOME=$XDG_DATA_HOME/gradle
 # export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
 export WORKSPACE=$REPO_DIRECTORY/fantasy/mc/workspace
 export UNIVERSITY=$HOME/uni
+
+# Alternatives
+which duf
+if [[ $? == 0 ]]; then
+    alias df=duf
+fi
+
+which btop
+if [[ $? == 0 ]]; then
+    alias top=htop
+fi
 
 # Custom Commands
 alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
