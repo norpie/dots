@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+dirs=(.nv .renpy .swt .java)
+
+for dir in $dirs; do
+    rm ~/$dir -rf
+done
