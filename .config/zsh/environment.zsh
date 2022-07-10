@@ -7,7 +7,8 @@ which nvim
 if [[ $? == 0 ]]; then
     alias vim="nvim"
 fi
-# Vim envirnment
+
+# JAVA environment
 # export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
 # export GRADLE_HOME=$XDG_DATA_HOME/gradle
 # export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
@@ -25,6 +26,16 @@ if [[ $? == 0 ]]; then
     alias top=htop
 fi
 
+which neofetch
+if [[ $? == 0 ]]; then
+    alias fetch=neofetch
+fi
+
+which pfetch
+if [[ $? == 0 ]]; then
+    alias fetch=pfetch
+fi
+
 # Custom Commands
 alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
 alias node80="sudo node app.js"
@@ -33,6 +44,7 @@ alias chmox="chmod +x"
 
 # Systemd
 alias sys="sudo systemctl"
+alias usys="systemctl --user"
 
 # Pacman/Yay commands
 alias update="yay -Syu --noconfirm"
@@ -43,6 +55,15 @@ alias y="yay"
 # Synonyms
 alias quit="exit"
 alias background="wallpaper"
+
+# Standard programs
+alias pdf="zathura"
+alias url="chrome --new-window"
+alias txt="vim"
+alias img="sxiv"
+alias vid="mpv"
+
+# Capitalisation
 alias readme="README"
 
 # Permission aliases - don't @ me
@@ -56,8 +77,6 @@ alias c="clear"
 alias cn="clear && neofetch"
 alias cf="clear && neofetch"
 alias nf="neofetch"
-alias ct="cn"
-alias pdf="zathura"
 
 # Git aliases
 alias g="git"
