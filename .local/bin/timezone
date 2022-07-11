@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $# != 2 ]] && echo "Usage: timezone <Region> <City>" && exit 1
+
+sudo ln -sf /usr/share/zoneinfo/$1/$2 /etc/localtime
