@@ -58,7 +58,7 @@ alias background="wallpaper"
 
 # Standard programs
 alias pdf="zathura"
-alias url="chrome --new-window"
+alias url="$BROWSER"
 alias txt="vim"
 alias img="sxiv"
 alias vid="mpv"
@@ -137,10 +137,13 @@ export LANG="en_NZ.UTF-8"
 
 # Default apps
 export TERMINAL="st"
-export BROWSER="google-chrome-stable"
+export BROWSER="chrome --new-window --no-sandbox"
 export PDF_READER="zathura"
 export EDITOR="nvim"
 export VISUAL='st nvim'
+
+# Case insensitivty for defaul apps
+export browser="$BROWSER"
 
 # Runtimes
 export JAVA_HOME="/usr/lib/jvm/default"
