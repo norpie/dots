@@ -17,3 +17,5 @@
 	defaultBranch = main
 [alias]
 	rr = remote remove
+[pull]
+    rebase = false
