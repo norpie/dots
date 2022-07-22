@@ -8,6 +8,9 @@ set statusbar-home-tilde  true
 set recolor               true
 set selection-clipboard   clipboard
 
+# Links
+set sandbox none
+
 # LAYOUT SETTINGS
 # ---------------
 set statusbar-h-padding 0
