@@ -77,6 +77,8 @@ alias c="clear"
 alias cn="clear && neofetch"
 alias cf="clear && neofetch"
 alias nf="neofetch"
+alias e="exit"
+alias q="quit"
 
 # Git aliases
 alias g="git"
