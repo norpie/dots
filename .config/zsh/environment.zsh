@@ -139,13 +139,19 @@ export LANG="en_NZ.UTF-8"
 
 # Default apps
 export TERMINAL="st"
-export BROWSER="chrome --new-window --no-sandbox"
+export BROWSER="google-chrome-stable --new-window --no-sandbox"
 export PDF_READER="zathura"
 export EDITOR="nvim"
 export VISUAL='st nvim'
 
 # Case insensitivty for defaul apps
 export browser="$BROWSER"
+
+# google
+
+alias chrome="google-chrome-stable"
+alias google-chrome="google-chrome-stable"
+alias google-chrome-stable="fix-chrome-crash-bubble && google-chrome-stable"
 
 # Runtimes
 export JAVA_HOME="/usr/lib/jvm/default"
