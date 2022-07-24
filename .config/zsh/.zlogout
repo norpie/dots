@@ -1,1 +1,1 @@
-pgrepkill ssh-agent
+pkill $SSH_AGENT_PID
