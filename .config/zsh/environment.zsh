@@ -67,8 +67,8 @@ alias vid="mpv"
 alias readme="README"
 
 # Permission aliases - don't @ me
-alias shutdown="sudo shutdown -h now"
-alias reboot="sudo reboot"
+alias shutdown="xorg-state-save && sudo shutdown -h now"
+alias reboot="xorg-state-save && sudo reboot"
 alias sudo='sudo '
 #alias sudo="sudo -E"
 
