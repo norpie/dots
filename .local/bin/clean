@@ -1,7 +1,12 @@
 #!/bin/zsh
 
-dirs=(.nv .renpy .swt .java)
+dirs=(.nv .renpy .swt .java .pkg-cache)
+files=(.yarnrc .wget-hsts)
 
 for dir in $dirs; do
     rm ~/$dir -rf
+done
+
+for file in $files; do
+    rm ~/$file -f
 done
