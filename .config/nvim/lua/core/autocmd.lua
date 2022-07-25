@@ -15,3 +15,9 @@ create_augroup(save_file_group, { clear = true })
 create_autocmd('BufWritePost', { pattern = '*.lua', command = 'source %' })
 create_autocmd('BufWritePost', { pattern = 'Xresources', command = 'silent !xrdb -merge ~/.config/X11/Xresources && notify-send "Xresources saved\\! 💾"' })
 create_autocmd('BufWritePost', { pattern = 'dunstrc', command = 'silent !restart dunst && notify-send "dunstrc saved\\! 💾"' })
+
+local pandoc_syntax_group = 'pandocsyntaxgroup'
+create_augroup(pandoc_syntax_group, { clear = true })
+create_autocmd('BufNewFile', { pattern = '*.md', command = 'set filetype=markdown.pandoc' })
+create_autocmd('BufFilePre', { pattern = '*.md', command = 'set filetype=markdown.pandoc' })
+create_autocmd('BufRead', { pattern = '*.md', command = 'set filetype=markdown.pandoc' })

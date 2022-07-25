@@ -17,11 +17,16 @@ for _, module in ipairs(core_modules) do
     end
 end
 
+if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/plugins/init.lua") == 1 then
+    local ok, err = pcall(require, "plugins")
+    if not ok then
+        vim.notify("Error loading plugins init.lua\n\n" .. err)
+    end
+end
+
 if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/user/init.lua") == 1 then
     local ok, err = pcall(require, "user")
     if not ok then
         vim.notify("Error loading user init.lua\n\n" .. err)
     end
 end
-
-require('plugins')

@@ -1,2 +1,2 @@
-vim.cmd('colorscheme nord')
---require('nightfox').load("nordfox")
+--vim.cmd('colorscheme nord')
+vim.cmd('colorscheme nordfox')

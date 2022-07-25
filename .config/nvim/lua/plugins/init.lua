@@ -32,7 +32,8 @@ local plugins = {
     },
     {
         'akinsho/bufferline.nvim',
-        requires = 'kyazdani42/nvim-web-devicons'
+        requires = 'kyazdani42/nvim-web-devicons',
+        branch = 'main'
     },
     {'stevearc/dressing.nvim'},
 
@@ -53,11 +54,15 @@ local plugins = {
             require('numb').setup()
         end
     },
-    {'McAuleyPenney/tidy.nvim'},
+    {
+        'McAuleyPenney/tidy.nvim',
+        branch = 'main'
+    },
     -- 'abecodes/tabout.nvim'
 
     -- utils
     {'nvim-telescope/telescope.nvim'},
+    {'godlygeek/tabular'},
     {'Shougo/deoplete.nvim'},
     {'NFrid/due.nvim'},
     -- 'tpope/vim-fugitive' -- TODO: Maybe start using?
@@ -87,6 +92,9 @@ local plugins = {
             require('plugins.config.vimtex')
         end
     },
+    {"vim-pandoc/vim-pandoc-syntax"},
+    {"plasticboy/vim-markdown"},
+    {"elzr/vim-json"},
     {'folke/zen-mode.nvim'},
 
     -- cmp
