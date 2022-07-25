@@ -1,3 +1,3 @@
 #!/bin/zsh
 
-fix-chrome-crash-bubble && google-chrome-stable --new-window --no-sandbox
+fix-chrome-crash-bubble && google-chrome-stable --new-window
