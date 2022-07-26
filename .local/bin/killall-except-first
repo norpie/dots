@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $1 != 1 ]] && echo "Usage: killall-except-first <name>" && exit 1
+
+kill $(pgrep-oneline $1 | sed 's/^\w*\ *//')

@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $# != 1 ]] && echo "Usage: pgrep-oneline <name>" && exit 1
+
+pgrep $1 | tr '\n' ' '
