@@ -1,6 +1,6 @@
 #!/bin/sh
 
-userresources=$HOME/.config/X11/Xresources
+userresources="$HOME/.config/X11/Xresources"
 
 # merge in defaults and keymaps
 if [ -f "$userresources" ]; then
