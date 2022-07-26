@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-[[ ! $# -ge 2 ]] && echo "Requires 2 arguments" && echo "Usage: for-file-line <file> <command>" && exit 1
+[[ ! $# -ge 2 ]] && echo "Usage: for-file-line <file> <command>" && exit 1
 
 command=$(echo $@ | awk '{print $2, $3, $4, $5, $6, $7}')
 command=$(echo $command | awk '{$1=$1};1')
