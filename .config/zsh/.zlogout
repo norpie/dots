@@ -1,1 +1,1 @@
-kill $SSH_AGENT_PID
+killall-except-first ssh-agent
