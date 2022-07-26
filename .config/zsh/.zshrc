@@ -6,6 +6,3 @@ source ~/.config/zsh/plugins.zsh
 source ~/.config/zsh/settings.zsh
 source ~/.config/zsh/utils.zsh
 source ~/.config/zsh/prompt.zsh
-
-# start commmands
-clear

@@ -3,7 +3,7 @@ alias vim="vim -p"
 alias vi="vim"
 alias v="vim"
 alias sim="sudo vim"
-which nvim
+which nvim &>/dev/null
 if [[ $? == 0 ]]; then
     alias vim="nvim"
 fi
@@ -16,22 +16,22 @@ export WORKSPACE=$REPO_DIRECTORY/fantasy/mc/workspace
 export UNIVERSITY=$HOME/uni
 
 # Alternatives
-which duf
+which duf &>/dev/null
 if [[ $? == 0 ]]; then
     alias df=duf
 fi
 
-which btop
+which btop &>/dev/null
 if [[ $? == 0 ]]; then
     alias top=htop
 fi
 
-which neofetch
+which neofetch &>/dev/null
 if [[ $? == 0 ]]; then
     alias fetch=neofetch
 fi
 
-which pfetch
+which pfetch &>/dev/null
 if [[ $? == 0 ]]; then
     alias fetch=pfetch
 fi

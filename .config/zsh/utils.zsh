@@ -1,5 +1,5 @@
-eval `ssh-agent`
-ssh-add-defaults
+eval `ssh-agent` &>/dev/null
+ssh-add-defaults &>/dev/null
 
 exit_session() {
     . "$ZDOTDIR/.zlogout"
