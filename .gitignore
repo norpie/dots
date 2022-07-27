@@ -255,3 +255,4 @@ Downloads
 .local/share/gradle
 .config/features
 .config/plugins
+.config/rustdesk
