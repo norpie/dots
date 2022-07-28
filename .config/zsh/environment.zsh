@@ -21,9 +21,14 @@ if [[ $? == 0 ]]; then
     alias df=duf
 fi
 
-which btop &>/dev/null
+which htop &>/dev/null
 if [[ $? == 0 ]]; then
     alias top=htop
+fi
+
+which btop &>/dev/null
+if [[ $? == 0 ]]; then
+    alias top=btop
 fi
 
 which neofetch &>/dev/null
