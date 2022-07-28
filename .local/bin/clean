@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg)
+dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .stellarium)
 files=(.yarnrc .wget-hsts)
 
 for dir in $dirs; do
