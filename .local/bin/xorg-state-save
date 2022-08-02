@@ -3,8 +3,8 @@
 programs=(discord spotify qbittorrent chrome)
 
 for program in $programs; do
-    output=$(/home/norpie/.local/bin/running $program)
+    output=$(running $program)
     if [[ $? == 1 ]]; then
-        echo "$program" >> /home/norpie/.cache/xorg_state.txt
+        echo "$program" >> $XDG_CACHE_HOME/xorg_state.txt
     fi
 done
