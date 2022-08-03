@@ -1,6 +1,6 @@
 # Fzf script for repos directory
 function project() {
-    dir=$(find $REPO_DIRECTORY -maxdepth 1 | fzf) && cd $dir
+    dir=$(find $REPO_DIR -maxdepth 1 | fzf) && cd $dir
 }
 
 # cd with history, based on minecraft /back, and also fetch on repo enter

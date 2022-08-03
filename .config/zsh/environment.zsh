@@ -12,7 +12,7 @@ fi
 # export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
 # export GRADLE_HOME=$XDG_DATA_HOME/gradle
 # export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
-export WORKSPACE=$REPO_DIRECTORY/fantasy/mc/workspace
+export WORKSPACE=$REPO_DIR/fantasy/mc/workspace
 export UNIVERSITY=$HOME/uni
 
 # Alternatives
@@ -163,8 +163,8 @@ alias activate="source .venv/bin/activate"
 
 # Config paths
 export SCRIPT_DIR="$HOME/.local/bin"
-export REPO_DIRECTORY="$HOME/repos"
-export TODO_DIRECTORY="$REPO_DIRECTORY/todo"
+export REPO_DIR="$HOME/repos"
+export TODO_DIR="$XDG_DATA_HOME/todo"
 
 # Moving dot dirs to .config
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
