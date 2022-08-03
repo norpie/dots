@@ -228,7 +228,6 @@ Downloads
 .cache
 .bitmonero
 .android
-.config/ssh/keys
 .config/ssh/known_hosts
 .config/X11/Xresources
 .config/chromium
