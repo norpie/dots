@@ -259,3 +259,6 @@ Downloads
 .mozilla
 .local/share/todo
 downloads
+.local/bin/todo-add
+.local/bin/todo-check
+.local/bin/todos
