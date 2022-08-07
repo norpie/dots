@@ -155,7 +155,7 @@ export VISUAL='st nvim'
 export browser="$BROWSER"
 
 alias google-chrome="chrome"
-alias google-chrome-stable="chrome"
+# alias google-chrome-stable="chrome" dangerous
 
 # Runtimes
 export JAVA_HOME="/usr/lib/jvm/default"
