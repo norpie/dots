@@ -262,3 +262,4 @@ downloads
 .local/bin/todo-add
 .local/bin/todo-check
 .local/bin/todos
+.local/share/lf
