@@ -3,6 +3,7 @@ alias vim="vim -p"
 alias vi="vim"
 alias v="vim"
 alias sim="sudo vim"
+
 which nvim &>/dev/null
 if [[ $? == 0 ]]; then
     alias vim="nvim"
@@ -16,6 +17,11 @@ export WORKSPACE=$REPO_DIR/fantasy/mc/workspace
 export UNIVERSITY=$HOME/uni
 
 # Alternatives
+which rsync &>/dev/null
+if [[ $? == 0 ]]; then
+    alias cp="rsync -avz --progress"
+fi
+
 which duf &>/dev/null
 if [[ $? == 0 ]]; then
     alias df=duf
@@ -124,7 +130,6 @@ alias l="ls -A"
 alias la="ls -a"
 alias mkdir="mkdir -p"
 alias mv="mv -v"
-alias cp="rsync -avz --progress"
 
 # Define home
 export HOME="/home/$USER"
