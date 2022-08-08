@@ -263,3 +263,6 @@ downloads
 .local/bin/todo-check
 .local/bin/todos
 .local/share/lf
+.config/calcurse
+.local/runtime
+.local/share/calcurse
