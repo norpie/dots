@@ -75,7 +75,7 @@ alias readme="README"
 alias shutdown="xorg-state-save && sudo shutdown -h now"
 alias reboot="xorg-state-save && sudo reboot"
 alias sudo='sudo '
-alias sudo="sudo --preserve-env=HOME "
+alias sudo="sudo -E --preserve-env=HOME "
 #alias sudo="sudo -E"
 
 # Shorter aliases
