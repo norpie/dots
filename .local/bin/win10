@@ -1,0 +1,2 @@
+#!/bin/zsh
+xorg-state-save && sudo virsh start win10
