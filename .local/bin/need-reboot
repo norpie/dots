@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-installed=$(pacman -Q linux | awk '{print $2}' | sed -Ee 's/\.|-//g')
-running=$(uname -r | sed -Ee 's/\.|-//g')
-
-[[ $installed == $running ]] && echo "no" && exit 1
-echo "yes"

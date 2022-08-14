@@ -1,0 +1,13 @@
+#!/bin/zsh
+installed=$(pacman -Q linux | awk '{print $2}' | sed -Ee 's/\.|-//g')
+running=$(uname -r | sed -Ee 's/\.|-//g')
+
+echo "Installed: $(pacman -Q linux | awk '{print $2}')"
+echo "Running: $(uname -r)"
+
+if [[ $installed == $running ]]; then
+    result="no"
+else
+    result="yes"
+fi
+echo "Need reboot: $result"

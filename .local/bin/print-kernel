@@ -1,4 +1,0 @@
-#!/bin/zsh
-
-echo "Installed: $(pacman -Q linux | awk '{print $2}')"
-echo "Running: $(uname -r)"
