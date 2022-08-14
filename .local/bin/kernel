@@ -1,13 +1,13 @@
 #!/bin/zsh
-installed=$(pacman -Q linux | awk '{print $2}' | sed -Ee 's/\.|-//g')
-running=$(uname -r | sed -Ee 's/\.|-//g')
+installed=$(pacman -Q linux | awk '{print $2}' | sed 's/.arch/-arch/g')
+running=$(uname -r)
 
-echo "Installed: $(pacman -Q linux | awk '{print $2}')"
-echo "Running: $(uname -r)"
+echo "Installed: $installed"
+echo "Running: $installed"
 
 if [[ $installed == $running ]]; then
     result="no"
 else
     result="yes"
 fi
-echo "Need reboot: $result"
+echo "Reboot for newer kernel: $result"
