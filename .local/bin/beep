@@ -1,6 +1,0 @@
-#!/usr/bin/zsh
-beep_speaker() {
-    ( speaker-test -t sine -f 1000 )& pid=$! ; sleep 0.1s ; kill -9 $pid 
-}
-
-beep_speaker > /dev/null
