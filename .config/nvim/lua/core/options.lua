@@ -56,4 +56,6 @@ set.laststatus = 2
 set.showmode = false
 set.conceallevel = 0
 
+set.guifont = 'LiterationMono Nerd Font:h15'
 
+vim.g.neovide_transparency=0.9
