@@ -9,6 +9,13 @@ if [[ $? == 0 ]]; then
     alias vim="nvim"
 fi
 
+alias neovide="neovide --nofork"
+
+which neovide &>/dev/null
+if [[ $? == 0 && -v DISPLAY ]]; then
+    alias nvim="neovide"  
+fi
+
 # JAVA environment
 # export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
 # export GRADLE_HOME=$XDG_DATA_HOME/gradle
@@ -154,7 +161,7 @@ export TERMINAL="st"
 export BROWSER="chrome"
 export PDF_READER="zathura"
 export EDITOR="nvim"
-export VISUAL='st nvim'
+export VISUAL="st -e nvim"
 
 # Case insensitivty for defaul apps
 export browser="$BROWSER"
