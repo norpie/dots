@@ -3,7 +3,7 @@ installed=$(pacman -Q linux | awk '{print $2}' | sed 's/.arch/-arch/g')
 running=$(uname -r)
 
 echo "Installed: $installed"
-echo "Running: $installed"
+echo "Running: $running"
 
 if [[ $installed == $running ]]; then
     result="no"
