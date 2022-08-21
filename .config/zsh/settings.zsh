@@ -13,7 +13,6 @@ bindkey -s '^P' 'ctrl-p\n'
 
 # Auto-complete
 autoload -U compinit
-setopt autocd
 setopt prompt_subst
 setopt PROMPT_SUBST
 setopt histignoredups
