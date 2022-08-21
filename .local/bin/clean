@@ -4,9 +4,9 @@ dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .stellarium .mozilla .bitmonero)
 files=(.yarnrc .wget-hsts .python_history .nvidia-settings-rc)
 
 for dir in $dirs; do
-    rm ~/$dir -rf
+    rm ~/$dir -r &>/dev/null && echo "removed '$dir'"
 done
 
 for file in $files; do
-    rm ~/$file -f
+    rm ~/$file &>/dev/null && echo "removed '$file'"
 done
