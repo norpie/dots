@@ -8,6 +8,9 @@ set statusbar-home-tilde  true
 set recolor               true
 set selection-clipboard   clipboard
 
+# Behaviour
+set scroll-step 40
+
 # Links
 set sandbox none
 
