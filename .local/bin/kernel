@@ -2,12 +2,13 @@
 installed=$(pacman -Q linux | awk '{print $2}' | sed 's/.arch/-arch/g')
 running=$(uname -r)
 
-echo "Installed: $installed"
-echo "Running: $running"
+print -P "Installed: %F{green}$installed%f"
 
 if [[ $installed == $running ]]; then
+    print -P "Running: %F{green}$running%f"
     result="no"
 else
+    print -P "Running: %F{red}$running%f"
     result="yes"
 fi
 echo "Reboot for newer kernel: $result"
