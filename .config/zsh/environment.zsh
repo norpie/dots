@@ -191,6 +191,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export __GL_SHADER_DISK_CACHE_PATH="$XDG_CONFIG_HOME/nvidia"
 #export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"
 export CARGO_HOME="$HOME/.local/share/cargo"
+export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
 export LEIN_HOME="$XDG_DATA_HOME"/lein
