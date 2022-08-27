@@ -88,8 +88,8 @@ alias readme="README"
 alias shutdown="xorg-state-save && sudo shutdown -h now"
 alias reboot="xorg-state-save && sudo reboot"
 alias sudo='sudo '
-alias sudo="sudo -E --preserve-env=HOME "
-#alias sudo="sudo -E"
+# alias sudo="sudo -E --preserve-env=HOME "
+# alias sudo="sudo -E"
 
 # Shorter aliases
 alias c="clear"
@@ -143,6 +143,7 @@ export HOME="/home/$USER"
 
 # Exports
 export PATH=$HOME/repos/dnm/.bin:$HOME/.local/share/monero/bin:$HOME/uni/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+source "/home/norpie/.local/share/cargo/env"
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
@@ -186,6 +187,7 @@ export VIMDOTDIR="source $XDG_CONFIG_HOME/nvim"
 export VIMDIR="$XDG_CONFIG_HOME/nvim"
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export __GL_SHADER_DISK_CACHE_PATH="$XDG_CONFIG_HOME/nvidia"
 #export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"
 export CARGO_HOME="$HOME/.local/share/cargo"
