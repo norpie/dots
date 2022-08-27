@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .stellarium .mozilla .bitmonero)
+dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .stellarium .mozilla .bitmonero .npm)
 files=(.yarnrc .wget-hsts .python_history .nvidia-settings-rc)
 
 for dir in $dirs; do
