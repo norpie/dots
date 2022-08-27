@@ -1,4 +1,4 @@
 #!/bin/zsh
 
-df $(pwd)
+duf $(pwd)
 du -h --max-depth=1 $(pwd)
