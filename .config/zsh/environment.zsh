@@ -9,12 +9,12 @@ if [[ $? == 0 ]]; then
     alias vim="nvim"
 fi
 
-alias neovide="neovide --nofork"
-
 which neovide &>/dev/null
 if [[ $? == 0 && -v DISPLAY ]]; then
-    alias nvim="neovide"  
+    alias nvim="neovide"
 fi
+
+alias neovide="neovide --nofork"
 
 # JAVA environment
 # export JAR="/usr/share/java/jdtls/plugins/org.eclipse.equinox.launcher_*"
