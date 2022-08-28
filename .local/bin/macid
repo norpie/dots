@@ -4,6 +4,7 @@ declare -A devices
 devices=(
     ["sony"]="38:18:4C:06:79:A9"
     ["wacom"]="E0:9F:2A:1C:43:2B"
+    ["beans"]="08:BF:A0:EE:20:FB"
     )
 
 if [[ $# == 0 ]]; then
