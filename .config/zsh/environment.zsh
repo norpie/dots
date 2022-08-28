@@ -118,7 +118,7 @@ alias dc="dots commit"
 alias da="dots add"
 alias dr="dots rm"
 alias dp="dots push"
-alias dpl="dots pull"
+alias dpl="dots pull && dots submodule update --init --recursive"
 alias di="dots ignore --dots"
 
 # Monero
