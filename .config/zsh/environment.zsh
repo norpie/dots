@@ -1,7 +1,8 @@
 # Vim aliases
-alias vim="vim -p"
+alias vim="vim"
 alias vi="vim"
 alias v="vim"
+alias nvim="nvim -p"
 alias sim="sudo vim"
 
 which nvim &>/dev/null
@@ -21,7 +22,7 @@ alias neovide="neovide --nofork"
 # export GRADLE_HOME=$XDG_DATA_HOME/gradle
 # export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
 export WORKSPACE=$REPO_DIR/fantasy/mc/workspace
-export UNIVERSITY=$HOME/uni
+export STUDY=$HOME/hs
 
 # Alternatives
 which rsync &>/dev/null
@@ -143,7 +144,6 @@ export HOME="/home/$USER"
 
 # Exports
 export PATH=$HOME/repos/dnm/.bin:$HOME/.local/share/monero/bin:$HOME/uni/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
-source "/home/norpie/.local/share/cargo/env"
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
