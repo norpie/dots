@@ -9,6 +9,9 @@ local plugins = {
     -- Packer can manage itself
     {'wbthomason/packer.nvim'},
 
+    -- dependancies
+    {'kyazdani42/nvim-web-devicons'},
+
     -- nvim-lua stuff
     {'nvim-lua/popup.nvim'},
     {'nvim-lua/plenary.nvim'},
@@ -17,9 +20,9 @@ local plugins = {
     {'flazz/vim-colorschemes'},
     {'EdenEast/nightfox.nvim'},
     {
-        'sunjon/shade.nvim',
+        'levouh/tint.nvim',
         config = function()
-            require('plugins.config.shade-nvim')
+            require('plugins.config.tint-nvim')
         end
     },
     {'onsails/lspkind-nvim'},
@@ -28,12 +31,14 @@ local plugins = {
         config = function()
             require('plugins.config.lualine-nvim')
         end,
-        requires = 'kyazdani42/nvim-web-devicons'
     },
     {
         'akinsho/bufferline.nvim',
-        requires = 'kyazdani42/nvim-web-devicons',
-        branch = 'main'
+        tag = "v2.*",
+        branch = 'main',
+        config = function()
+            require('plugins.config.bufferline-nvim')
+        end
     },
     {'stevearc/dressing.nvim'},
 
