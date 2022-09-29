@@ -269,3 +269,5 @@ downloads
 .local/share/cargo
 .local/share/rustup
 hs
+.config/Microsoft
+.config/teams
