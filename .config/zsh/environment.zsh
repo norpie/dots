@@ -1,9 +1,15 @@
 # Vim aliases
-alias vim="vim"
 alias vi="vim"
 alias v="vim"
-alias nvim="nvim -p"
 alias sim="sudo vim"
+
+function nvim() {
+    if [[ $# == 0 ]]; then
+        /usr/bin/nvim .
+    else
+        /usr/bin/nvim -p "$@"
+    fi
+}
 
 which nvim &>/dev/null
 if [[ $? == 0 ]]; then
