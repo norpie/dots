@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-[[ $# == 0 ]] && echo "url for the git repo needed as 1 argument" && exit 1
-
-mkdir git-download && git clone $1 && cd git-download && rm .git -rf && cd ..
