@@ -122,7 +122,7 @@ local plugins = {
     {'quangnguyen30192/cmp-nvim-ultisnips'},
 
     {'neovim/nvim-lspconfig'},
-    {'hrsh7th/cmp-nvim-lsp'}
+    {'hrsh7th/cmp-nvim-lsp'},
 }
 
 return packer.startup(function(use)

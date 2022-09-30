@@ -19,6 +19,8 @@ vim.g.vim_markdown_json_frontmatter = 1  -- for JSON format
 
 set.encoding = 'utf8'
 
+set.completeopt = {'menu', 'menuone', 'noselect'}
+
 set.relativenumber = true
 set.hlsearch = true
 set.hidden = true
