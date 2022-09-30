@@ -1,0 +1,18 @@
+#!/bin/zsh
+
+[[ $# -eq 0 ]] && echo "Usage: norman <packages>" && exit 1
+
+install_repo() {
+    git clone "https://github.com/$1" temp &&
+    autoinstall temp &&
+    rm temp -rf
+}
+
+for arg in "$@"; do
+    echo "installing $arg"
+    if [[ $arg =~ "/" ]]; then
+        install_repo $arg >/dev/null 2>&1 && echo "installed $arg"
+    else
+        install_repo "norman-pkgs/$arg" >/dev/null 2>&1 && echo "installed $arg"
+    fi
+done
