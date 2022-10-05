@@ -272,3 +272,12 @@ hs
 .config/Microsoft
 .config/teams
 git-*
+
+.config/Unknown Organization/pgmodeler.conf
+.config/pgmodeler-1.0
+.local/share/pgadmin4.d41d8cd98f00b204e9800998ecf8427e.log
+.local/share/pgadmin4.d41d8cd98f00b204e9800998ecf8427e.log
+.pgadmin/pgadmin4.log
+.pgadmin/pgadmin4.db
+.local/share/pgadmin4.startup.log
+.mysql_history
