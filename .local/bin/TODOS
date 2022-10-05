@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+cd $(git root)
+grep TODO $(find src/* -type f)
