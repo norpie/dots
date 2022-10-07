@@ -126,6 +126,7 @@ alias da="dots add"
 alias dr="dots rm"
 alias dp="dots push"
 alias dpl="dots pull && dots submodule update --init --recursive"
+alias dlg="lazygit -g ~/.dots"
 alias di="dots ignore --dots"
 
 # Monero
