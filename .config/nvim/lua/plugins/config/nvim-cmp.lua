@@ -88,7 +88,7 @@ sign({name = 'DiagnosticSignInfo', text = ''})
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local servers = {'html', 'cssls', 'jsonls', 'tsserver', 'pylsp', 'pyright', 'texlab', 'clangd', 'vimls', "rust_analyzer"}
+local servers = {'cssls', 'jsonls', 'tsserver', 'pylsp', 'pyright', 'texlab', 'clangd', 'vimls', "rust_analyzer"}
 
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
@@ -102,6 +102,15 @@ end
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.emmet_ls.setup{
+    filetypes = { "html", "tera", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" }
+}
+
+require 'lspconfig'.html.setup {
+    capabilities = capabilities,
+    filetypes = { 'html', 'tera', 'htmldjango' },
+}
 
 require'lspconfig'.jdtls.setup{ cmd = { 'jdtls' } }
 

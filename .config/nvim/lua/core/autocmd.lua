@@ -13,6 +13,7 @@ create_autocmd('InsertLeave', { command = 'write', pattern = '*.tex', group = la
 local save_file_group = 'writegroup'
 create_augroup(save_file_group, { clear = true })
 create_autocmd('BufWritePost', { pattern = '*.lua', command = 'source %' })
+create_autocmd('BufWritePre', { pattern = '*', command = 'retab!' })
 create_autocmd('BufWritePost', { pattern = 'Xresources', command = 'silent !xrdb -merge ~/.config/X11/Xresources && notify-send "Xresources saved\\! 💾"' })
 create_autocmd('BufWritePost', { pattern = 'dunstrc', command = 'silent !restart dunst && notify-send "dunstrc saved\\! 💾"' })
 
