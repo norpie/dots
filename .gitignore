@@ -281,3 +281,6 @@ git-*
 .pgadmin/pgadmin4.db
 .local/share/pgadmin4.startup.log
 .mysql_history
+.local/share/npm/lib/node_modules/emmet-ls
+
+.local/share/npm/bin/emmet-ls
