@@ -150,7 +150,7 @@ alias mv="mv -v"
 export HOME="/home/$USER"
 
 # Exports
-export PATH=$STUDY/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl
+export PATH=$STUDY/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/cargo/bin
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
@@ -181,6 +181,7 @@ alias google-chrome="chrome"
 export JAVA_HOME="/usr/lib/jvm/default"
 alias python3="python"
 alias activate="source .venv/bin/activate"
+alias dotenv='export $(grep -v '^#' .env | xargs)'
 
 # Config paths
 export SCRIPT_DIR="$HOME/.local/bin"
