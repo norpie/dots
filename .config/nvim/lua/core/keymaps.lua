@@ -17,7 +17,7 @@ vim.g.mapleader = '<'
 --   term_mode = "t",
 --   command_mode = "c",
 
-map('n', '<Leader>z', ':ZenMode<CR>:lua require\'shade\'.toggle()<CR>', { silent = true })
+map('n', '<Leader>z', ':ZenMode<CR>', { silent = true })
 
 map('', 'j', 'gj')
 map('', 'k', 'gk')
