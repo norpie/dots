@@ -2,11 +2,11 @@
 
 source ~/.config/zsh/.zshrc
 
+xorg-state-load
 numlockx on
 xresources-reload
-xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
 xroot-status-restart
 restart output-fixer
 sleep 5 && xset s off && xset -dpms
 escapecaps
-xorg-state-load
+xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
