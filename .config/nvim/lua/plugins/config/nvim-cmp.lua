@@ -58,16 +58,16 @@ cmp.setup({
     formatting = {
         -- Youtube: How to set up nice formatting for your sources.
         format = lspkind.cmp_format {
-        	with_text = true,
-        	menu = {
-        	    buffer = "[buf]",
-        	    nvim_lsp = "[LSP]",
-        	    nvim_lua = "[api]",
-        	    path = "[path]",
-        	    ultisnips = "[snip]",
-        	    gh_issues = "[issues]",
-        	    tn = "[TabNine]",
-        	},
+            with_text = true,
+            menu = {
+                buffer = "[buf]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[api]",
+                path = "[path]",
+                ultisnips = "[snip]",
+                gh_issues = "[issues]",
+                tn = "[TabNine]",
+            },
         },
     }
 })
@@ -95,7 +95,7 @@ for _, lsp in pairs(servers) do
         init_options = {
             provideFormatter = true
         },
-        capabilities = capabilities
+        capabilities = capabilities,
     }
 end
 

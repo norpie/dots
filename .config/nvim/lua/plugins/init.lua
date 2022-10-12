@@ -32,14 +32,6 @@ local plugins = {
             require('plugins.config.lualine-nvim')
         end,
     },
-    {
-        'akinsho/bufferline.nvim',
-        tag = "v2.*",
-        branch = 'main',
-        config = function()
-            require('plugins.config.bufferline-nvim')
-        end
-    },
     {'stevearc/dressing.nvim'},
 
     -- coding
