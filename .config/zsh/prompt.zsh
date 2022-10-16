@@ -26,13 +26,13 @@ Red="%F{9}"
 Lime="%F{10}"
 Yellow="%F{11}"
 Blue="%F{12}"
-Fuchsia="%{13}"
+Fuchsia="%F{13}"
 Aqua="%F{14}"
 White="%F{15}"
 
 Better_Blue="%F{27}"
 
-export EMPHESIS_COLOR_START="$Better_Blue$BOLD_START"
+export EMPHESIS_COLOR_START="$Red$BOLD_START"
 export EMPHESIS_COLOR_STOP="$White$BOLD_STOP"
 
 local git_branch='$(git branch-name)'

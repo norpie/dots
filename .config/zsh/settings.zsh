@@ -19,3 +19,4 @@ setopt histignoredups
 setopt inc_append_history share_history
 compinit
 _comp_options+=(globdots)
+fast-theme clean &>/dev/null
