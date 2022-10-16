@@ -284,3 +284,8 @@ git-*
 .local/share/npm/lib/node_modules/emmet-ls
 
 .local/share/npm/bin/emmet-ls
+.config/Postbird
+.config/Sqlectron
+.config/TOra
+.config/lazygit
+.config/sqlectron
