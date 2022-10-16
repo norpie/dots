@@ -57,6 +57,7 @@ set.spelllang = 'nl,en'
 set.laststatus = 2
 set.showmode = false
 set.conceallevel = 0
+set.showtabline = 0
 
 set.guifont = 'LiterationMono Nerd Font:h15'
 
