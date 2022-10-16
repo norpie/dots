@@ -1,2 +1,2 @@
 --vim.cmd('colorscheme nord')
-vim.cmd('colorscheme nordfox')
+vim.cmd('colorscheme gruvbox')
