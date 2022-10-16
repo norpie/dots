@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+/opt/sqlectron/sqlectron --no-sandbox
