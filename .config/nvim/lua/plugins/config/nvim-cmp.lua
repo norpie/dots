@@ -3,6 +3,45 @@ local lspkind = require('lspkind')
 
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 
+local lsp = {
+  float = {
+    focusable = true,
+    style = "minimal",
+    border = "rounded",
+  },
+  diagnostic = {
+    virtual_text = { spacing = 4, prefix = "●" },
+    underline = true,
+    update_in_insert = true,
+    severity_sort = true,
+    float = {
+      focusable = true,
+      style = "minimal",
+      border = "rounded",
+    },
+  },
+}
+
+-- Diagnostic signs
+local diagnostic_signs = {
+  { name = "DiagnosticSignError", text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignHint", text = "" },
+  { name = "DiagnosticSignInfo", text = "" },
+}
+for _, sign in ipairs(diagnostic_signs) do
+  vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })
+end
+
+-- Diagnostic configuration
+vim.diagnostic.config(lsp.diagnostic)
+
+-- Hover configuration
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, lsp.float)
+
+-- Signature help configuration
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, lsp.float)
+
 cmp.setup({
     completion = {
         completeopt = 'menu,menuone,noinsert'
@@ -52,7 +91,6 @@ cmp.setup({
         { name = 'path' },
     }),
     experimental = {
-        native_menu = false,
         ghost_text = true,
     },
     formatting = {
@@ -72,23 +110,11 @@ cmp.setup({
     }
 })
 
-local sign = function(opts)
-  vim.fn.sign_define(opts.name, {
-    texthl = opts.name,
-    text = opts.text,
-    numhl = ''
-  })
-end
 
-sign({name = 'DiagnosticSignError', text = '✘'})
-sign({name = 'DiagnosticSignWarn', text = '▲'})
-sign({name = 'DiagnosticSignHint', text = '⚑'})
-sign({name = 'DiagnosticSignInfo', text = ''})
+-- Setup lspconfig
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-local servers = {'cssls', 'jsonls', 'tsserver', 'pylsp', 'pyright', 'texlab', 'clangd', 'vimls', "rust_analyzer"}
+local servers = {'cssls', 'jsonls', 'tsserver', 'pylsp', 'pyright', 'texlab', 'clangd', 'vimls', 'rust_analyzer'}
 
 for _, lsp in pairs(servers) do
     require('lspconfig')[lsp].setup {
@@ -103,18 +129,53 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require'lspconfig'.emmet_ls.setup{
+local lspconfig = require('lspconfig')
+
+--lspconfig.rust_analyzer.setup{
+--    --root_dir = lspconfig.util.root_pattern('Cargo.toml'),
+--    --settings = {
+--    --    cachePriming = {
+--    --        enable = true
+--    --    },
+--    --    procMacro = {
+--    --        enable = true
+--    --    },
+--    --    diagnostics = {
+--    --        enable = true,
+--    --        enableExperimental = true,
+--    --    },
+--    --    hoverActions = {
+--    --        enable = true,
+--    --        debug = true,
+--    --        gotoTypeDef = true,
+--    --        implementations = true,
+--    --        run = true,
+--    --        linksInHover = true,
+--    --    },
+--    --    inlayHints = {
+--    --      chainingHints = true,
+--    --      parameterHints = true,
+--    --      typeHints = true,
+--    --    },
+--    --},
+--    init_options = {
+--        provideFormatter = true
+--    },
+--    capabilities = capabilities,
+--}
+
+lspconfig.emmet_ls.setup{
     filetypes = { "html", "tera", "htmldjango", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" }
 }
 
-require 'lspconfig'.html.setup {
+lspconfig.html.setup {
     capabilities = capabilities,
     filetypes = { 'html', 'tera', 'htmldjango' },
 }
 
-require'lspconfig'.jdtls.setup{ cmd = { 'jdtls' } }
+lspconfig.jdtls.setup{ cmd = { 'jdtls' } }
 
-require('lspconfig')['sumneko_lua'].setup {
+lspconfig.sumneko_lua.setup {
     settings = {
         Lua = {
             runtime = {
