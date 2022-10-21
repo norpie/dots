@@ -290,3 +290,4 @@ git-*
 .config/lazygit
 .config/sqlectron
 .config/nvim/.archive
+.config/nvim-old
