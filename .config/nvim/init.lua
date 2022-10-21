@@ -4,6 +4,13 @@ if present then
     impatient.enable_profile()
 end
 
+if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/plugins.lua") == 1 then
+    local ok, err = pcall(require, "plugins")
+    if not ok then
+        vim.notify("Error loading plugins init.lua\n\n" .. err)
+    end
+end
+
 local core_modules = {
     "core.options",
     "core.autocmd",
@@ -14,19 +21,5 @@ for _, module in ipairs(core_modules) do
     local ok, err = pcall(require, module)
     if not ok then
         vim.notify("Error loading " .. module .. "\n\n" .. err)
-    end
-end
-
-if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/plugins/init.lua") == 1 then
-    local ok, err = pcall(require, "plugins")
-    if not ok then
-        vim.notify("Error loading plugins init.lua\n\n" .. err)
-    end
-end
-
-if vim.fn.filereadable(vim.fn.stdpath "config" .. "/lua/user/init.lua") == 1 then
-    local ok, err = pcall(require, "user")
-    if not ok then
-        vim.notify("Error loading user init.lua\n\n" .. err)
     end
 end

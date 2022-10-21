@@ -7,7 +7,7 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-vim.g.mapleader = '<'
+vim.g.mapleader = ' '
 
 -- Modes
 --   normal_mode = "n",
@@ -19,19 +19,21 @@ vim.g.mapleader = '<'
 
 map('n', '<Leader>z', ':ZenMode<CR>', { silent = true })
 
+map('n', '<Leader>o', ':NvimTreeToggle<CR>', { silent = true })
+map('n', '<C-p>', ':Telescope find_files<cr>', { silent = true })
+
 map('', 'j', 'gj')
 map('', 'k', 'gk')
 map('', 'Q', 'q')
 
-map('i', '.', '.<C-g>u', { noremap = true })
 map('i', ',', ',<C-g>u', { noremap = true })
+map('i', '.', '.<C-g>u', { noremap = true })
 map('i', '!', '!<C-g>u', { noremap = true })
 map('i', '?', '?<C-g>u', { noremap = true })
 map('i', ':', ':<C-g>u', { noremap = true })
 map('i', ';', ';<C-g>u', { noremap = true })
 
-map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true })
-map('n', '<C-p>', ':Telescope find_files<cr>', { silent = true })
+map('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = true }) -- Spelling
 
 map('n', '<Leader>ps', ':PackerSync<CR>')
 map('n', '<Leader>pi', ':PackerInstall<CR>')
@@ -51,16 +53,18 @@ map('n', '<Leader>sh', ':split<CR>')
 map('n', '<Leader>sv', ':vsplit<CR>')
 map('n', '<Leader>st', ':tabedit %<CR>')
 
-map('n', 'zd', ':lua vim.lsp.buf.definition()<CR>')
-map('n', 'zo', ':lua vim.lsp.buf.type_definition()<CR>')
-map('n', 'zh', ':lua vim.lsp.buf.hover()<CR>')
-map('n', 'zf', ':lua vim.lsp.buf.format()<CR>')
-map('n', 'zr', ':lua vim.lsp.buf.rename()<CR>')
-map('n', 'zq', ':lua vim.lsp.buf.code_action()<CR>')
+map('n', '<Leader>d', ':lua vim.lsp.buf.definition()<CR>')
+map('n', '<Leader>p', ':lua vim.lsp.buf.type_definition()<CR>')
+map('n', '<Leader>h', ':lua vim.lsp.buf.hover()<CR>')
+map('n', '<Leader>f', ':lua vim.lsp.buf.format()<CR>')
+map('n', '<Leader>r', ':lua vim.lsp.buf.rename()<CR>')
+map('n', '<Leader>q', ':CodeActionMenu<CR>')
+map('n', '<Leader>u', ':SymbolsOutline<CR>')
 
-map('n', '<Leader>e', ':lua vim.diagnostic.open_float()<CR>')
-map('n', '<Leader>n', ':lua vim.diagnostic.goto_next()<CR>')
-map('n', '<Leader>p', ':lua vim.diagnostic.goto_prev()<CR>')
+map('n', '<Leader>tt', ':TroubleToggle<CR>')
+map('n', '<Leader>tq', ':TroubleToggle quickfix<CR>')
+map('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>')
+map('n', '<Leader>td', ':TroubleToggle document_diagnostics<CR>')
 
 map('n', 'Y', 'y$')
 
