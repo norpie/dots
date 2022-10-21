@@ -8,22 +8,22 @@ LAST_REPO=""
 
 function cd() {
     export LAST_DIR=$(pwd)
-	builtin cd "$@"
-	git rev-parse 2>/dev/null
+    builtin cd "$@"
+    git rev-parse 2>/dev/null
 
-	if [ $? -eq 0 ]; then
-		if [ "$LAST_REPO" != $(basename $(git rev-parse --show-toplevel)) ]; then
-			onefetch
-			LAST_REPO=$(basename $(git rev-parse --show-toplevel))
-		fi
-	fi
+    if [ $? -eq 0 ]; then
+        if [ "$LAST_REPO" != $(basename $(git rev-parse --show-toplevel)) ]; then
+            onefetch
+            LAST_REPO=$(basename $(git rev-parse --show-toplevel))
+        fi
+    fi
 }
 
 function back() {
     cd $LAST_DIR
 }
 
-function ctrl-p() {
+function telescope() {
     file=$(find | fzf --preview 'pygmentize {}')
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && $EDITOR $file

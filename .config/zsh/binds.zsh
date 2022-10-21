@@ -27,6 +27,8 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
+bindkey -s '^P' 'telescope\n'
+
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
