@@ -1,108 +1,19 @@
-!Nord definitions
-#define nord0       #2E3440
-#define nord1       #3B4252
-#define nord2       #434C5E
-#define nord3       #4C566A
-#define nord4       #D8DEE9
-#define nord5       #E5E9F0
-#define nord6       #ECEFF4
-#define nord7       #8FBCBB
-#define nord8       #88C0D0
-#define nord9       #81A1C1
-#define nord10      #5E81AC
-#define nord11      #BF616A
-#define nord12      #D08770
-#define nord13      #EBCB8B
-#define nord14      #A3BE8C
-#define nord15      #B48EAD
-
-! gruvbox definitions
-#define gruvboxbg #282828
-#define gruvboxfg #ebdbb2
-! Black + DarkGrey
-#define gruvbox0  #282828
-#define gruvbox8  #928374
-! DarkRed + Red
-#define gruvbox1  #cc241d
-#define gruvbox9  #fb4934
-! DarkGreen + Green
-#define gruvbox2  #98971a
-#define gruvbox10 #b8bb26
-! DarkYellow + Yellow
-#define gruvbox3  #d79921
-#define gruvbox11 #fabd2f
-! DarkBlue + Blue
-#define gruvbox4  #458588
-#define gruvbox12 #83a598
-! DarkMagenta + Magenta
-#define gruvbox5  #b16286
-#define gruvbox13 #d3869b
-! DarkCyan + Cyan
-#define gruvbox6  #689d6a
-#define gruvbox14 #8ec07c
-! LightGrey + White
-#define gruvbox7  #a89984
-#define gruvbox15 #ebdbb2
-
-dmenu.background:   gruvboxbg
-dmenu.selbackground:gruvbox9
-dmenu.foreground:   gruvboxfg
-dmenu.selforeground:gruvbox15
-
-dwm.normbgcolor:    gruvboxbg
-dwm.normfgcolor:    gruvboxfg
-dwm.selbgcolor:     gruvboxfg
-dwm.selfgcolor:     gruvboxbg
-! dwm.normbordercolor:gruvbox8
-! dwm.selbordercolor: gruvbox9
-
-! hard contrast: st.background: #1d2021
-st.background: #282828
-! soft contrast: st.background: #32302f
-st.foreground: #ebdbb2
-! Black + DarkGrey
-st.color0:  #282828
-st.color8:  #928374
-! DarkRed + Red
-st.color1:  #cc241d
-st.color9:  #fb4934
-! DarkGreen + Green
-st.color2:  #98971a
-st.color10: #b8bb26
-! DarkYellow + Yellow
-st.color3:  #d79921
-st.color11: #fabd2f
-! DarkBlue + Blue
-st.color4:  #458588
-st.color12: #83a598
-! DarkMagenta + Magenta
-st.color5:  #b16286
-st.color13: #d3869b
-! DarkCyan + Cyan
-st.color6:  #689d6a
-st.color14: #8ec07c
-! LightGrey + White
-st.color7:  #a89984
-st.color15: #ebdbb2
-
-!st.foreground:      nord4
-!st.background:      nord0
-!st.cursorColor:     nord4
-!fading:             35
-!fadeColor:          nord3
-!st.color0:          nord1
-!st.color1:          nord11
-!st.color2:          nord14
-!st.color3:          nord13
-!st.color4:          nord9
-!st.color5:          nord15
-!st.color6:          nord8
-!st.color7:          nord5
-!st.color8:          nord3
-!st.color9:          nord11
-!st.color10:         nord14
-!st.color11:         nord13
-!st.color12:         nord9
-!st.color13:         nord15
-!st.color14:         nord7
-!st.color15:         nord6
+! Dracula Xresources palette
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
