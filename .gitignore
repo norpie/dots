@@ -289,3 +289,4 @@ git-*
 .config/TOra
 .config/lazygit
 .config/sqlectron
+.config/nvim/.archive
