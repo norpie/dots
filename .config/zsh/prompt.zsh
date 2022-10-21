@@ -32,7 +32,7 @@ White="%F{15}"
 
 Better_Blue="%F{27}"
 
-export EMPHESIS_COLOR_START="$Red$BOLD_START"
+export EMPHESIS_COLOR_START="$Blue$BOLD_START"
 export EMPHESIS_COLOR_STOP="$White$BOLD_STOP"
 
 local git_branch='$(git branch-name)'
