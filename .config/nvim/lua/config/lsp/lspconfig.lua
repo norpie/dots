@@ -2,20 +2,34 @@ local M = {}
 
 function M.setup()
     local on_attach = function(client, bufnr)
-      vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics, {
-          -- disable virtual text
-          virtual_text = true;
+        require("aerial").on_attach(client, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+            -- disable virtual text
+            virtual_text = true;
 
-          -- show signs
-          signs = true,
+            -- show signs
+            signs = true,
 
-          -- show_diagnostic_autocmds = { "BufWritePost" },
-          show_diagnostic_autocmds = { "InsertLeave", "CursorHoldI" },
+            -- show_diagnostic_autocmds = { "BufWritePost" },
+            show_diagnostic_autocmds = { "InsertLeave", "CursorHoldI" },
         }
-      )
+        )
     end
+
+    local rt = require("rust-tools")
+
+    rt.setup({
+        server = {
+            on_attach = function(_, bufnr)
+                -- Hover actions
+                vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+                -- Code action groups
+                vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+            end,
+        },
+    })
 
     local servers = {
         'cssls',
@@ -29,7 +43,7 @@ function M.setup()
         'texlab',
         'clangd',
         'vimls',
-        'rust_analyzer',
+        --'rust_analyzer',
         'sumneko_lua'
     }
     local capabilities = require('cmp_nvim_lsp').default_capabilities()

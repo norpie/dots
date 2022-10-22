@@ -29,6 +29,12 @@ function M.setup()
             -- Instead of true it can also be a list of languages
             additional_vim_regex_highlighting = 'latex'
         },
+        endwise = {
+            enable = true,
+        },
+        markid = {
+            enable = true
+        },
         rainbow = {
             enable = true,
             extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean

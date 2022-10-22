@@ -19,7 +19,6 @@ vim.g.mapleader = ' '
 
 map('n', '<Leader>z', ':ZenMode<CR>', { silent = true })
 
-map('n', '<Leader>o', ':NvimTreeToggle<CR>', { silent = true })
 map('n', '<C-p>', ':Telescope find_files<cr>', { silent = true })
 
 map('', 'j', 'gj')
@@ -59,12 +58,16 @@ map('n', '<Leader>h', ':lua vim.lsp.buf.hover()<CR>')
 map('n', '<Leader>f', ':lua vim.lsp.buf.format()<CR>')
 map('n', '<Leader>r', ':lua vim.lsp.buf.rename()<CR>')
 map('n', '<Leader>q', ':CodeActionMenu<CR>')
-map('n', '<Leader>u', ':SymbolsOutline<CR>')
 
 map('n', '<Leader>tt', ':TroubleToggle<CR>')
 map('n', '<Leader>tq', ':TroubleToggle quickfix<CR>')
 map('n', '<Leader>tw', ':TroubleToggle workspace_diagnostics<CR>')
 map('n', '<Leader>td', ':TroubleToggle document_diagnostics<CR>')
+
+map('n', '<Leader>ot', ':NvimTreeToggle<CR>', { silent = true })
+map('n', '<Leader>os', ':SymbolsOutline<CR>')
+map('n', '<Leader>oa', ':AerialToggle!<CR>')
+map('n', '<Leader>oc', ':Telescope cder<CR>')
 
 map('n', 'Y', 'y$')
 
