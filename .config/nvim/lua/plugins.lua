@@ -16,7 +16,7 @@ local plugins = {
     'RRethy/vim-illuminate',
     'nacro90/numb.nvim',
     'folke/zen-mode.nvim',
-    'levouh/tint.nvim',
+    --'levouh/tint.nvim',
     'folke/twilight.nvim',
     'petertriho/nvim-scrollbar',
     'folke/noice.nvim',
