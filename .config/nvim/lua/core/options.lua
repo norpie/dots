@@ -19,13 +19,17 @@ g.vim_markdown_toml_frontmatter = 1  -- for TOML format
 g.vim_markdown_json_frontmatter = 1  -- for JSON format
 
 -- autosave
-
 g.auto_save_silent = 1
 g.auto_save = 1
 
+-- leader
+g.mapleader = ' '
+
 set.encoding = 'utf8'
 
-set.completeopt = {'menu', 'menuone', 'noselect'}
+--set.completeopt = {'menu', 'menuone', 'noselect'}
+
+vim.wo.fillchars = 'eob: '
 
 set.relativenumber = true
 set.hlsearch = true
@@ -41,7 +45,7 @@ set.smartindent = true
 set.number = true
 set.mouse = 'a'
 set.cursorline = true
-set.wrap = true
+set.wrap = false
 set.ruler = true
 set.foldenable = false
 
@@ -58,7 +62,7 @@ set.termguicolors = true
 set.scrolloff = 20
 set.cmdheight = 0
 set.updatetime = 25
-set.background = 'dark'
+--set.background = 'dark'
 set.spelllang = 'nl,en'
 set.laststatus = 3
 set.showmode = false

@@ -11,7 +11,6 @@ local plugins = {
     -- Visual+
     'lukas-reineke/indent-blankline.nvim',
     'norcalli/nvim-colorizer.lua',
-    'zbirenbaum/neodim', -- BUG: no worky
     'folke/todo-comments.nvim',
     'David-Kunz/markid',
     'RRethy/vim-illuminate',
@@ -35,12 +34,20 @@ local plugins = {
     'matze/vim-move',
     'godlygeek/tabular',
 
+    -- Move+
+    'phaazon/hop.nvim',
+
     -- Statusline
     {
         'nvim-lualine/lualine.nvim',
         config = function()
-            require('config/lualine').setup()
-        end
+            require('config/status').setup()
+        end,
+        requires = {
+            'tiagovla/scope.nvim',
+            --'akinsho/bufferline.nvim',
+            'b0o/incline.nvim'
+        }
     },
 
     -- Telescope
@@ -50,7 +57,7 @@ local plugins = {
             'Zane-/cder.nvim', -- BUG: change config to only show working dir and subs
         },
         config = function()
-            require('config.telescope')
+            require('config/telescope')
         end
     },
 
@@ -60,7 +67,8 @@ local plugins = {
         requires = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            --'mfussenegger/nvim-jdtls', --TODO: java
+            --'jose-elias-alvarez/null-ls.nvim' -- TODO: more research
+            --'mfussenegger/nvim-jdtls', -- TODO: java
             'simrat39/rust-tools.nvim',
             'simrat39/symbols-outline.nvim',
             'weilbith/nvim-code-action-menu',
@@ -68,17 +76,7 @@ local plugins = {
             'saecki/crates.nvim',
             'kosayoda/nvim-lightbulb',
             'antoinemadec/FixCursorHold.nvim',
-            --{
-            --    "glepnir/lspsaga.nvim",
-            --    branch = "main",
-            --    config = function()
-            --        local saga = require("lspsaga") TODO: Figure out if iterests
-
-            --        saga.init_lsp_saga({
-            --            -- your configuration
-            --        })
-            --    end,
-            --},
+            "glepnir/lspsaga.nvim", -- TODO: Figure out if iterests
         },
         config = function()
             require('config/lsp').setup()
@@ -110,9 +108,9 @@ local plugins = {
             'nvim-treesitter/nvim-treesitter-context',
             'm-demare/hlargs.nvim',
             'RRethy/nvim-treesitter-endwise',
-            --'nvim-treesitter/nvim-treesitter-textobjects', -- TODO: figure out
-            --'RRethy/nvim-treesitter-textsubjects',
-            --'mfussenegger/nvim-treehopper',
+            'nvim-treesitter/nvim-treesitter-textobjects', --TODO: config
+            'RRethy/nvim-treesitter-textsubjects', --TODO: config
+            'mfussenegger/nvim-treehopper',
         },
         run = ':TSUpdate',
         config = function()
@@ -135,6 +133,14 @@ local plugins = {
     -- Startup
     { 'lewis6991/impatient.nvim' }
     -- TODO: add alpha
+}
+
+local extra_configs = {
+    'theme',
+    'visual',
+    'edit',
+    'move',
+    'misc'
 }
 
 vim.cmd 'packadd packer.nvim'
@@ -184,15 +190,7 @@ packer.startup(function(use)
     for _, v in pairs(plugins) do
         use(v)
     end
+    for _, config in pairs(extra_configs) do
+        require('config.' .. config).setup()
+    end
 end)
-
-local extra_configs = {
-    'theme',
-    'visual',
-    'edit',
-    'misc'
-}
-
-for _, config in pairs(extra_configs) do
-    require('config.' .. config).setup()
-end
