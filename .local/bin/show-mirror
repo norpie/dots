@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+ffplay -fs -i /dev/video0
