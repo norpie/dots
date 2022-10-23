@@ -41,6 +41,7 @@ function M.setup()
             max_file_lines = nil, -- Do not enable for files with more than n lines, int
         }
     }
+    require('aerial').setup()
 end
 
 return M

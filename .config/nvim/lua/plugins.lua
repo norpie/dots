@@ -1,130 +1,45 @@
 local plugins = {
     -- Packer can manage itself
-    { 'wbthomason/packer.nvim' },
+    'wbthomason/packer.nvim',
 
-    -- Color themes
-    { 'ellisonleao/gruvbox.nvim' },
-    { 'Mofiqul/dracula.nvim' },
-    { 'folke/tokyonight.nvim' },
-    { 'catppuccin/nvim' },
+    -- Theme+
+    'ellisonleao/gruvbox.nvim',
+    'Mofiqul/dracula.nvim',
+    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
 
-    -- UI changes
-    { 'stevearc/dressing.nvim' },
-    { 'rcarriga/nvim-notify' },
-    {
-        'stevearc/aerial.nvim',
-        config = function()
-            require('aerial').setup()
-        end
-    },
-    {
-        'nvim-tree/nvim-tree.lua',
-        config = function()
-            require('nvim-tree').setup()
-        end
-    },
-    {
-        'folke/noice.nvim',
-        event = 'VimEnter',
-        config = function()
-            require('noice').setup()
-        end,
-        requires = {
-            'MunifTanjim/nui.nvim',
-        }
-    },
-    {
-        'petertriho/nvim-scrollbar',
-        config = function()
-            require('scrollbar').setup() -- FIX: not showing up
-        end
-    },
+    -- Visual+
+    'lukas-reineke/indent-blankline.nvim',
+    'norcalli/nvim-colorizer.lua',
+    'zbirenbaum/neodim', -- BUG: no worky
+    'folke/todo-comments.nvim',
+    'David-Kunz/markid',
+    'RRethy/vim-illuminate',
+    'nacro90/numb.nvim',
+    'folke/zen-mode.nvim',
+    'levouh/tint.nvim',
+    'folke/twilight.nvim',
+    'petertriho/nvim-scrollbar',
+    'folke/noice.nvim',
+    'stevearc/dressing.nvim',
+    'stevearc/aerial.nvim',
+    'nvim-tree/nvim-tree.lua',
 
-    -- Appearance
-    { 'folke/zen-mode.nvim' },
-    { 'levouh/tint.nvim' },
-    { 'folke/twilight.nvim' },
+    -- Edit+
+    'wellle/targets.vim',
+    'kylechui/nvim-surround',
+    'AndrewRadev/splitjoin.vim',
+    'windwp/nvim-autopairs',
+    'McAuleyPenney/tidy.nvim',
+    'abecodes/tabout.nvim',
+    'matze/vim-move',
+    'godlygeek/tabular',
 
-    -- Qol plugins
-    { 'matze/vim-move' },
-    { 'godlygeek/tabular' },
-    {
-        'nacro90/numb.nvim',
-        config = function()
-            require('numb').setup()
-        end
-    },
-    {
-        'McAuleyPenney/tidy.nvim',
-        config = function()
-            require('tidy').setup()
-        end
-    },
-    {
-        'abecodes/tabout.nvim',
-        after = {
-            'nvim-cmp'
-        },
-        config = function()
-            require('config.tabout').setup()
-        end
-    },
-
-    -- Code editing
-    {
-        'windwp/nvim-autopairs',
-        config = function()
-            require('nvim-autopairs').setup()
-        end
-    },
-    { 'AndrewRadev/splitjoin.vim' },
-
-    -- Code helpers
-    { 'RRethy/vim-illuminate' },
-    { 'David-Kunz/markid' },
-    {
-        'zbirenbaum/neodim', -- BUG: no worky
-        event = "LspAttach",
-        config = function()
-            require('config.neodim').setup()
-        end
-    },
-    {
-        'folke/todo-comments.nvim',
-        config = function()
-            require('todo-comments').setup()
-        end
-    },
-    {
-        'norcalli/nvim-colorizer.lua',
-        config = function()
-            require('colorizer').setup()
-        end
-    },
-    {
-        'lukas-reineke/indent-blankline.nvim',
-        config = function()
-            require('indent_blankline').setup()
-        end
-    },
-
-    -- Movement
-    { 'wellle/targets.vim' },
-
-    -- netrw
-    { 'tpope/vim-vinegar' },
-
-    -- Lualine
+    -- Statusline
     {
         'nvim-lualine/lualine.nvim',
-        requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require('config/lualine').setup()
-        end
-    },
-    { 'kylechui/nvim-surround',
-        config = function()
-            require('nvim-surround').setup()
         end
     },
 
@@ -135,7 +50,7 @@ local plugins = {
             'Zane-/cder.nvim', -- BUG: change config to only show working dir and subs
         },
         config = function()
-            require('telescope').load_extension('cder')
+            require('config.telescope')
         end
     },
 
@@ -143,8 +58,16 @@ local plugins = {
     {
         'neovim/nvim-lspconfig',
         requires = {
+            'williamboman/mason.nvim',
+            'williamboman/mason-lspconfig.nvim',
             --'mfussenegger/nvim-jdtls', --TODO: java
             'simrat39/rust-tools.nvim',
+            'simrat39/symbols-outline.nvim',
+            'weilbith/nvim-code-action-menu',
+            'folke/trouble.nvim',
+            'saecki/crates.nvim',
+            'kosayoda/nvim-lightbulb',
+            'antoinemadec/FixCursorHold.nvim',
             --{
             --    "glepnir/lspsaga.nvim",
             --    branch = "main",
@@ -156,44 +79,6 @@ local plugins = {
             --        })
             --    end,
             --},
-            {
-                'saecki/crates.nvim',
-                event = { "BufRead Cargo.toml" },
-                requires = { { 'nvim-lua/plenary.nvim' } },
-                config = function()
-                    require('crates').setup()
-                end,
-            },
-            {
-                'simrat39/symbols-outline.nvim',
-                config = function()
-                    require('symbols-outline').setup()
-                end
-            },
-            {
-                'kosayoda/nvim-lightbulb',
-                requires = 'antoinemadec/FixCursorHold.nvim',
-                config = function()
-                    require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
-                end
-            },
-            {
-                'weilbith/nvim-code-action-menu',
-                cmd = 'CodeActionMenu',
-            },
-            {
-                'folke/trouble.nvim',
-                requires = 'kyazdani42/nvim-web-devicons',
-                config = function()
-                    require('trouble').setup()
-                end
-            },
-            {
-                'williamboman/mason.nvim',
-                requires = {
-                    'williamboman/mason-lspconfig.nvim'
-                }
-            }
         },
         config = function()
             require('config/lsp').setup()
@@ -226,7 +111,7 @@ local plugins = {
             'm-demare/hlargs.nvim',
             'RRethy/nvim-treesitter-endwise',
             --'nvim-treesitter/nvim-treesitter-textobjects', -- TODO: figure out
-            --'nvim-treesitter-textsubjects',
+            --'RRethy/nvim-treesitter-textsubjects',
             --'mfussenegger/nvim-treehopper',
         },
         run = ':TSUpdate',
@@ -235,11 +120,21 @@ local plugins = {
         end
     },
 
-    -- Util
-    --{'907th/vim-auto-save'},
+    --{'907th/vim-auto-save'}, --TODO: Find alternative
+
+    -- Multi dependancies
+    'MunifTanjim/nui.nvim',
+    { 'rcarriga/nvim-notify' },
     { 'nvim-lua/popup.nvim' },
     { 'nvim-lua/plenary.nvim' },
+    { 'kyazdani42/nvim-web-devicons' },
+
+    -- netrw
+    { 'tpope/vim-vinegar' },
+
+    -- Startup
     { 'lewis6991/impatient.nvim' }
+    -- TODO: add alpha
 }
 
 vim.cmd 'packadd packer.nvim'
@@ -285,8 +180,19 @@ packer.init {
     compile_on_sync = true,
 }
 
-return packer.startup(function(use)
+packer.startup(function(use)
     for _, v in pairs(plugins) do
         use(v)
     end
 end)
+
+local extra_configs = {
+    'theme',
+    'visual',
+    'edit',
+    'misc'
+}
+
+for _, config in pairs(extra_configs) do
+    require('config.' .. config).setup()
+end

@@ -68,5 +68,3 @@ set.showtabline = 0
 set.guifont = 'LiterationMono Nerd Font:h15'
 
 g.neovide_transparency=0.9
-
-vim.cmd('colorscheme tokyonight')
