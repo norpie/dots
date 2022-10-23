@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $# != 1 ]] && echo "Usage: chrome-bookmarks <file>" && exit 1
+
+for-file-line $1 chrome
