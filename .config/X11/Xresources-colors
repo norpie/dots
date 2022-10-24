@@ -41,7 +41,7 @@ st.color15:    color15
 ! dmenu
 dmenu.foreground:   fg
 dmenu.background:   bg
-dmenu.selforeground:color8
+dmenu.selforeground:fg
 dmenu.selbackground:color4
 
 ! dwm
@@ -52,7 +52,7 @@ dwm.selfgcolor:          fg
 dwm.selbgcolor:          bg
 dwm.tagsnormfgcolor:     fg
 dwm.tagsnormbgcolor:     bg
-dwm.tagsselfgcolor:      color8
+dwm.tagsselfgcolor:      fg
 dwm.tagsselbgcolor:      color4
 
 ! dwm borders
