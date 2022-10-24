@@ -1,0 +1,54 @@
+! Dracula Xresources palette
+#define fg      #F8F8F2
+#define bg      #282A36
+#define color0  #000000
+#define color8  #4D4D4D
+#define color1  #FF5555
+#define color9  #FF6E67
+#define color2  #50FA7B
+#define color10 #5AF78E
+#define color3  #F1FA8C
+#define color11 #F4F99D
+#define color4  #BD93F9
+#define color12 #CAA9FA
+#define color5  #FF79C6
+#define color13 #FF92D0
+#define color6  #8BE9FD
+#define color14 #9AEDFE
+#define color7  #BFBFBF
+#define color15 #E6E6E6
+
+
+! st
+st.foreground: fg
+st.background: bg
+st.color0:     color0
+st.color8:     color8
+st.color1:     color1
+st.color9:     color9
+st.color2:     color2
+st.color10:    color10
+st.color3:     color3
+st.color11:    color11
+st.color4:     color4
+st.color12:    color12
+st.color5:     color5
+st.color13:    color13
+st.color6:     color6
+st.color14:    color14
+st.color7:     color7
+st.color15:    color15
+
+! dmenu
+dmenu.background:   nord0
+dmenu.selbackground:nord1
+dmenu.foreground:   nord4
+dmenu.selforeground:nord5
+
+! dwm
+dwm.normbordercolor:nord8
+dwm.normbgcolor:    nord0
+dwm.normfgcolor:    nord4
+dwm.selbordercolor: nord9
+dwm.selbgcolor:     nord1
+dwm.selfgcolor:     nord5
