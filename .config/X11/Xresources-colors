@@ -18,7 +18,6 @@
 #define color7  #BFBFBF
 #define color15 #E6E6E6
 
-
 ! st
 st.foreground: fg
 st.background: bg
@@ -40,15 +39,46 @@ st.color7:     color7
 st.color15:    color15
 
 ! dmenu
-dmenu.background:   nord0
-dmenu.selbackground:nord1
-dmenu.foreground:   nord4
-dmenu.selforeground:nord5
+dmenu.foreground:   fg
+dmenu.background:   bg
+dmenu.selforeground:color8
+dmenu.selbackground:color4
 
 ! dwm
-dwm.normbordercolor:nord8
-dwm.normbgcolor:    nord0
-dwm.normfgcolor:    nord4
-dwm.selbordercolor: nord9
-dwm.selbgcolor:     nord1
-dwm.selfgcolor:     nord5
+
+dwm.normfgcolor:         fg
+dwm.normbgcolor:         bg
+dwm.selfgcolor:          fg
+dwm.selbgcolor:          bg
+dwm.tagsnormfgcolor:     fg
+dwm.tagsnormbgcolor:     bg
+dwm.tagsselfgcolor:      color8
+dwm.tagsselbgcolor:      color4
+
+! dwm borders
+! dwm.normbordercolor:color0
+! dwm.selbordercolor: color0
+! dwm.tagsselbordercolor:  color0
+! dwm.tagsnormbordercolor: color0
+! dwm.titleselbordercolor: color0
+! dwm.titlenormbordercolor:color0
+! dwm.selbordercolor:      color0
+
+! dwm.tagsselfloatcolor:   color0
+! dwm.normfloatcolor:      color0
+! dwm.selfloatcolor:       color0
+! dwm.titlenormfgcolor:    color0
+! dwm.titlenormbgcolor:    color0
+! dwm.titlenormfloatcolor: color0
+! dwm.titleselfgcolor:     color0
+! dwm.titleselbgcolor:     color0
+! dwm.titleselfloatcolor:  color0
+! dwm.tagsnormfloatcolor:  color0
+! dwm.hidnormfgcolor:      color0
+! dwm.hidnormbgcolor:      color0
+! dwm.hidselfgcolor:       color0
+! dwm.hidselbgcolor:       color0
+! dwm.urgfgcolor:          color0
+! dwm.urgbgcolor:          color0
+! dwm.urgbordercolor:      color0
+! dwm.urgfloatcolor:       color0
