@@ -67,7 +67,7 @@ local plugins = {
         requires = {
             'williamboman/mason.nvim',
             'williamboman/mason-lspconfig.nvim',
-            --'jose-elias-alvarez/null-ls.nvim' -- TODO: more research
+            'jose-elias-alvarez/null-ls.nvim', -- TODO: more research
             --'mfussenegger/nvim-jdtls', -- TODO: java
             'simrat39/rust-tools.nvim',
             'simrat39/symbols-outline.nvim',
