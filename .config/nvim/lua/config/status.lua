@@ -4,42 +4,36 @@ function M.setup()
     local lualine = {
         options = {
             icons_enabled = true,
-            theme = 'catppuccin',
-            component_separators = { left = '', right = '' },
-            section_separators = { left = '', right = '' },
-            disabled_filetypes = {
-                statusline = {},
-                winbar = {},
-            },
-            ignore_focus = {},
+            theme = 'auto', -- based on current vim colorscheme
+            -- not a big fan of fancy triangle separators
+            component_separators = { left = '', right = '' },
+            section_separators = { left = '', right = '' },
+            disabled_filetypes = {},
             always_divide_middle = true,
-            globalstatus = true,
-            refresh = {
-                statusline = 1000,
-                tabline = 1000,
-                winbar = 1000,
-            }
         },
         sections = {
+            -- left
             lualine_a = { 'mode' },
-            lualine_b = { 'diagnostics' },
-            lualine_x = { 'filename' },
-            --lualine_x = {'encoding', 'fileformat', 'filetype'},
-            lualine_c = { 'buffers' },
-            lualine_y = {}, --'progress'--},
-            lualine_z = {} --'location'}
+            lualine_b = { 'branch', 'diff', 'diagnostics' },
+            lualine_c = { 'filename' },
+            -- right
+            lualine_x = { '' },
+            lualine_y = { 'filetype' },
+            lualine_z = { 'hostname' }
         },
         inactive_sections = {
-            lualine_a = {},
+            lualine_a = { 'filename' },
             lualine_b = {},
-            lualine_c = { 'filename' },
+            lualine_c = {},
             lualine_x = { 'location' },
             lualine_y = {},
             lualine_z = {}
-        }
+        },
+        tabline = {},
+        extensions = {}
     }
     local incline = {
-        render = function (props)
+        render = function(props)
             local bufname = vim.api.nvim_buf_get_name(props.buf)
             local res = bufname ~= '' and vim.fn.fnamemodify(bufname, ':t') or '[No Name]'
             if vim.api.nvim_buf_get_option(props.buf, 'modified') then
@@ -57,10 +51,6 @@ function M.setup()
             return res
         end,
         window = {
-            placement = {
-                vertical = 'top',
-                horizontal = 'right',
-            },
             margin = {
                 vertical = 0,
                 horizontal = 1,
