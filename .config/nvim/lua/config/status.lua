@@ -50,6 +50,11 @@ function M.setup()
 
             return res
         end,
+        hide = {
+            cursorline = false,
+            focused_win = false,
+            only_win = true
+        },
         window = {
             margin = {
                 vertical = 0,
