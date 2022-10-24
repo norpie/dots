@@ -4,3 +4,6 @@
 [submodule ".config/wallpapers"]
 	path = .config/wallpapers
 	url = https://github.com/norpie-dev/wallpapers
+[submodule ".config/.config/nvim"]
+	path = .config/.config/nvim
+	url = https://github.com/norpie-dev/nvim
