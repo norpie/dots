@@ -147,7 +147,7 @@ alias mkdir="mkdir -p"
 alias mv="mv -v"
 
 # Compiler flags
-alias g++="g++ -Wall -pedantic -std=c++11"
+alias g++="g++ -Wall -pedantic-errors -std=c++11"
 
 # Define home
 export HOME="/home/$USER"
