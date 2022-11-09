@@ -291,3 +291,4 @@ git-*
 .config/sqlectron
 .config/nvim/.archive
 .config/lingot
+.config/nvim-old
