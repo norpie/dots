@@ -292,3 +292,4 @@ git-*
 .config/nvim/.archive
 .config/lingot
 .config/nvim-old
+.config/obsidian
