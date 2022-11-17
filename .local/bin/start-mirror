@@ -1,6 +1,0 @@
-#!/bin/zsh
-
-#[[ $# != 1 ]] && echo "Usage: mirror <Last part of ip>" && exit 1
-
-ADB=$(which adb) scrcpy --select-tcpip & #--bit-rate=30M --max-fps=60 --lock-video-orientation --v4l2-sink=/dev/video0 --no-display &
-sndcpy
