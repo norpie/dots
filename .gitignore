@@ -293,3 +293,11 @@ git-*
 .config/lingot
 .config/nvim-old
 .config/obsidian
+.config/Bitcoin
+.config/Vial
+.config/apk-editor-studio
+.dotnet/corefx/cryptography
+.local/share/Vial
+.local/share/apktool/framework
+.local/share/loader/Loader
+.walletwasabi/client
