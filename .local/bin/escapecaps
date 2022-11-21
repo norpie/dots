@@ -1,3 +1,4 @@
 #!/usr/bin/zsh
 
+xdotool key Caps_Lock
 setxkbmap -option caps:escape

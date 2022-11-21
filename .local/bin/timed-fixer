@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+while true; do
+    output fix
+    escapecaps
+    sleep 10
+done
