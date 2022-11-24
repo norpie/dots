@@ -1,15 +1,8 @@
 #!/bin/sh
 
-userresources="$HOME/.config/X11/Xresources"
-
-# merge in defaults and keymaps
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
 # start some nice programs
 picom &
 escapecaps &
 ssh-add-defaults &
-xrdb &
+xresources-reload &
 dbus-launch startdwm

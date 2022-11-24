@@ -1,5 +1,20 @@
 #!/bin/zsh
 
-start-mirror &
-sleep 1 &&
-show-mirror
+pgrepkill sndcpy
+adb kill-server
+
+vared -p 'Last part of ip (192.168.0.xxx): ' -c part
+ip="192.168.0.$part"
+echo "Selected ip: $ip"
+
+adb tcpip 5555
+adb connect $ip
+list=$(adb devices)
+
+while [[ $(adb devices | wc -l) -eq 2 ]]; do
+    adb connect $ip
+done
+
+sndcpy &
+scrcpy --select-tcpip --bit-rate=30M --max-fps=60 --lock-video-orientation=0 &&
+    pgrepkill sndcpy && adb kill-server && sleep 5 && clear
