@@ -1,4 +1,4 @@
 #!/usr/bin/zsh
 
-xdotool key Caps_Lock
+[[ $(xset q | grep Caps | awk '{print $4}') == "on" ]] && xdotool key Caps_Lock
 setxkbmap -option caps:escape
