@@ -272,7 +272,6 @@ hs
 .config/Microsoft
 .config/teams
 git-*
-
 .config/Unknown Organization/pgmodeler.conf
 .config/pgmodeler-1.0
 .local/share/pgadmin4.d41d8cd98f00b204e9800998ecf8427e.log
@@ -282,7 +281,6 @@ git-*
 .local/share/pgadmin4.startup.log
 .mysql_history
 .local/share/npm/lib/node_modules/emmet-ls
-
 .local/share/npm/bin/emmet-ls
 .config/Postbird
 .config/Sqlectron
