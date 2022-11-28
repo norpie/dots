@@ -159,7 +159,6 @@ Downloads
 .config/torbrowser
 .config/Thunar
 .config/TabNine
-.config/systemd
 .config/syncthing
 .config/st
 .config/sqlitebrowser
@@ -299,3 +298,5 @@ git-*
 .local/share/apktool/framework
 .local/share/loader/Loader
 .walletwasabi/client
+.config/systemd/user/default.target.wants
+.config/systemd/user/sockets.target.wants
