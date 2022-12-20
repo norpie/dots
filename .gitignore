@@ -300,3 +300,5 @@ git-*
 .walletwasabi/client
 .config/systemd/user/default.target.wants
 .config/systemd/user/sockets.target.wants
+.config/dolphin-emu
+.local/share/dolphin-emu
