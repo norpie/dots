@@ -4,4 +4,4 @@ cd ~/.config/ssh/keys
 
 chmod 600 *
 
-ssh-add $(find -maxdepth 1 -type f ! -name "*.pub" ! -name "$HOST")
+ssh-add $(find -maxdepth 1 !-name ".git" -type f ! -name "*.pub" ! -name "$HOST")
