@@ -8,32 +8,32 @@ fi
 function is_original_directory() {
     if [[ -f $1/AUTOINSTALL ]]; then
         return 0
-    else 
+    else
         return 1
-    fi 
+    fi
 }
 
-function is_config_directory() {
-    if [[ -f ~/.config/$1/AUTOINSTALL ]]; then 
+function is_repos_directory() {
+    if [[ -f ~/repos/$1/AUTOINSTALL ]]; then
         return 0
-    else 
+    else
         return 1
     fi
 }
 
 function install_directory() {
     og_dir=$(pwd)
-    cd $1 
+    cd $1
     while read line; do
         eval $line
     done < AUTOINSTALL
     cd $og_dir
 }
 
-if is_original_directory $1; then 
+if is_original_directory $1; then
     install_directory "$1"
-elif is_config_directory $1; then
-    install_directory "$HOME/.config/$1"
-else 
+elif is_repos_directory $1; then
+    install_directory "$HOME/repos/$1"
+else
     echo "There is no directory $1, with an AUTOINSTALL file."
-fi 
+fi

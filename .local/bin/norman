@@ -11,8 +11,8 @@ install_repo() {
 for arg in "$@"; do
     echo "installing $arg"
     if [[ $arg =~ "/" ]]; then
-        install_repo $arg >/dev/null 2>&1 && echo "installed $arg"
+        install_repo $arg && echo "installed $arg"
     else
-        install_repo "norman-pkgs/$arg" >/dev/null 2>&1 && echo "installed $arg"
+        install_repo "norman-pkgs/$arg" && echo "installed $arg"
     fi
 done
