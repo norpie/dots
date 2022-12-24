@@ -4,7 +4,6 @@
 xrdb &
 xrdb -merge /home/norpie/.config/X11/Xresources &
 picom &
-escapecaps &
 ssh-add-defaults &
 xresources-reload &
 dbus-launch startdwm
