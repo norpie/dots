@@ -184,7 +184,7 @@ alias google-chrome="chrome"
 export JAVA_HOME="/usr/lib/jvm/default"
 alias python3="python"
 alias activate="source .venv/bin/activate"
-alias dotenv='export $(grep -v '^#' .env | xargs)'
+alias dotenv='source .env'
 
 # Config paths
 export SCRIPT_DIR="$HOME/.local/bin"
