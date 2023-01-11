@@ -16,6 +16,11 @@ Host vbox
 Host vm
     HostName 10.3.50.34
     Port 3048
+Host octopi
+    HostName 192.168.0.136
+    User pi
+Host pi
+    HostName 192.168.0.101
     User norpie
 Host *
     StrictHostKeyChecking no

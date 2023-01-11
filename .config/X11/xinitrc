@@ -2,7 +2,6 @@
 
 # start some nice programs
 xrdb &
-xrdb -merge /home/norpie/.config/X11/Xresources &
 picom &
 ssh-add-defaults &
 xresources-reload &
