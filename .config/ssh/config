@@ -13,6 +13,10 @@ Host laptop
 Host vbox
     HostName 192.168.122.1
     User norpie
+Host vm
+    HostName 10.3.50.34
+    Port 3048
+    User norpie
 Host *
     StrictHostKeyChecking no
     UserKnownHostsFile ~/.config/ssh/known_hosts
