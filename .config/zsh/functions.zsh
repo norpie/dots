@@ -14,7 +14,7 @@ function back() {
 }
 
 function telescope() {
-    file=$(find | fzf --preview 'pygmentize {}')
+    file=$(find | fzf --preview 'if [[ -d {} ]]; then; ls {}; else; pygmentize -g {}; fi;')
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && $EDITOR $file
 }
