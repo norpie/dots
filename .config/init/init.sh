@@ -7,4 +7,5 @@ numlockx on
 xroot-status-restart
 start timed-fixer
 xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
+xresources-reload
 sleep 5 && xset s off && xset -dpms
