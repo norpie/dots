@@ -28,6 +28,7 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 
 bindkey -s '^P' 'telescope\n'
+bindkey -s '^W' 'work\n'
 
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
