@@ -137,13 +137,13 @@ alias monero-wallet-cli="monero-wallet-cli --log-file=/dev/null --shared-ringdb-
 
 # Colors
 export LS_COLORS="tw=00;33:ow=01;33:"
-alias ls="ls -ovH --color=auto --group-directories-first"
+alias ls="ls -ovHh --color=auto --group-directories-first"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"
 
 # Always Options
-alias l="ls -A"
-alias la="ls -a"
+alias l="ls -hA"
+alias la="ls -ha"
 alias mkdir="mkdir -p"
 alias mv="mv -v"
 
