@@ -302,3 +302,4 @@ git-*
 .config/systemd/user/sockets.target.wants
 .config/dolphin-emu
 .local/share/dolphin-emu
+.local/share/target
