@@ -219,6 +219,7 @@ export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 
 # SSH Environment
 alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
+alias sshfs="sshfs -F /home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
 alias ssh-copy-id="ssh-copy-id -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
 
 export _JAVA_AWT_WM_NONREPARENTING=1    # Fix for Java applications in dwm
