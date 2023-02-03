@@ -62,8 +62,6 @@ if [[ $? == 0 ]]; then
 fi
 
 # Custom Commands
-alias pulseaudio-start="pulseaudio --exit-idle-time=-1 --daemonize -vv"
-alias node80="sudo node app.js"
 alias Make='make -C $(git root)'
 alias chmox="chmod +x"
 
@@ -81,7 +79,7 @@ alias y="yay"
 alias quit="exit"
 alias background="wallpaper"
 
-# Standard programs
+# filetype association
 alias pdf="zathura"
 alias url="$BROWSER"
 alias txt="vim"
@@ -94,16 +92,12 @@ alias readme="README"
 # Permission aliases - don't @ me
 alias shutdown="xorg-state-save && sudo shutdown -h now"
 alias reboot="xorg-state-save && sudo reboot"
-alias sudo='sudo '
 alias docker="sudo docker"
-# alias sudo="sudo -E --preserve-env=HOME "
-# alias sudo="sudo -E"
+alias sudo='sudo '
 
 # Shorter aliases
 alias c="clear"
-alias cn="clear && neofetch"
-alias cf="clear && neofetch"
-alias nf="neofetch"
+alias b="back"
 alias e="exit"
 alias q="quit"
 
