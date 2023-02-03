@@ -1,4 +1,4 @@
 #!/bin/zsh
 
 duf $(pwd)
-du -h --max-depth=1 $(pwd)
+du -h --max-depth=1 $(pwd) | sort -h
