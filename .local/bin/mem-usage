@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+[[ $# != 1 ]] && echo "Usage: mem-usage <cmd>" && exit 1
+
+echo $(ps -C $1 --no-headers -o pmem | xargs | sed -e 's/ /+/g' | bc)%
