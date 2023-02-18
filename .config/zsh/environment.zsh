@@ -211,6 +211,9 @@ export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 
+# Dev Env
+export POSTGRES_URL="postgres://postgres:password@localhost/postgres"
+
 # SSH Environment
 alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
 alias sshfs="sshfs -F /home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
