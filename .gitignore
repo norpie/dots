@@ -303,3 +303,4 @@ git-*
 .config/dolphin-emu
 .local/share/dolphin-emu
 .local/share/target
+.nyx
