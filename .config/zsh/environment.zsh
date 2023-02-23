@@ -28,7 +28,7 @@ alias neovide="neovide --nofork"
 # export GRADLE_HOME=$XDG_DATA_HOME/gradle
 # export JDTLS_CONFIG=/usr/share/java/jdtls/config_linux/
 export WORKSPACE=$REPO_DIR/fantasy/mc/workspace
-export STUDY=$HOME/hs
+export STUDY=/home/norpie/hs
 
 # Alternatives
 which rsync &>/dev/null
@@ -148,16 +148,16 @@ alias g++="g++ -Wall -pedantic-errors -std=c++11"
 export HOME="/home/$USER"
 
 # Exports
-export PATH=$STUDY/.bin:$HOME/.local/bin:$HOME/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.local/share/cargo/bin
+export PATH=$STUDY/.bin:/home/norpie/.local/bin:norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:norpie/.local/share/cargo/bin
 
 # XDG
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_STATE_HOME=$HOME/.local/state
-export XDG_LOCAL_BIN=$HOME/.local/bin
-export XDG_DATA_GAMES=$HOME/.local/share/games
-export XDG_DOWNLOADS_HOME=$HOME/Downloads
+export XDG_CONFIG_HOME=/home/norpie/.config
+export XDG_CACHE_HOME=/home/norpie/.cache
+export XDG_DATA_HOME=/home/norpie/.local/share
+export XDG_STATE_HOME=/home/norpie/.local/state
+export XDG_LOCAL_BIN=/home/norpie/.local/bin
+export XDG_DATA_GAMES=/home/norpie/.local/share/games
+export XDG_DOWNLOADS_HOME=/home/norpie/Downloads
 
 # Locale
 export LANG="en_NZ.UTF-8"
@@ -182,8 +182,8 @@ alias activate="source .venv/bin/activate"
 alias dotenv='source .env'
 
 # Config paths
-export SCRIPT_DIR="$HOME/.local/bin"
-export REPO_DIR="$HOME/repos"
+export SCRIPT_DIR="/home/norpie/.local/bin"
+export REPO_DIR="/home/norpie/repos"
 export TODO_DIR="$XDG_DATA_HOME/todo"
 
 # Moving dot dirs to .config
@@ -196,7 +196,7 @@ export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export __GL_SHADER_DISK_CACHE_PATH="$XDG_CONFIG_HOME/nvidia"
 #export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"
-export CARGO_HOME="$HOME/.local/share/cargo"
+export CARGO_HOME="/home/norpie/.local/share/cargo"
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
@@ -211,12 +211,22 @@ export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 
+# Tor
+## Use system daemon socks port
+export TOR_SOCKS_PORT=9050
+# Use system daemon control port
+export TOR_CONTROL_PORT=9051
+# Don't launch a second tor instance, and don't take ownership of it.
+export TOR_SKIP_LAUNCH=1
+# Tell it where to find the control auth cookie
+export TOR_CONTROL_COOKIE_AUTH_FILE=/var/run/tor/control.authcookie
+
 # Dev Env
 export POSTGRES_URL="postgres://postgres:password@localhost/postgres"
 
 # SSH Environment
-alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
-alias sshfs="sshfs -F /home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
-alias ssh-copy-id="ssh-copy-id -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=$HOME/.config/ssh/known_hosts"
+alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
+alias sshfs="sshfs -F /home//home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
+alias ssh-copy-id="ssh-copy-id -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
 
 export _JAVA_AWT_WM_NONREPARENTING=1    # Fix for Java applications in dwm
