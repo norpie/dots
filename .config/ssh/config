@@ -16,6 +16,8 @@ Host octopi
 Host pi
     HostName 10.3.141.1
     User norpie
+Host *.onion
+    ProxyCommand connect -S localhost:9050 %h %p
 Host *
     StrictHostKeyChecking no
     UserKnownHostsFile ~/.config/ssh/known_hosts
