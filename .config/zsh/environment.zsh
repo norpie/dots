@@ -148,7 +148,7 @@ alias g++="g++ -Wall -pedantic-errors -std=c++11"
 export HOME="/home/$USER"
 
 # Exports
-export PATH=$STUDY/.bin:/home/norpie/.local/bin:norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:norpie/.local/share/cargo/bin
+export PATH=$STUDY/.bin:/home/norpie/.local/bin:/home/norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/norpie/.local/share/cargo/bin
 
 # XDG
 export XDG_CONFIG_HOME=/home/norpie/.config
@@ -226,7 +226,7 @@ export POSTGRES_URL="postgres://postgres:password@localhost/postgres"
 
 # SSH Environment
 alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
-alias sshfs="sshfs -F /home//home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
+alias sshfs="sshfs -F /home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
 alias ssh-copy-id="ssh-copy-id -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
 
 export _JAVA_AWT_WM_NONREPARENTING=1    # Fix for Java applications in dwm

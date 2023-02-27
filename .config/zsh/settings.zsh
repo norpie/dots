@@ -20,5 +20,6 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
+compinit -C
 _comp_options+=(globdots)
 fast-theme clean &>/dev/null
