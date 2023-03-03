@@ -196,7 +196,6 @@ export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 export __GL_SHADER_DISK_CACHE_PATH="$XDG_CONFIG_HOME/nvidia"
 #export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"
-export CARGO_HOME="/home/norpie/.local/share/cargo"
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
@@ -210,6 +209,10 @@ alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
 export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
+
+# Rust
+export CARGO_HOME="/home/norpie/.local/share/cargo"
+export RUSTC_WRAPPER="/home/norpie/.local/share/cargo/bin/sccache"
 
 # Tor
 ## Use system daemon socks port
