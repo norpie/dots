@@ -306,3 +306,5 @@ git-*
 .nyx
 .local/share/Trash
 .config/Postman
+.local/share/zsh
+.local/share/zsh-autocomplete
