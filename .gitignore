@@ -309,3 +309,4 @@ git-*
 .local/share/zsh
 .local/share/zsh-autocomplete
 notes
+.postman/InterceptorBridge
