@@ -14,7 +14,10 @@ Host octopi
     HostName 192.168.0.136
     User pi
 Host pi
-    HostName 10.3.141.1
+    HostName 10.0.0.1
+    User norpie
+Host pi3
+    HostName 192.168.0.159
     User norpie
 Host *.onion
     ProxyCommand connect -S localhost:9050 %h %p
