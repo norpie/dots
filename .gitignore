@@ -310,3 +310,5 @@ git-*
 .local/share/zsh-autocomplete
 notes
 .postman/InterceptorBridge
+.config/sqls
+.config/xclicker.conf
