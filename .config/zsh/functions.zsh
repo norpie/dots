@@ -26,7 +26,7 @@ function template() {
 }
 
 function config() {
-    file=$(find $XDG_CONFIG_HOME -maxdepth 3 | fzf --preview 'if [[ -d {} ]]; then; ls {}; else; pygmentize -g {}; fi;')
+    file=$(find $XDG_CONFIG_HOME -maxdepth 5 | fzf --preview 'if [[ -d {} ]]; then; ls {}; else; pygmentize -g {}; fi;')
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && $EDITOR $file
 }
