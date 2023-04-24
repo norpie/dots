@@ -16,5 +16,5 @@ while [[ $(adb devices | wc -l) -eq 2 ]]; do
 done
 
 sndcpy &
-scrcpy --select-tcpip --bit-rate=30M --max-fps=60 --lock-video-orientation=0 &&
+scrcpy --select-tcpip --bit-rate=30M --max-fps=60 --lock-video-orientation=0 --fullscreen &&
     pgrepkill sndcpy && adb kill-server && sleep 5 && clear
