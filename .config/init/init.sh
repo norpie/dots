@@ -2,10 +2,9 @@
 
 source ~/.config/zsh/.zshrc
 
-xorg-state-load
+ssh-add-defaults
 numlockx on
 xroot-status-restart
-ssh-add-defaults
+xorg-state-load
 start timed-fixer
-xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
-sleep 5 && xset s off && xset -dpms
+sleep 1 && xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
