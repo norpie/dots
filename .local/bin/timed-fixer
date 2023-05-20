@@ -3,5 +3,6 @@
 while true; do
     output fix
     escapecaps
+    xorg-state-save
     sleep 10
 done
