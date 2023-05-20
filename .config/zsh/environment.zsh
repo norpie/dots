@@ -106,6 +106,7 @@ alias g="git"
 alias gc="git commit"
 alias gb="git branch"
 alias gs="git status"
+alias gf="git fetch"
 alias gl="git log --oneline --decorate --all --graph"
 alias ga="git add"
 alias gr="git rm"
@@ -212,7 +213,7 @@ export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
 
 # Rust
 export CARGO_HOME="/home/norpie/.local/share/cargo"
-export RUSTC_WRAPPER="/home/norpie/.local/share/cargo/bin/sccache"
+#export RUSTC_WRAPPER="/home/norpie/.local/share/cargo/bin/sccache"
 
 # Tor
 ## Use system daemon socks port
