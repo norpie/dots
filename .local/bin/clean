@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .stellarium .mozilla .bitmonero .npm .pgadmin .android .eclipse .m2 .dotnet .nyx)
-files=(.yarnrc .wget-hsts .python_history .nvidia-settings-rc .mysql_history)
+dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .stellarium .mozilla .bitmonero .npm .pgadmin .android .eclipse .m2 .dotnet .nyx .gitkraken)
+files=(.yarnrc .wget-hsts .python_history .nvidia-settings-rc .mysql_history .gitconfig)
 
 for dir in $dirs; do
     rm ~/$dir -r &>/dev/null && echo "removed '$dir'"
