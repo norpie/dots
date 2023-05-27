@@ -2,11 +2,10 @@
 
 programs=(discord spotify qbittorrent chrome firefox)
 
-rm $XDG_CACHE_HOME/xorg_state.txt
-
 for program in $programs; do
     output=$(running $program)
     if [[ $? == 1 ]]; then
-        echo "$program" >> $XDG_CACHE_HOME/xorg_state.txt
+        lines+="$program\n"
     fi
 done
+echo $lines | sed -z '$ s/\n$//' > "$XDG_CACHE_HOME/xorg_state.txt"
