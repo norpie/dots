@@ -1,26 +1,30 @@
 [color]
-	ui = true
-	branch = true
-	diff = true
-	interactive = true
-	status = true
+    ui = true
+    branch = true
+    diff = true
+    interactive = true
+    status = true
 [user]
-	name = Konsta Kuosmanen
-	email = konstamskuosmanen@gmail.com
+    name = Konsta Kuosmanen
+    email = konstamskuosmanen@gmail.com
 [core]
-	editor = nvim
-	pager = less
+    editor = nvim
+    pager = less
     sshCommand = ssh -o UserKnownHostsFile=~/.config/ssh/known_hosts -o StrictHostKeyChecking=no
-[url "ssh://git@github.com/"]
- 	insteadOf = https://github.com/
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [alias]
-	rr = remote remove
+    rr = remote remove
 [pull]
     rebase = false
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+    insteadOf = https://gitlab.com/
+[url "ssh://git@bitbucket.org/"]
+    insteadOf = https://bitbucket.org/
