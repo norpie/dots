@@ -1,0 +1,10 @@
+#!/bin/zsh
+
+let launches=0
+
+until pgrep -x "csgo_linux64" > /dev/null; do
+    let launches++
+    steam steam://rungameid/730 &
+    sleep 45
+done
+echo "$launches" >> $HOME/.cache/csgo_launches.txt
