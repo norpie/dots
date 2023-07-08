@@ -318,3 +318,7 @@ notes
 .config/obs-studio
 .local/share/logs
 .local/share/npm
+.steam
+.steampath
+.steampid
+.local/share/Steam
