@@ -149,7 +149,7 @@ alias g++="g++ -Wall -pedantic-errors -std=c++11"
 export HOME="/home/$USER"
 
 # Exports
-export PATH=$STUDY/.bin:/home/norpie/.local/bin:/home/norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/norpie/.local/share/cargo/bin
+export PATH=/home/norpie/.local/share/spicetify:$STUDY/.bin:/home/norpie/.local/bin:/home/norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/norpie/.local/share/cargo/bin
 
 # XDG
 export XDG_CONFIG_HOME=/home/norpie/.config
