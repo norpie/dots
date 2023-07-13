@@ -323,3 +323,17 @@ notes
 .steampid
 .local/share/Steam
 .var
+.config/VisualParadigm
+.config/config.ini
+.config/draw.io
+.config/gedit
+.config/ncspot
+.config/surrealist
+.config/user-dirs.dirs
+.config/user-dirs.locale
+.local/data
+.local/share/spotify-launcher
+.local/share/gedit
+.local/share/surrealist
+.local/share/flatpak
+.local/pipx
