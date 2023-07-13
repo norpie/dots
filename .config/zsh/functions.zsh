@@ -44,10 +44,6 @@ function script() {
 }
 
 function workspace() {
-    cd $WORKSPACE
-}
-
-function work() {
-    file=$(find $(dirname $(cargo locate-project --workspace | jq -r .root)) -maxdepth 1 -type d -not -path '*/.*' | fzf --preview 'ls {}')
+    file=$(find $(dirname $(cargo locate-project --workspace | jq -r .root)) -maxdepth 1 -type d -not -path '*/.*' ! -name "target" | fzf --preview 'ls {}')
     [[ "$file" != "" ]] && cd $file && cd src >/dev/null 2>&1
 }

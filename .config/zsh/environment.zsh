@@ -149,7 +149,7 @@ alias g++="g++ -Wall -pedantic-errors -std=c++11"
 export HOME="/home/$USER"
 
 # Exports
-export PATH=/home/norpie/.local/share/spicetify:$STUDY/.bin:/home/norpie/.local/bin:/home/norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/norpie/.local/share/cargo/bin
+export PATH="/home/norpie/.local/share/spicetify:$STUDY/.bin:/home/norpie/.local/bin:/home/norpie/.local/bin/xroot-panels:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/norpie/.local/share/cargo/bin"
 
 # XDG
 export XDG_CONFIG_HOME=/home/norpie/.config
@@ -205,11 +205,12 @@ export LEIN_HOME="$XDG_DATA_HOME"/lein
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"
-alias wget="wget --hsts-file $XDG_CONFIG_HOME/wget/wget-hsts"
-alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
 export TEXMFHOME=$XDG_DATA_HOME/texmf
 export TEXMFVAR=$XDG_CACHE_HOME/texlive/texmf-var
 export TEXMFCONFIG=$XDG_CONFIG_HOME/texlive/texmf-config
+alias wget="wget --hsts-file $XDG_CONFIG_HOME/wget/wget-hsts"
+alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
+alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 # Rust
 export CARGO_HOME="/home/norpie/.local/share/cargo"
