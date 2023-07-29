@@ -1,6 +1,12 @@
 #!/bin/zsh
-installed=$(pacman -Q linux | awk '{print $2}' | sed 's/.arch/-arch/g')
+
 running=$(uname -r)
+
+if [[ $running == *"lts" ]]; then
+    installed=$(pacman -Q linux-lts | awk '{print $2}' | sed 's/.arch/-arch/g')"-lts"
+else
+    installed=$(pacman -Q linux | awk '{print $2}' | sed 's/.arch/-arch/g')
+fi
 
 print -P "Installed: %F{green}$installed%f"
 

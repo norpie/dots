@@ -3,7 +3,12 @@
 [[ ! -f "$XDG_CACHE_HOME/xorg_state.txt" ]] && echo "no saved state" && exit 1
 
 while read line; do
-  start $line
+    pgrep -ix "$line" >/dev/null
+    if [[ $? == 0 ]]; then
+        echo already started
+    else
+        start $line
+    fi
 done < "$XDG_CACHE_HOME/xorg_state.txt"
 
 rm "$XDG_CACHE_HOME/xorg_state.txt"
