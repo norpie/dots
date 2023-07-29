@@ -75,6 +75,8 @@ alias u="update"
 alias p="sudo pacman"
 alias y="yay"
 
+alias exit="remove_old && exit"
+
 # Synonyms
 alias quit="exit"
 alias background="wallpaper"

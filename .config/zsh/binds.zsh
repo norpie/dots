@@ -20,8 +20,10 @@ zle-line-init() {
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+autoload -U add-zsh-hook
+use_beam() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+add-zsh-hook preexec use_beam
 
 # Use vim keys in tab complete menu:
 zstyle ':completion:*' menu select

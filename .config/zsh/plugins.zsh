@@ -36,5 +36,5 @@ zstyle ':autocomplete:*' widget-style menu-complete
 
 source /home/norpie/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-bindkey '\t' up-line-or-search
-bindkey '\T' down-line-or-search
+bindkey '^I' up-line-or-search
+bindkey '^[[Z' down-line-or-search
