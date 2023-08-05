@@ -1,5 +1,5 @@
 Match Originalhost desktop exec "is-home"
-    HostName 192.168.0.248
+    HostName 192.168.0.199
     User norpie
 Host desktop
     HostName 94.225.210.162
