@@ -1,0 +1,3 @@
+#!/bin/zsh
+sudo chattr -R +i "/lib/modules/$(uname -r)"
+sudo chattr -R -i $(find /lib/modules -maxdepth 1 -mindepth 1 -type d ! -name "$(uname -r)")
