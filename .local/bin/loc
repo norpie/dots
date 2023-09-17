@@ -1,4 +1,4 @@
 #!/bin/zsh
 
 #cd $(git root)
-cat $(find src/* -type f) | wc -l
+cat $(find -type f) | wc -l
