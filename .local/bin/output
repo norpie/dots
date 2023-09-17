@@ -5,6 +5,8 @@
     pacmd update-sink-proplist alsa_output.usb-Focusrite_Scarlett_2i2_USB-00.Direct__hw_USB__sink device.description=Headphones &&
     pacmd update-sink-proplist bluez_sink.38_18_4C_06_79_A9.a2dp_sink device.description=Headset &&
     pacmd set-card-profile alsa_card.pci-0000_2d_00.1 off &&
+    pacmd set-card-profile alsa_card.pci-0000_0d_00.1 off &&
+    pacmd set-card-profile alsa_card.pci-0000_01_00.1 off &&
     echo "devices renamed" &&
     exit 0
 
