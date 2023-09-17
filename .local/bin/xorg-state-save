@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-programs=(discord spotify qbittorrent chrome firefox)
+programs=(discord steam spotify qbittorrent chrome firefox)
 
 for program in $programs; do
     output=$(running $program)
