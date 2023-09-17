@@ -4,12 +4,13 @@ print_help() {
     echo "--- Help ---"
     echo "-h -- print this menu"
     echo "-m -- mute"
+    echo "-g -- get absolute volume"
     echo "-a -- set absolute volume"
     echo "-i -- increase volume by an amount"
     echo "-d -- decrease volume by an amount"
 }
 
-while getopts "mha:i:d:" opt; do
+while getopts "gmha:i:d:" opt; do
     case "$opt" in
         h)
             print_help
@@ -17,6 +18,10 @@ while getopts "mha:i:d:" opt; do
             ;;
         m)
             pamixer --set-volume 0 && xroot-status-update
+            exit 0
+            ;;
+        g)
+            pamixer --get-volume
             exit 0
             ;;
         a)
