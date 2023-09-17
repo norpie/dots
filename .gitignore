@@ -337,3 +337,10 @@ notes
 .local/share/surrealist
 .local/share/flatpak
 .local/pipx
+.local/bin/cyberdrop-dl
+.local/bin/party
+.config/kitty
+.config/lutris
+.config/zellij
+.local/share/Cyberdrop-DL
+.local/share/lutris
