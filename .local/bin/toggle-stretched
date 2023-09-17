@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-if [[ $(xrandr -q | grep HDMI | grep -c 1024) == 1 ]]; then
-    xrandr --output HDMI-0 --mode 1920x1080 --rate 144 --scale-from 1920x1080
-else
-    xrandr --output HDMI-0 --mode 1920x1080 --rate 144 --scale-from 1280x1024
-fi
