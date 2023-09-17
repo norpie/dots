@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+# st -e zsh -c "cd $(git-root) && echo Cargo.toml | entr -c -r ra-multiplex-server" &
+st -e zsh -c "cargo watch -x clippy" &
