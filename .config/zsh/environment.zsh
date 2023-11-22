@@ -38,7 +38,13 @@ fi
 
 which duf &>/dev/null
 if [[ $? == 0 ]]; then
-    alias df=duf
+    function df() {
+        if [[ $@ == "" ]]; then
+            duf -only local,fuse
+        else
+            duf $@
+        fi
+    }
 fi
 
 which htop &>/dev/null
@@ -217,6 +223,9 @@ alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 # Rust
 export CARGO_HOME="/home/norpie/.local/share/cargo"
 #export RUSTC_WRAPPER="/home/norpie/.local/share/cargo/bin/sccache"
+
+# QT
+export QT_QPA_PLATFORMTHEME="gtk2"
 
 # Tor
 ## Use system daemon socks port
