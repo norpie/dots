@@ -1,4 +1,10 @@
 #!/bin/zsh
 
-export DISPLAY=:0
-xset dpms force off
+if (( ${+DISPLAY} )); then
+    xset dpms force off
+else
+    export DISPLAY=:0
+    xset dpms force off
+    export DISPLAY=:1
+    xset dpms force off
+fi
