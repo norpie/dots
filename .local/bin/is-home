@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 home="94.225.210.162"
-ip=$(curl "ifconfig.me" -s)
+ip=$(curl --ipv4 "ifconfig.me" -s)
 
 if [[ $ip == $home ]]; then
     echo "yes"
