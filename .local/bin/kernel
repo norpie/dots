@@ -14,7 +14,7 @@ if [[ $installed == $running ]]; then
     print -P "Running: %F{green}$running%f"
     result="no"
 else
-    print -P "Running: %F{red}$running%f"
+    print -P "Running: %F{yellow}$running%f"
     result="yes"
 fi
 echo "Reboot for newer kernel: $result"
