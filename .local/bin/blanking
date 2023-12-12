@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+[[ $1 == "off" ]] && xset s off && xset -dpms
+[[ $1 == "on" ]] && xset s on && xset +dpms
