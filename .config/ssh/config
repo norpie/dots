@@ -4,11 +4,14 @@ Match Originalhost desktop exec "is-home"
 Host desktop
     HostName 94.225.210.162
     User norpie
+Host ubuntu
+    HostName 192.168.0.214
+    User norpie
 Host server
-    HostName 192.168.201
+    HostName 192.168.0.201
     User norpie
 Host laptop
-    HostName 192.168.0.200
+    HostName 192.168.0.129
     User norpie
 Host octopi
     HostName 192.168.0.136
