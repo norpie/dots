@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+mpv "/home/norpie/repos/WynnHacks/notification.wav" --volume=100
