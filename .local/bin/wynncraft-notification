@@ -1,0 +1,5 @@
+#!/bin/zsh
+
+notify-send --icon /home/norpie/repos/WynnHacks2/wynncraft_icon.png WynnCraft $@ &
+notification-ping &
+disown
