@@ -1,3 +1,5 @@
 #!/bin/zsh
 
+# echo "-Duser.home=/home/eclipse" >> /usr/lib/eclipse/eclipse.ini
+
 HOME=/home/eclipse /usr/lib/eclipse/eclipse

@@ -1,4 +1,5 @@
 # Abstraction
+zmodload zsh/zprof
 source /home/norpie/.config/zsh/environment.zsh || echo "error in environment"
 source /home/norpie/.config/zsh/functions.zsh || echo "error in functions"
 source /home/norpie/.config/zsh/prompt.zsh || echo "error in prompt"

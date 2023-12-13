@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+start dragon-drop -x $@

@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 processes=$(pgrep -i $1)
-[[ $processes == "" ]] && echo "no such process" && exit 1
+[[ $processes == "" ]] && echo "no such process" && exit 0
 
 echo $processes | xargs sudo kill -9
 echo "killed:

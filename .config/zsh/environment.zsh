@@ -196,6 +196,8 @@ export REPO_DIR="/home/norpie/repos"
 export TODO_DIR="$XDG_DATA_HOME/todo"
 
 # Moving dot dirs to .config
+export GOPATH="$XDG_DATA_HOME"/go
+export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.lua"
 export VIMDOTDIR="source $XDG_CONFIG_HOME/nvim"

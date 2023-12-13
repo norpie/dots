@@ -345,3 +345,15 @@ notes
 .config/zellij
 .local/share/Cyberdrop-DL
 .local/share/lutris
+.local/bin/artisan
+.local/bin/huggingface-cli
+.config/surrealist
+.config/surrealist.json
+.config/composer
+.config/deluge
+.config/devauth
+.config/dragonplayerrc
+.config/go
+.local/share/fonts
+.local/share/PrismLauncher
+.local/share/composer
