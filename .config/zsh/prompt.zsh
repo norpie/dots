@@ -35,14 +35,13 @@ MyColor="%F{219}"
 export EMPHESIS_COLOR_START="$MyColor$BOLD_START"
 export EMPHESIS_COLOR_STOP="$White$BOLD_STOP"
 
-local git_branch='$(git branch-name)'
-local git_email='$(git email)'
-local git_name='$(git name)'
-local git_absolute='$(git absolute)'
-
 set_prompt() {
     git dir
     if [[ $? -eq 0 ]]; then
+        local git_branch='$(git branch-name)'
+        local git_email='$(git email)'
+        local git_name='$(git name)'
+        local git_absolute='$(git absolute)'
         PROMPT="$EMPHESIS_COLOR_START$USERNAME$EMPHESIS_COLOR_STOP on $EMPHESIS_COLOR_START$MACHINE$EMPHESIS_COLOR_STOP in $EMPHESIS_COLOR_START$DIRECTORY$EMPHESIS_COLOR_STOP on $EMPHESIS_COLOR_START ${git_branch}$EMPHESIS_COLOR_STOP"
     else
         PROMPT="$EMPHESIS_COLOR_START$USERNAME$EMPHESIS_COLOR_STOP on $EMPHESIS_COLOR_START$MACHINE$EMPHESIS_COLOR_STOP in $EMPHESIS_COLOR_START$DIRECTORY$EMPHESIS_COLOR_STOP"
