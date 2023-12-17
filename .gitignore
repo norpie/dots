@@ -357,3 +357,9 @@ notes
 .local/share/fonts
 .local/share/PrismLauncher
 .local/share/composer
+.config/Insomnia
+.config/kdeglobals
+.config/kdenlive-layoutsrc
+.config/kdenliverc
+.config/kde.org
+.config/tenacity.cfg
