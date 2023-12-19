@@ -101,6 +101,7 @@ alias readme="README"
 alias shutdown="xorg-state-save && sudo shutdown -h now"
 alias reboot="xorg-state-save && sudo reboot"
 alias docker="sudo docker"
+alias docker-compose="sudo docker-compose"
 alias sudo='sudo '
 
 # Shorter aliases
