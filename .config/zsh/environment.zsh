@@ -253,7 +253,7 @@ export TOR_SKIP_LAUNCH=1
 export TOR_CONTROL_COOKIE_AUTH_FILE=/var/run/tor/control.authcookie
 
 # Dev Env
-export POSTGRES_URL="postgres://postgres:password@localhost/harmonize"
+export POSTGRES_URL="postgres://user:postgres@172.20.0.2:5432/harmonize"
 
 # SSH Environment
 alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
