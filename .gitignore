@@ -363,3 +363,6 @@ notes
 .config/kdenliverc
 .config/kde.org
 .config/tenacity.cfg
+.config/systemd/user/graphical-session.target.wants
+.config/systemd/user/pipewire.service.wants
+.config/systemd/user/pipewire-session-manager.service
