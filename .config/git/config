@@ -28,3 +28,5 @@
 #     insteadOf = https://gitlab.com/
 #[url "ssh://git@bitbucket.org/"]
 #    insteadOf = https://bitbucket.org/
+[push]
+	autoSetupRemote = true
