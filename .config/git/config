@@ -15,6 +15,7 @@
     defaultBranch = main
 [alias]
     rr = remote remove
+    pr = pull-request
 [pull]
     rebase = false
 [filter "lfs"]
@@ -29,4 +30,4 @@
 #[url "ssh://git@bitbucket.org/"]
 #    insteadOf = https://bitbucket.org/
 [push]
-	autoSetupRemote = true
+    autoSetupRemote = true
