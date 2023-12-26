@@ -122,6 +122,9 @@ alias gr="git rm"
 alias gp="git push"
 alias gpl="git pull"
 alias gi="git ignore"
+alias gpr="git pull-request"
+alias gch="git checkout"
+alias gcb="git checkout -b"
 
 # Dot aliases
 alias ds="dots status"
