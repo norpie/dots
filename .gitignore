@@ -345,7 +345,6 @@ notes
 .config/zellij
 .local/share/Cyberdrop-DL
 .local/share/lutris
-.local/bin/artisan
 .local/bin/huggingface-cli
 .config/surrealist
 .config/surrealist.json

@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+loc=$(git-root)
+
+[[ $? != 0 ]] && echo "Not in git" && exit 1
+
+cd $loc && ./artisan $@
