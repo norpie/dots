@@ -86,6 +86,7 @@ alias exit="remove_old && exit"
 # Synonyms
 alias quit="exit"
 alias background="wallpaper"
+alias doc2pdf="unoconv -f pdf"
 
 # filetype association
 alias pdf="zathura"
@@ -213,6 +214,7 @@ export TODO_DIR="$XDG_DATA_HOME/todo"
 
 # Moving dot dirs to .config
 export GOPATH="$XDG_DATA_HOME"/go
+export GOBIN="$XDG_DATA_HOME"/go/bin
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export VIMINIT="source $XDG_CONFIG_HOME/nvim/init.lua"
@@ -238,6 +240,16 @@ alias wget="wget --hsts-file $XDG_CONFIG_HOME/wget/wget-hsts"
 alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
+# Hardware acceleration
+# export LIBVA_DRIVER_NAME=nvidia
+if [[ $HOST == "desktop" ]]; then
+    export LIBVA_DRIVER_NAME=nvidia
+    export VDPAU_DRIVER=nvidia
+elif [[ $HOST == "laptop" ]]; then
+    export LIBVA_DRIVER_NAME=radeonsi
+    # export VDPAU_DRIVER=radeonsi
+fi
+
 # Rust
 export CARGO_HOME="/home/norpie/.local/share/cargo"
 #export RUSTC_WRAPPER="/home/norpie/.local/share/cargo/bin/sccache"
@@ -256,7 +268,7 @@ export TOR_SKIP_LAUNCH=1
 export TOR_CONTROL_COOKIE_AUTH_FILE=/var/run/tor/control.authcookie
 
 # Dev Env
-export POSTGRES_URL="postgres://user:postgres@172.20.0.2:5432/harmonize"
+export POSTGRES_URL="postgres://user:postgres@localhost:5432/harmonize"
 
 # SSH Environment
 alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
