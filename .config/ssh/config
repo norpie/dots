@@ -7,6 +7,9 @@ Host desktop
 Host ubuntu
     HostName 192.168.0.214
     User norpie
+Host ubuntuvm
+    HostName 192.168.122.21
+    User norpie
 Host server
     HostName 192.168.0.201
     User norpie
