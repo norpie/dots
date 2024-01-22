@@ -1,3 +1,5 @@
 #!/bin/zsh
 
-wget -P ~/Downloads $@
+[[ $# == 0 ]] && echo "Usage: $0 [url]" && exit 1;
+
+wget --content-disposition "$1"
