@@ -155,6 +155,8 @@ alias la="ls -ha"
 alias mkdir="mkdir -p"
 alias mv="mv -v"
 
+alias monitor-brightness="xrandr -q | grep \" connected\" | awk '{print \$1}' | xargs -I {} xrandr --output {} --brightness"
+
 # Compiler flags
 alias g++="g++ -Wall -pedantic-errors -std=c++11"
 
@@ -163,17 +165,13 @@ export HOME="/home/$USER"
 
 # Exports
 export PATH="\
-/home/norpie/.local/share/spicetify:\
-$STUDY/.bin:/home/norpie/.local/bin:\
-/home/norpie/.local/bin/xroot-panels:\
-/usr/local/bin:\
-/usr/local/sbin:\
-/usr/bin:\
-/usr/lib/jvm/default/bin:\
-/usr/bin/site_perl:\
-/usr/bin/vendor_perl:\
-/usr/bin/core_perl:\
-/home/norpie/.local/share/cargo/bin\
+$PATH
+:/home/norpie/.local/share/spicetify\
+:$STUDY/.bin:/home/norpie/.local/bin\
+:/home/norpie/.local/bin/xroot-panels\
+:/usr/lib/jvm/default/bin\
+:/home/norpie/.local/share/cargo/bin\
+:$XDG_DATA_HOME/go/bin\
 "
 
 # XDG
@@ -204,6 +202,7 @@ alias google-chrome="chrome"
 # Runtimes
 export JAVA_HOME="/usr/lib/jvm/default"
 alias python3="python"
+alias pypy="pypy3"
 alias activate="source .venv/bin/activate"
 alias dotenv='source .env'
 
