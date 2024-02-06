@@ -228,7 +228,6 @@ Downloads
 .bitmonero
 .android
 .config/ssh/known_hosts
-.config/X11/Xresources
 .config/chromium
 .config/mpv/watch_later
 .config/libreoffice
