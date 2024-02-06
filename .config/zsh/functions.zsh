@@ -3,6 +3,10 @@ function repos() {
     dir=$(find $REPO_DIR -maxdepth 1 | fzf) && cd $dir
 }
 
+function append_path() {
+    export PATH="$PATH:$1"
+}
+
 # cd with history, based on minecraft /back, and also fetch on repo enter
 function cd() {
     export LAST_DIR=$(pwd)
