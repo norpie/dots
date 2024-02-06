@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+[[ $# != 1 ]] && echo "Usage: $0 <off|on>" && exit 1
+
+if [[ $1 == "off" ]]; then
+    echo "Turn off"
+    sudo docker stop tabby-1b
+elif [[ $1 == "on" ]]; then
+    echo "Turn on"
+    sudo docker start tabby-1b
+fi
