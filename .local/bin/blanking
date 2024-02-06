@@ -1,4 +1,6 @@
 #!/bin/zsh
 
+export DISPLAY=:0
+
 [[ $1 == "off" ]] && xset s off && xset -dpms
 [[ $1 == "on" ]] && xset s on && xset +dpms
