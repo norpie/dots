@@ -366,3 +366,6 @@ notes
 .config/systemd/user/pipewire-session-manager.service
 .config/github-copilot
 .local/share/go
+.local/share/qbit_plugins_data
+.local/share/tabby
+.tabby-client
