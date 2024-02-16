@@ -163,17 +163,6 @@ alias g++="g++ -Wall -pedantic-errors -std=c++11"
 # Define home
 export HOME="/home/$USER"
 
-# Exports
-export PATH="\
-$PATH
-:/home/norpie/.local/share/spicetify\
-:$STUDY/.bin:/home/norpie/.local/bin\
-:/home/norpie/.local/bin/xroot-panels\
-:/usr/lib/jvm/default/bin\
-:/home/norpie/.local/share/cargo/bin\
-:$XDG_DATA_HOME/go/bin\
-"
-
 # XDG
 export XDG_CONFIG_HOME=/home/norpie/.config
 export XDG_CACHE_HOME=/home/norpie/.cache
@@ -275,3 +264,15 @@ alias sshfs="sshfs -F /home/norpie/.config/ssh/config -o UserKnownHostsFile=/hom
 alias ssh-copy-id="ssh-copy-id -F $XDG_CONFIG_HOME/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts"
 
 export _JAVA_AWT_WM_NONREPARENTING=1    # Fix for Java applications in dwm
+
+# Exports
+export PATH="\
+/home/norpie/.local/share/spicetify\
+:$STUDY/.bin\
+:/home/norpie/.local/bin\
+:/home/norpie/.local/share/cargo/bin\
+:/home/norpie/.local/bin/xroot-panels\
+:/usr/lib/jvm/default/bin\
+:$XDG_DATA_HOME/go/bin\
+:$PATH\
+"
