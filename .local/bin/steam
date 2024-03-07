@@ -1,4 +1,7 @@
 #!/usr/bin/env sh
+
+HOME=$HOME/.local/data/steam # or wherever
+
 if [[ "$1" == "--launch" ]]; then
     libraries=$(cat .local/share/Steam/steamapps/libraryfolders.vdf |
         grep path |
@@ -11,8 +14,7 @@ if [[ "$1" == "--launch" ]]; then
         games+=$'\n'
     done <<< $(cat .local/share/Steam/steamapps/libraryfolders.vdf | grep path | awk '{print $2,"/steamapps"}' | tr -d '"' | sed 's/ //g')
     choice=$(echo "$games" | sed '/^$/d' | sort -h | dmenu)
-    [[ "$choice" != "" ]] && echo $choice | awk '{print $1}' | xargs -I {} steam steam://rungameid/{}
+    [[ "$choice" != "" ]] && echo $choice | awk '{print $1}' | xargs -I {} start /usr/bin/steam steam://rungameid/{}
 else
-    HOME=$HOME/.local/data/steam # or wherever
-    exec /usr/bin/steam "$@"
+    start /usr/bin/steam "$@"
 fi
