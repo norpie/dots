@@ -7,4 +7,12 @@ else
     xset dpms force off
     export DISPLAY=:1
     xset dpms force off
+    export DISPLAY=:2
+    xset dpms force off
+    export DISPLAY=:3
+    xset dpms force off
+    export DISPLAY=:4
+    xset dpms force off
+    export DISPLAY=:5
+    xset dpms force off
 fi
