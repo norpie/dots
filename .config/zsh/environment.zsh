@@ -199,6 +199,7 @@ alias dotenv='source .env'
 export SCRIPT_DIR="/home/norpie/.local/bin"
 export REPO_DIR="/home/norpie/repos"
 export TODO_DIR="$XDG_DATA_HOME/todo"
+export KERNELS_DIR="$REPO_DIR/kernels/linux-lts-arch"
 
 # Moving dot dirs to .config
 export GOPATH="$XDG_DATA_HOME"/go
