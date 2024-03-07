@@ -1,7 +1,9 @@
 Match Originalhost desktop exec "is-home"
+    ForwardAgent yes
     HostName 192.168.0.199
     User norpie
 Host desktop
+    ForwardAgent yes
     HostName 94.225.210.162
     User norpie
 Host ubuntuvm
