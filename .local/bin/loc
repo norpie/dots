@@ -1,4 +1,18 @@
 #!/usr/bin/env zsh
 
+# Array of files to exclude
+exclude=(
+  "*.git*"
+  "*.lock"
+)
+
+function generate_find_exclude {
+  local exclude=()
+  for i in $@; do
+    exclude+=(-not -wholename $i)
+  done
+  echo $exclude
+}
+
 #cd $(git root)
-cat $(find -type f) | wc -l
+wc -l $(find -type f $(generate_find_exclude $exclude))
