@@ -1,0 +1,19 @@
+\newcounter{definitionnbr}[section]
+
+\DeclareTranslation{english}{definition}{Definition}
+\DeclareTranslation{dutch}{definition}{Definitie}
+
+\newenvironment{definition}[1] {
+    \refstepcounter{definitionnbr}
+    \begin{center}
+        \begin{tabular} {
+            |p{0.9\textwidth}|
+        }
+        \hline\\
+        \textbf{\GetTranslation{definition} \thedefinitionnbr \hspace{5pt}(#1)} \newline
+    }
+        {
+        \\\\\hline
+        \end{tabular}
+    \end{center}
+}

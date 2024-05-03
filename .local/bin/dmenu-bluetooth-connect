@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+choices=$(macid)
+
+choice=$(echo $choices | dmenu)
+
+[[ $choice == "" ]] && exit 1
+
+bluetoothctl connect $(macid $choice)

@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+day=$(date +%A)
+
+echo $day

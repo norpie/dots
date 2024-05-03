@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+fix-chrome-crash-bubble &&
+google-chrome-stable \
+    --new-window \
+    # --ignore-gpu-blocklist \
+    # --enable-zero-copy \
+    # --enable-features=VaapiVideoEncoder,VaapiVideoDecoder,CanvasOopRasterization,VaapiIgnoreDriverChecks \
+    # --use-gl=egl \
+    # --enable-native-gpu-memory-buffers \
+    # --enable-oop-rasterization \
+    # --disable-gpu-driver-bug-workarounds \
+    # --disable-gpu-driver-workarounds \
+    $@

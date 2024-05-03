@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+free=$(free -m | awk '/^Mem:/ {print $3}')
+total=$(free -m | awk '/^Mem:/ {print $2}')
+echo " $(( $(($free * 100)) / $(($total)) ))%"

@@ -1,0 +1,19 @@
+\newcounter{examplenbr}[section]
+
+\DeclareTranslation{english}{example}{Example}
+\DeclareTranslation{dutch}{example}{Voorbeeld}
+
+\newenvironment{example}[1] {
+    \refstepcounter{examplenbr} 
+    \begin{center}
+        \begin{tabular} {
+            |p{0.9\textwidth}|
+        }
+        \hline\\
+        \textbf{\GetTranslation{example} \theexamplenbr \hspace{5pt}(#1)} \newline
+    }
+        { 
+        \\\\\hline
+        \end{tabular} 
+    \end{center}
+}

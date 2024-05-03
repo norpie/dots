@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+device_status=$(nmcli device status | grep wifi | awk 'NR==1')
+
+[[ -z $device_status ]] && echo "" && exit 1
+
+indicator=$(echo $device_status | awk '{print $3}')
+
+[[ $indicator == "unmanaged" ]] && echo "" && exit 1
+[[ $indicator == "unavailable" ]] && echo "" && exit 1
+[[ $indicator == "disconnected" ]] && echo "" && exit 1
+[[ $indicator == "connecting" ]] && echo "󰤩" && exit 0
+
+network=$(echo $device_status | awk '{print $4,$5,$6,$7,$8}' | awk '{$1=$1;print}')
+
+echo "󰤨 $network"

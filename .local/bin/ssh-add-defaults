@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+cd ~/.config/ssh/keys
+
+chmod 600 *
+
+ssh-add $(find -maxdepth 1 ! -name ".git" -type f ! -name "*.pub")

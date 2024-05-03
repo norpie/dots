@@ -1,0 +1,53 @@
+#!/usr/bin/env zsh
+
+print_help() {
+    echo "--- Help ---"
+    echo "-h -- print this menu"
+    echo "-a -- set absolute brightness"
+    echo "-i -- increase brightness by an amount"
+    echo "-d -- decrease brightness by an amount"
+}
+
+max_brightness=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+
+set_brightness() {
+    rounded=$(python -c "print(5 * round($1/5))")
+    float=$(( $rounded.0 / 100 * $max_brightness ))
+    int=${float%.*}
+    echo $int | sudo tee -a /sys/class/backlight/*/brightness >/dev/null
+}
+
+get_brightness() {
+    brightness_abs=$(cat /sys/class/backlight/*/brightness)
+    echo $(python -c "print(round($brightness_abs * 100 / $max_brightness))")
+}
+
+increase_brightness() {
+    set_brightness $(( $(get_brightness) + $1 ))
+}
+
+decrease_brightness() {
+    set_brightness $(( $(get_brightness) - $1 ))
+}
+
+while getopts "ha:i:d:" opt; do
+    case "$opt" in
+        h)
+            print_help
+            exit 0
+            ;;
+        a)
+            set_brightness $OPTARG && xroot-status-update
+            exit 0
+            ;;
+        i)
+            increase_brightness $OPTARG && xroot-status-update
+            exit 0
+            ;;
+        d)
+            decrease_brightness $OPTARG && xroot-status-update
+            exit 0
+            ;;
+
+    esac
+done

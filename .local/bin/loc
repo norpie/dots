@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+#cd $(git root)
+cat $(find -type f) | wc -l

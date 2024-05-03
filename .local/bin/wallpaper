@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+
+cd ~/.config/wallpapers/selection/
+
+function select_wallpaper() {
+    cp $1 ~/.config/wallpapers/wallpaper.png
+}
+
+function apply_wallpaper() {
+    xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
+}
+
+function random_wallpaper() {
+    selection=$(find * -type f | shuf -n 1)
+    select_wallpaper $selection
+    apply_wallpaper
+}
+
+# Handle --default, if not present -> random_wallpaper, apply_wallpaper
+if [[ $1 == "--default" ]]; then
+    [[ ! -f ~/.config/wallpapers/wallpaper.png ]] && random_wallpaper
+    apply_wallpaper
+    exit 0
+fi
+
+# Handle --gui
+if [[ $1 == "--gui" ]]; then
+    st -e wallpaper
+    exit 0
+fi
+
+selection=$(find * -type f | fzf-img)
+[[ $selection == "" ]] && exit 1
+select_wallpaper $selection
+apply_wallpaper

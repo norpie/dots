@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+home="94.225.210.162"
+ip=$(curl --ipv4 "ifconfig.me" -s --max-time 3)
+
+if [[ $ip == $home ]]; then
+    echo "yes"
+    exit 0
+else
+    echo "no"
+    exit 1
+fi

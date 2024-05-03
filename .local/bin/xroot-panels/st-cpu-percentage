@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+percent=$(mpstat | awk 'NR == 4 {print $3}')
+echo "$percent%"

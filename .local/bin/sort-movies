@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+python ~/repos/media-manager/main.py

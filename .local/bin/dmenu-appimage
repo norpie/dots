@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+APP_PATH="$HOME/.local/share/appimages"
+cd $APP_PATH
+cmd=$(find * | dmenu)
+
+eval $APP_PATH/$cmd --no-sandbox

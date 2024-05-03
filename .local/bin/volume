@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+print_help() {
+    echo "--- Help ---"
+    echo "-h -- print this menu"
+    echo "-m -- mute"
+    echo "-g -- get absolute volume"
+    echo "-a -- set absolute volume"
+    echo "-i -- increase volume by an amount"
+    echo "-d -- decrease volume by an amount"
+}
+
+while getopts "gmha:i:d:" opt; do
+    case "$opt" in
+        h)
+            print_help
+            exit 0
+            ;;
+        m)
+            pamixer --set-volume 0 && xroot-status-update
+            exit 0
+            ;;
+        g)
+            pamixer --get-volume
+            exit 0
+            ;;
+        a)
+            pamixer --set-volume $OPTARG && xroot-status-update
+            exit 0
+            ;;
+        i)
+            pamixer -i $OPTARG && xroot-status-update
+            exit 0
+            ;;
+        d)
+            pamixer -d $OPTARG && xroot-status-update
+            exit 0
+            ;;
+    esac
+done
+
+print_help

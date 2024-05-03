@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+[[ $# == 0 ]] && echo "1 or more arguments needed" && exit 1
+
+dot=false
+
+for arg in "$@"
+do
+    if [[ $arg == "--dots" ]]; then 
+        dot=true 
+        continue
+    fi 
+    if $dot; then
+        echo `dots relative $arg` >> `dots root`/.gitignore
+    else
+        git-dir && echo `git relative $arg` >> `git root`/.gitignore
+    fi 
+done

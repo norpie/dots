@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+while [ : ]
+do
+  xroot-status-update
+  sleep 1s  
+done

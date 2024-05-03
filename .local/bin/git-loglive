@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+while true
+do
+    clear
+    git log --oneline --decorate --all --graph
+    sleep 5
+done;

@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+git-dir
+[[ $? == 1 ]] && echo "Command only useful in a git repo" && exit 1
+
+$EDITOR $(git-root)/README.md

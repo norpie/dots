@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+if [[ $(kernel | awk 'NR==3 {print $5}') == "yes" ]]; then 
+    dmenu-prompt "Kernel has updated, do we reboot" && reboot && exit 0
+    notify-send "Not rebooting"
+else
+    win10
+fi

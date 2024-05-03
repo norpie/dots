@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+while true; do
+    xorg-state-save
+    output fix
+    escapecaps
+    sleep 10
+done

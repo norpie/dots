@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+[[ $# != 1 ]] && echo "Usage: mdpdf <filename>" && exit 1
+[[ ! -f $1 ]] && echo "File doesn't exist" && exit 1
+
+pandoc $1 --pdf-engine=xelatex --template "/home/norpie/.local/share/latex/mdpdf.tex" -o $(filename $1).pdf

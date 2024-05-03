@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+running=$(uname -r | cut -d '-' -f 1,2)
+flavour=$(uname -r | cut -d '-' -f 3,4,5,6)
+installed=$(pacman -Q linux-$flavour | awk '{print $2}')
+
+print -P "Installed: %F{green}$installed%f"
+
+if [[ $installed == $running ]]; then
+    print -P "Running: %F{green}$running%f"
+    result="no"
+else
+    print -P "Running: %F{yellow}$running%f"
+    result="yes"
+fi
+echo "Reboot for newer kernel: $result"

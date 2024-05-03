@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+xroot-status-stop
+xroot-status-start

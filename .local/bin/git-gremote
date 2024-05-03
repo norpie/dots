@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+[[ $# == 0 ]] && echo "Usage: git sremote 'user/repo'" && exit 1
+
+git dir && git branch -M main 
+git dir && git remote add origin git@github.com:$1.git
+git dir && git push -u origin main 

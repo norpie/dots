@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+powers="shutdown
+blank
+reboot"
+
+xorg-state-save
+
+choice=$(echo $powers | dmenu)
+
+[[ $choice == "shutdown" ]] && shutdown now
+[[ $choice == "blank" ]] && blank
+[[ $choice == "reboot" ]] && reboot

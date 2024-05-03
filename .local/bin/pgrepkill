@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+# Loop over args
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: pgrepkill <process name>"
+  exit 0
+fi
+
+args=("$@")
+for arg in $args; do
+  processes=$(pgrep -fi $arg)
+  restart=$(pgrep -fi restart)
+  # dont kill restart
+  [[ $restart != "" ]] && processes=$(echo $processes | grep -v $restart)
+  [[ $processes == "" ]] && echo "no process: $arg" && continue
+  echo $processes | xargs sudo kill -9
+  echo "killed:
+  $processes"
+done

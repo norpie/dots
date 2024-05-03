@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+
+DIR=$(pwd)
+echo $DIR/$1

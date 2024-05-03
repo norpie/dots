@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+[[ $# == 0 ]] && echo "Usage: git sclone 'user/repo'" && exit 1
+
+git clone https://github.com/$1
