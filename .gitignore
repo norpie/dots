@@ -328,9 +328,6 @@ hs
 .minecraft
 .mozilla
 .mysql_history
-.nix-channels
-.nix-defexpr
-.nix-profile
 notes
 .npm
 .nyx
