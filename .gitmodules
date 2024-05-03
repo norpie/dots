@@ -1,9 +1,9 @@
 [submodule ".config/ssh/keys"]
-    path = .config/ssh/keys
-    url = https://github.com/norpie-dev/keys
+	path = .config/ssh/keys
+	url = https://github.com/norpie/keys
 [submodule ".config/wallpapers"]
     path = .config/wallpapers
-    url = https://github.com/norpie-dev/wallpapers
+    url = https://github.com/norpie/wallpapers
 [submodule ".config/nvim"]
-    path = .config/nvim
-    url = https://github.com/norpie-dev/nvim
+	path = .config/nvim
+	url = https://github.com/norpie/nvim
