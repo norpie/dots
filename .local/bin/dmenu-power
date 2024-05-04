@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 powers="shutdown
-blank
+blackout
 reboot"
 
 xorg-state-save
@@ -9,5 +9,5 @@ xorg-state-save
 choice=$(echo $powers | dmenu)
 
 [[ $choice == "shutdown" ]] && shutdown now
-[[ $choice == "blank" ]] && blank
+[[ $choice == "blackout" ]] && monitor off
 [[ $choice == "reboot" ]] && reboot
