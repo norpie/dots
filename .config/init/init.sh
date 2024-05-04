@@ -2,6 +2,8 @@
 
 source ~/.config/zsh/.zshrc
 
+echo $DISPLAY > ~/.cache/display
+
 ssh-add-defaults
 xroot-status-restart
 xorg-state-load

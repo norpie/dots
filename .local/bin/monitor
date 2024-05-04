@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+export DISPLAY=$(cat ~/.cache/display)
+
 # $0
 [[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]" && exit
 
