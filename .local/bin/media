@@ -43,6 +43,9 @@ case $1 in
         ;;
     get-recent-player)
         cat $MEDIA_PLAYER_CACHE
+        if [[ $? -ne 0 ]]; then
+            playerctl -a status -f '{{playerName}}' | head -n 1 | awk '{print $1}'
+        fi
         ;;
     *)
         echo "Usage: $(filename $0) [play|pause|play-pause|stop|next|previous|get-active-player|save-recent-player|get-recent-player]"
