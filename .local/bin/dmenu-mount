@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Get the drive to mount
-partition=/dev/$(lsblk --list | grep part | grep -v / | awk '{print $1 " " $4}' | dmenu | awk '{print $1}')
+partition=/dev/$(lsblk --list | grep part | grep -v / | grep -v SWAP | awk '{print $1 " " $4}' | dmenu | awk '{print $1}')
 
 # No partition? #exit
 [[ $partition == "/dev/" ]] && exit 1
