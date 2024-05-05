@@ -20,8 +20,8 @@ if_exists_alias cp rsync
 
 if_exists_alias ls eza # exa is unmaintained and eza is a fork of it
 exa_exists=$?
-[[ $exa_exists == 0 ]] && alias l="eza -l --group-directories-first"
-[[ $exa_exists == 0 ]] && alias la="eza -la --group-directories-first"
+[[ $exa_exists == 0 ]] && alias l="eza -la --group-directories-first"
+[[ $exa_exists == 0 ]] && alias la="eza -l --group-directories-first"
 [[ $exa_exists == 1 ]] &&
     alias ls="ls -ovHh --color=auto --group-directories-first" &&
     alias l="ls -ovHhA --color=auto --group-directories-first" &&
