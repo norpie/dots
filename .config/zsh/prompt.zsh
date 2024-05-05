@@ -33,7 +33,7 @@ White="%F{15}"
 MyColor="%F{219}"
 
 export EMPHESIS_COLOR_START="$MyColor$BOLD_START"
-export EMPHESIS_COLOR_STOP="$White$BOLD_STOP"
+export EMPHESIS_COLOR_STOP="$White$BOLD_STOP%f"
 
 set_prompt() {
     git dir
