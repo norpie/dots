@@ -10,6 +10,7 @@ xorg-state-load
 restart timed-fixer
 wallpaper --default
 numlockx on
+monitor layout $HOST
 
 # Delete stupid x files
 files_to_remove=(
