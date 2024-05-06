@@ -61,13 +61,6 @@ alias doc2pdf="unoconv -f pdf"
 alias sys="sudo systemctl"
 alias usys="systemctl --user"
 
-# Pacman/Yay commands
-alias orphans='sudo pacman -Rndcs $(pacman -Qdtq)'
-alias update="yay -Syu --noconfirm"
-alias u="update"
-alias p="sudo pacman"
-alias y="yay"
-
 # Synonyms
 alias quit="exit"
 alias background="wallpaper"
