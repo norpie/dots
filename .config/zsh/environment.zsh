@@ -19,10 +19,13 @@ if_exists_alias df duf
 if_exists_alias cp rsync
 
 if_exists_alias ls eza # exa is unmaintained and eza is a fork of it
-exa_exists=$?
-[[ $exa_exists == 0 ]] && alias l="eza -la --group-directories-first"
-[[ $exa_exists == 0 ]] && alias la="eza -l --group-directories-first"
-[[ $exa_exists == 1 ]] &&
+eza_exists=$?
+if [[ $eza_exists == 0 ]]; then
+    alias eza="eza --color=always --icons=automatic --git --group-directories-first"
+    alias la="eza -l"
+    alias l="la -a"
+fi
+[[ $eza_exists == 1 ]] &&
     alias ls="ls -ovHh --color=auto --group-directories-first" &&
     alias l="ls -ovHhA --color=auto --group-directories-first" &&
     alias la="ls -ovHha --color=auto --group-directories-first"
@@ -129,7 +132,23 @@ export XDG_DOWNLOADS_HOME=$HOME/Downloads
 export LANG="en_US.UTF-8"
 
 # Application settings
-export LS_COLORS="tw=00;33:ow=01;33:"
+# export LS_COLORS="tw=00;33:ow=01;33:"
+export EZA_COLORS="\
+uu=36:\
+gu=37:\
+sn=32:\
+sb=32:\
+da=34:\
+ur=34:\
+uw=35:\
+ux=36:\
+ue=36:\
+gr=34:\
+gw=35:\
+gx=36:\
+tr=34:\
+tw=35:\
+tx=36:"
 
 # Default apps
 export TERMINAL="st"
