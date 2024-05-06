@@ -1,22 +1,42 @@
-! Dracula Xresources palette
-#define fg      #F8F8F2
-#define bg      #282A36
-#define color0  #000000
-#define color8  #4D4D4D
-#define color1  #FF5555
-#define color9  #FF6E67
-#define color2  #50FA7B
-#define color10 #5AF78E
-#define color3  #F1FA8C
-#define color11 #F4F99D
-#define color4  #BD93F9
-#define color12 #CAA9FA
-#define color5  #FF79C6
-#define color13 #FF92D0
-#define color6  #8BE9FD
-#define color14 #9AEDFE
-#define color7  #BFBFBF
-#define color15 #E6E6E6
+!! Dracula Xresources palette
+!#define fg      #F8F8F2
+!#define bg      #282A36
+!#define color0  #000000
+!#define color1  #FF5555
+!#define color2  #50FA7B
+!#define color3  #F1FA8C
+!#define color4  #BD93F9
+!#define color5  #FF79C6
+!#define color6  #8BE9FD
+!#define color7  #BFBFBF
+!#define color8  #4D4D4D
+!#define color9  #FF6E67
+!#define color10 #5AF78E
+!#define color11 #F4F99D
+!#define color12 #CAA9FA
+!#define color13 #FF92D0
+!#define color14 #9AEDFE
+!#define color15 #E6E6E6
+
+! Catpuccin Mocha Xresources palette
+#define fg      #CDD6F4
+#define bg      #1E1E2E
+#define color0  #45475A
+#define color8  #585B70
+#define color1  #F38BA8
+#define color9  #F38BA8
+#define color2  #A6E3A1
+#define color10 #A6E3A1
+#define color3  #F9E2AF
+#define color11 #F9E2AF
+#define color4  #89B4FA
+#define color12 #89B4FA
+#define color5  #F5C2E7
+#define color13 #F5C2E7
+#define color6  #94E2D5
+#define color14 #94E2D5
+#define color7  #BAC2DE
+#define color15 #A6ADC8
 
 ! st
 st.foreground: fg
@@ -39,46 +59,17 @@ st.color14:    color14
 st.color15:    color15
 
 ! dmenu
-dmenu.foreground:   fg
-dmenu.background:   bg
-dmenu.selforeground:fg
-dmenu.selbackground:color4
+dmenu.foreground:    fg
+dmenu.background:    bg
+dmenu.selforeground: bg
+dmenu.selbackground: fg
 
 ! dwm
-
-dwm.normfgcolor:         fg
-dwm.normbgcolor:         bg
-dwm.selfgcolor:          fg
-dwm.selbgcolor:          bg
-dwm.tagsnormfgcolor:     fg
-dwm.tagsnormbgcolor:     bg
-dwm.tagsselfgcolor:      fg
-dwm.tagsselbgcolor:      color4
-
-! dwm borders
-! dwm.normbordercolor:color0
-! dwm.selbordercolor: color0
-! dwm.tagsselbordercolor:  color0
-! dwm.tagsnormbordercolor: color0
-! dwm.titleselbordercolor: color0
-! dwm.titlenormbordercolor:color0
-! dwm.selbordercolor:      color0
-
-! dwm.tagsselfloatcolor:   color0
-! dwm.normfloatcolor:      color0
-! dwm.selfloatcolor:       color0
-! dwm.titlenormfgcolor:    color0
-! dwm.titlenormbgcolor:    color0
-! dwm.titlenormfloatcolor: color0
-! dwm.titleselfgcolor:     color0
-! dwm.titleselbgcolor:     color0
-! dwm.titleselfloatcolor:  color0
-! dwm.tagsnormfloatcolor:  color0
-! dwm.hidnormfgcolor:      color0
-! dwm.hidnormbgcolor:      color0
-! dwm.hidselfgcolor:       color0
-! dwm.hidselbgcolor:       color0
-! dwm.urgfgcolor:          color0
-! dwm.urgbgcolor:          color0
-! dwm.urgbordercolor:      color0
-! dwm.urgfloatcolor:       color0
+dwm.normfgcolor:     fg
+dwm.normbgcolor:     bg
+dwm.selfgcolor:      fg
+dwm.selbgcolor:      bg
+dwm.tagsnormfgcolor: fg
+dwm.tagsnormbgcolor: bg
+dwm.tagsselfgcolor:  fg
+dwm.tagsselbgcolor:  color4
