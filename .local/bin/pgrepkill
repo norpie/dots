@@ -11,9 +11,10 @@ args=("$@")
 for arg in $args; do
   processes=$(pgrep -fi $arg)
   pgrep=$(pgrep -fi pgrep)
+  pgrepkill=$(pgrep -fi pgrepkill)
   restart=$(pgrep -fi restart)
   # dont kill restart
-  [[ $restart != "" ]] && processes=$(echo $processes | grep -v $restart | grep -v $pgrep)
+  [[ $restart != "" ]] && processes=$(echo $processes | grep -v $restart | grep -v $pgrep | grep -v $pgrepkill)
   [[ $processes == "" ]] && echo "no process: $arg" && continue
   echo $processes | xargs sudo kill -9
   echo "killed:
