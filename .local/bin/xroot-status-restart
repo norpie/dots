@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 
-xroot-status-stop
+pgrepkill xroot-status-loop
 xroot-status-start

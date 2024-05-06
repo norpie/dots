@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-ps -A | grep xroot-status-lo | awk {'print $1'} | xargs kill
