@@ -10,10 +10,19 @@ function if_exists_alias() {
     return 1
 }
 
+alias bat="bat --theme=Catppuccin\ Mocha"
+
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
 if_exists_alias top htop
 if_exists_alias top btop
+if_exists_alias top btm
 if_exists_alias fetch neofetch
 if_exists_alias fetch pfetch
+if_exists_alias fetch fastfetch
 if_exists_alias cat bat
 if_exists_alias df duf
 if_exists_alias cp rsync
