@@ -312,6 +312,23 @@
     timeout = 10
     #default_icon = /path/to/icon
 
+[global]
+frame_color = "#89b4fa"
+separator_color= frame
+
+[urgency_low]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_normal]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_critical]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+frame_color = "#fab387"
+
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
 #
