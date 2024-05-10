@@ -16,9 +16,14 @@ done
 # Sort the versions in descending order
 versions=($(echo $versions | tr ' ' '\n' | sort -Vr))
 
+# Add commas between the versions
+installed_printable="Installed:"
 for version in $versions; do
-    print -P "Installed: %F{green}$version%f"
+    installed_printable="$installed_printable %F{green}$version%f"
+    installed_printable="$installed_printable,"
 done
+installed_printable=${installed_printable%,}
+print -P $installed_printable
 
 # Get the latest version
 latest=$versions[1]
