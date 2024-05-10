@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-HOME="$STEAM_HOME" /usr/bin/steam "$@"
