@@ -359,3 +359,10 @@ university
 .webclipse
 .worldpainter
 .Xauthority
+.config/ssh/identities
+.config/BetterDiscord
+.config/glib-2.0
+.config/libvirt/
+.config/teams-for-linux
+.local/share/Anki2
+.local/share/docker
