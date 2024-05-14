@@ -1,6 +1,3 @@
-[submodule ".config/ssh/keys"]
-	path = .config/ssh/keys
-	url = https://github.com/norpie/keys
 [submodule ".config/wallpapers"]
     path = .config/wallpapers
     url = https://github.com/norpie/wallpapers
