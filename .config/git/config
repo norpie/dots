@@ -16,6 +16,9 @@
 [alias]
     rr = remote remove
     pr = pull-request
+    edit = commit --amend
+    fop = fetch origin --prune
+    conf = config --global --edit
 [pull]
     rebase = false
 [filter "lfs"]
@@ -25,10 +28,6 @@
     clean = git-lfs clean -- %f
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
-# [url "ssh://git@gitlab.com/"]
-#     insteadOf = https://gitlab.com/
-#[url "ssh://git@bitbucket.org/"]
-#    insteadOf = https://bitbucket.org/
 [push]
     autoSetupRemote = true
 [credential]
