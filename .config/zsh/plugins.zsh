@@ -1,40 +1,32 @@
-# Plugins
-source /home/norpie/.config/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh &>/dev/null
-source /home/norpie/.config/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh &>/dev/null
-source /home/norpie/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Plugin settings
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-export ZSH_AUTOSUGGEST_COMPLETION_IGNORE="git *"
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 
-# fast-syntax-highlighting theme
-# fast-theme zdharma &>/dev/null
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
 
-() {
-   local -a prefix=( '\e'{\[,O} )
-   local -a up=( ${^prefix}A ) down=( ${^prefix}B )
-   local key=
-   for key in $up[@]; do
-      bindkey "$key" history-substring-search-up
-   done
-   for key in $down[@]; do
-      bindkey "$key" history-substring-search-down
-   done
-}
+# Add in zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
-zstyle ':autocomplete:*' widget-style menu-complete
-# complete-word: (Shift-)Tab inserts the top (bottom) completion.
-# menu-complete: Press again to cycle to next (previous) completion.
-# menu-select:   Same as `menu-complete`, but updates selection in menu.
-# ⚠️  NOTE: This setting can NOT be changed at runtime.
+# Add in snippets
+zinit snippet OMZP::command-not-found
 
-# Insert substring before
-# zstyle ':autocomplete:*' insert-unambiguous yes
-# zstyle ':autocomplete:*complete*:*' insert-unambiguous yes
-# zstyle ':autocomplete:menu-search:*' insert-unambiguous yes
-# zstyle ':autocomplete:*history*:*' insert-unambiguous no
+# Load completions
+autoload -Uz compinit && compinit
 
-source /home/norpie/.config/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-bindkey '^I' up-line-or-search
-bindkey '^[[Z' down-line-or-search
+# Shell integrations
+eval "$(fzf --zsh)"

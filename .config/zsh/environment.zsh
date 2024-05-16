@@ -10,13 +10,6 @@ function if_exists_alias() {
     return 1
 }
 
-alias bat="bat --theme=Catppuccin\ Mocha"
-
-export FZF_DEFAULT_OPTS=" \
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-
 if_exists_alias top htop
 if_exists_alias top btop
 if_exists_alias top btm
@@ -142,6 +135,7 @@ export LANG="en_US.UTF-8"
 
 # Application settings
 # export LS_COLORS="tw=00;33:ow=01;33:"
+alias bat="bat --theme=Catppuccin\ Mocha"
 export EZA_COLORS="\
 uu=36:\
 gu=37:\
@@ -158,6 +152,10 @@ gx=36:\
 tr=34:\
 tw=35:\
 tx=36:"
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # Default apps
 export TERMINAL="st"
