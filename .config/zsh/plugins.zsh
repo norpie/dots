@@ -16,7 +16,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
 # Add in snippets
-zinit snippet OMZP::command-not-found
+# zinit snippet OMZP::command-not-found
 
 # Load completions
 autoload -Uz compinit && compinit

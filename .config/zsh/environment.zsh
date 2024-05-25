@@ -185,6 +185,8 @@ export REPO_DIR="$HOME/repos"
 export FLAKE="$HOME/repos/nix"
 
 # Moving dot dirs to .config
+export WAKATIME_HOME="$XDG_CONFIG_HOME/wakatime"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export STEAM_HOME="$HOME/.local/data/steam" # together with .local/bin/steam script
 export GOPATH="$XDG_DATA_HOME"/go
 export GOBIN="$XDG_DATA_HOME"/go/bin
@@ -223,6 +225,24 @@ alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 if [[ $HOST == "desktop" ]]; then
     export LIBVA_DRIVER_NAME=nvidia
     export VDPAU_DRIVER=nvidia
+fi
+
+# Instead of exit on tmux:
+#   * If there are panes, close the current pane
+#   * If there is only one pane, close the window
+#   * If there is only one window, close the session
+function tmux_exit() {
+    if [[ $(tmux list-panes | wc -l) -gt 1 ]]; then
+        tmux kill-pane
+    elif [[ $(tmux list-windows | wc -l) -gt 1 ]]; then
+        tmux kill-window
+    else
+        tmux kill-session
+    fi
+}
+
+if [[ ! $TMUX == "" ]]; then
+    alias exit="tmux_exit"
 fi
 
 # Rust
