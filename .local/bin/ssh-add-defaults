@@ -1,2 +1,4 @@
 #!/usr/bin/env zsh
-ssh-add ~/.config/ssh/norpie
+
+ssh-add ~/.config/ssh/identities/* 2>/dev/null
+exit 0
