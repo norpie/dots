@@ -366,3 +366,7 @@ university
 .config/teams-for-linux
 .local/share/Anki2
 .local/share/docker
+.config/tmux/plugins/tmux
+.config/tmux/plugins/tmux-autoreload
+.config/tmux/plugins/tmux-fzf
+.config/tmux/plugins/tmux-yank
