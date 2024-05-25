@@ -1,0 +1,48 @@
+#!/usr/bin/env zsh
+
+total_seconds=0
+
+# Find all video files in the current directory and subdirectories
+# * videos with the following extensions are considered: mp4, mkv, avi
+# * audio with the following extensions are considered: mp3, flac, wav, opus
+files=$(find . -type f -name '*.mp4' -o -name '*.mkv' -o -name '*.avi' -o -name '*.mp3' -o -name '*.flac' -o -name '*.wav' -o -name '*.opus')
+file_count=$(echo "$files" | wc -l)
+index=0
+# Loop through all video files in the current directory and subdirectories
+find . -type f -name '*.mp4' -o -name '*.mkv' -o -name '*.avi' -o -name '*.mp3' -o -name '*.flac' -o -name '*.wav' -o -name '*.opus' | while read -r file; do
+    index=$((index + 1))
+    echo "Processing $file ($index/$file_count)"
+    # Extract the duration of the video in seconds
+    duration=$(ffprobe -v error -select_streams a:0 -show_entries stream=duration -of default=noprint_wrappers=1:nokey=1 "$file")
+    # Sum up the duration
+    total_seconds=$(echo "$total_seconds + $duration" | bc)
+done
+
+# Define time constants
+seconds_in_minute=60
+seconds_in_hour=3600
+seconds_in_day=86400
+seconds_in_week=$((seconds_in_day * 7)) # 7 days in a week
+seconds_in_month=$((seconds_in_day * 30)) # 30 days in a month (approx.)
+seconds_in_year=$((seconds_in_day * 365)) # 365 days in a year (approx.)
+
+# Calculate years, months, days, hours, minutes
+years=$(echo "$total_seconds / $seconds_in_year" | bc)
+remaining_seconds=$(echo "$total_seconds % $seconds_in_year" | bc)
+
+months=$(echo "$remaining_seconds / $seconds_in_month" | bc)
+remaining_seconds=$(echo "$remaining_seconds % $seconds_in_month" | bc)
+
+weeks=$(echo "$remaining_seconds / $seconds_in_week" | bc)
+remaining_seconds=$(echo "$remaining_seconds % $seconds_in_week" | bc)
+
+days=$(echo "$remaining_seconds / $seconds_in_day" | bc)
+remaining_seconds=$(echo "$remaining_seconds % $seconds_in_day" | bc)
+
+hours=$(echo "$remaining_seconds / $seconds_in_hour" | bc)
+remaining_seconds=$(echo "$remaining_seconds % $seconds_in_hour" | bc)
+
+minutes=$(echo "$remaining_seconds / $seconds_in_minute" | bc)
+seconds=$(echo "$remaining_seconds % $seconds_in_minute" | bc)
+
+echo "Total duration: $years years, $months months, $weeks weeks, $days days, $hours hours, $minutes minutes, and $seconds seconds"
