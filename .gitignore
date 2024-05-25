@@ -370,3 +370,11 @@ university
 .config/tmux/plugins/tmux-autoreload
 .config/tmux/plugins/tmux-fzf
 .config/tmux/plugins/tmux-yank
+.config/tmux/plugins/vim-tmux-navigator
+.config/docker
+.config/miopen
+.config/wakatime
+.config/zsh-old
+.local/share/zinit
+.local/share/tts
+.local/share/nix
