@@ -4,11 +4,12 @@ source ~/.config/zsh/.zshrc
 
 echo $DISPLAY > ~/.cache/display
 
-ssh-add-defaults
+ssh-add ~/.config/ssh/identities/norpie
 xroot-status-restart
 xorg-state-load
 restart timed-fixer
 wallpaper --default
+tmux new-session -A -s default
 numlockx on
 
 # Delete stupid x files
