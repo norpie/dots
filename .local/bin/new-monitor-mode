@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+# This script generates a new modeline for a given resolution and refresh rate
+# and applies it to the specified output.
+
+[[ $# -ne 4 ]] && echo "Usage: $0 <output> <width> <height> <refresh>" && exit 1
+
+output=$1
+width=$2
+height=$3
+refresh=$4
+
+cmdoutput=$(gtf $height $width $refresh)
+# Sample output:
+# ```
+#
+# # 1280x1024 @ 164.00 Hz (GTF) hsync: 184.83 kHz; pclk: 331.21 MHz
+# Modeline "1280x1024_164.00"  331.21  1280 1392 1536 1792  1024 1025 1028 1127  -HSync +Vsync
+#
+# ```
+
+# Get the line with the modeline, and remove the "Modeline " prefix
+modeline=$(echo $cmdoutput | grep -o 'Modeline.*' | cut -d' ' -f2-)
+
+# Extract the modename
+modename=$(echo $modeline | cut -d' ' -f1)
+
+# Remove the old modeline
+xrandr --rmmode "$modename" && echo "Removed old modeline"
+
+# Set the Modeline
+# We need to split the modeline by spaces and pass it as arguments to xrandr
+# This is the old way, which doesn't work:
+# xrandr --newmode $modeline && echo "Set new modeline"
+# This is the new way:
+xrandr --newmode $(echo $modeline) && echo "Set new modeline"
+
+# Add the modeline to the output
+xrandr --addmode "$output" "$modename" && echo "Added modeline to output"
+
+# Apply the output
+xrandr --output "$output" --mode "$modename" && echo "Applied modeline to output"
