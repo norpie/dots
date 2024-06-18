@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+# Usage `torrent (finished)`
+# Subcommands:
+#  finished: Fix the permissions of the files in the finished directory
+
+if [[ $# -eq 0 ]]; then
+  echo "Usage: torrent (finished)"
+  exit 1
+fi
+
+if [[ $1 == "finished" ]]; then
+  find /mnt/media/sortable -type d -exec sudo chown -R mediamanager {} \;
+fi
