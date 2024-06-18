@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+if [[ $1 == "restart" ]]; then
+    sudo systemctl restart bluetooth
+    systemctl --user restart pipewire
+    systemctl --user restart pipewire-pulse
+fi
