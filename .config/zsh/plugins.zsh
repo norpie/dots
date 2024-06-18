@@ -19,7 +19,11 @@ zinit light Aloxaf/fzf-tab
 # zinit snippet OMZP::command-not-found
 
 # Load completions
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+# If the completion dump file is older than 24 hours, reload completions
+if [[ -f ${ZDOTDIR:-$HOME}/.zcompdump(N.mh+24) ]];then
+    compinit
+fi
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
