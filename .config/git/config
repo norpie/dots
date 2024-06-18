@@ -5,7 +5,7 @@
     interactive = true
     status = true
 [user]
-    name = Konsta Kuosmanen
+    name = norpie (Konsta Kuosmanen)
     email = contact@norpie.dev
 [core]
     editor = nvim
