@@ -1,21 +1,30 @@
 #!/usr/bin/env zsh
 
-player_status=$(playerctl status 2>&1)
+players=$(playerctl -a status -f '{{playerName}} {{status}}')
 
-[[ $player_status == "No player could handle this command" ]] && echo "" && exit 0
+# Check if there are any players
+if [[ $players == "" ]]; then
+    echo ""
+    exit 0
+fi
 
-[[ $player_status == "No players found" ]] && echo "" && exit 0
+# Get the first player that is "Playing"
+player=$(echo $players | grep "Playing" | awk 'NR==1{print $1}')
 
-track_name=$(playerctl metadata title)
-artist_name=$(playerctl metadata artist)
-track_name_size=${#track_name}
-artist_name_size=${#artist_name}
+# If there are no players that are "Playing"
+if [[ $player == "" ]]; then
+    echo ""
+    exit 0
+fi
 
-[[ $track_name == "" ]] && echo "" && exit 0
+track_name=$(playerctl -p $player metadata title)
+artist_name=$(playerctl -p $player metadata artist)
 
 media save-recent-player
 
-[[ $track_name_size -gt 40 ]] && track_name="${track_name:0:40}…"
+track_name_size=${#track_name}
+[[ $track_name_size -gt 20 ]] && track_name="${track_name:0:20}…"
+artist_name_size=${#artist_name}
 [[ $artist_name_size -gt 20 ]] && artist_name="${artist_name:0:20}…"
 
 music_status="$track_name - $artist_name"
