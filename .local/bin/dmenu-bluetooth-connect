@@ -2,6 +2,9 @@
 
 choices=$(macid)
 
+bluetoothctl power on
+bluetoothctl scan on
+
 choice=$(echo $choices | dmenu)
 
 [[ $choice == "" ]] && exit 1
