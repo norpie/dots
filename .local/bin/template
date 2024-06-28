@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+TEMPLATE_DIR="$XDG_CONFIG_HOME/templates"
+file=$(find $TEMPLATE_DIR -type f | fzf)
+
+[[ -z $file ]] && exit
+
+# Get the new file name from the user input
+new_file=$(echo $file | sed "s|$TEMPLATE_DIR/||" | fzf --prompt="New file name: ")
+
+[[ -z $new_file ]] && exit
+
+cp $file ./$new_file
