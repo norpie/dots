@@ -1,0 +1,19 @@
+services:
+  example_service_name:
+    image: image_name:tag
+    container_name: container_name
+    environment:
+      VAR: value
+    command: echo "Hello, World!"
+    ports:
+      - "HOST_PORT:CONTAINER_PORT"
+    volumes:
+      - /host/path:/container/path
+    depends_on:
+      - service_name
+    networks:
+      - network_name
+
+networks:
+  network_name:
+    driver: bridge
