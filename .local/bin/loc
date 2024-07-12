@@ -4,6 +4,10 @@
 exclude=(
   "*.git*"
   "*.lock"
+  "**/node_modules/*"
+  "**/.venv/*"
+  "**/__pycache__/*"
+  "**/target/*"
 )
 
 function generate_find_exclude {
