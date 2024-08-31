@@ -241,7 +241,7 @@ function tmux_exit() {
     fi
 }
 
-if [[ ! $TMUX == "" ]]; then
+if [[ ! $TMUX == "" && ! $SSH_CONNECTION == "" ]]; then
     alias exit="tmux_exit"
 fi
 
