@@ -10,3 +10,5 @@ choice=$(echo $choices | dmenu)
 [[ $choice == "" ]] && exit 1
 
 bluetoothctl connect $(macid $choice)
+
+bluetoothctl scan off
