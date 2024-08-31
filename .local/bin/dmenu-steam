@@ -13,4 +13,4 @@ done <<<$(cat ~/.local/share/Steam/steamapps/libraryfolders.vdf | grep path | aw
 choice=$(echo "$games" | sed '/^$/d' | sort -h | dmenu)
 [[ "$choice" == "" ]] && exit 1
 
-HOME=$STEAM_HOME /usr/bin/steam steam://rungameid/$choice
+$(whereis steam | sed 's/steam: //g') steam://rungameid/$choice
