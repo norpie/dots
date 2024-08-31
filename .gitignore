@@ -385,3 +385,14 @@ university
 .local/share/cargo/.global-cache
 .config/tmux/plugins/tmux-mode-indicator
 .config/tmux/plugins/tmux-suspend
+.config/Ultralytics
+.config/uGet
+.nix-profile
+.bash_history
+.local/share/kdenlive
+.local/share/webkitgtk
+.local/share/dev.norpie.alice
+.local/share/com.tauri.dev
+.local/share/bottles
+.local/share/webkitgtk-4.1
+.config/nix
