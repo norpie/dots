@@ -5,7 +5,7 @@ date=$(date +%d%m%Y%H)
 declare -A symbols
 symbols=(
     ["Unknown"]=""
-    ["Cloudy"]="摒",
+    ["Cloudy"]="",
     ["Fog"]="",
     ["Heavy rain"]="",
     ["Heavy showers"]=""
@@ -17,7 +17,7 @@ symbols=(
     ["Light sleet showers"]=""
     ["Light snow"]=""
     ["Light snow showers"]=""
-    ["Partly cloudy"]="杖"
+    ["Partly cloudy"]="󰖕"
     ["Sunny"]=""
     ["Thundery heavy rain"]=""
     ["Thundery showers"]=""
@@ -37,8 +37,8 @@ parse_data() {
     wind=$(echo $input | awk 'BEGIN {FS=";";} { print $1 }')
     type=$(echo $input | awk 'BEGIN {FS=";";} { print $2 }')
     temperature=$(echo $input | awk 'BEGIN {FS=";";} { print $3 }')
-    
-    echo "煮$wind - $symbols[$type] $type -  $temperature"
+
+    echo " $wind - $symbols[$type] $type -  $temperature"
 }
 
 parse_file() {
@@ -51,7 +51,7 @@ check_update() {
     if [[ -f ~/.cache/weather.txt ]]; then
         updatecheck=$(cat ~/.cache/weather.txt | awk 'NR==2')
     fi
-    
+
     if [[ $date = $updatecheck ]]; then
         parse_file
         exit 0
