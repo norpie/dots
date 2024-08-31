@@ -8,6 +8,8 @@ devices=(
     ["beans"]="08:BF:A0:EE:20:FB"
     ["xbox"]="0C:35:26:69:79:3C"
     ["apollo"]="F8:5C:7D:9D:94:36"
+    ["buds"]="7C:38:AD:BF:E8:B3"
+    ["illuvatar"]="24:24:B7:93:4B:CD"
     )
 
 if [[ $# == 0 ]]; then
