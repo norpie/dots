@@ -4,4 +4,6 @@ if [[ $1 == "restart" ]]; then
     sudo systemctl restart bluetooth
     systemctl --user restart pipewire
     systemctl --user restart pipewire-pulse
+    pgrepkill pavucontrol
+    start pavucontrol
 fi
