@@ -1,22 +1,25 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+
+exec 1> ~/.cache/monitor.log 2>&1
+set -x
 
 export DISPLAY=$(cat ~/.cache/display)
 
 # $0
 [[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]" && exit
 
-[[ $1 == "blanking" ]] && [[ $2 == "off" ]] && xset s off && xset -dpms
-[[ $1 == "blanking" ]] && [[ $2 == "on" ]] && xset s on && xset +dpms
+[[ $1 == "blanking" ]] && [[ $2 == "off" ]] && xset s off && xset -dpms && exit
+[[ $1 == "blanking" ]] && [[ $2 == "on" ]] && xset s on && xset +dpms && exit
 
-[[ $1 == "off" ]] && xset dpms force off
-[[ $1 == "on" ]] && xset dpms force on
+[[ $1 == "off" ]] && xset dpms force off && exit
+[[ $1 == "on" ]] && xset dpms force on && exit
 
 # $0 brightness $2
 [[ $1 == "brightness" ]] &&
     xrandr -q |
     grep "connected" |
     awk '{print $1}' |
-    xargs -I {} jrandr --output {} --brightness $2 &&
+    xargs -I {} xrandr --output {} --brightness $2 &&
     exit
 
 # $0 state
@@ -33,7 +36,8 @@ export DISPLAY=$(cat ~/.cache/display)
 
 [[ $1 == "layout" ]] &&
     [[ $2 == "desktop" ]] &&
-    xrandr --output DisplayPort-0 --mode 1920x1080 --refresh 165.00 --primary --output DisplayPort-1 --mode 1920x1080 --left-of DisplayPort-0 --output DisplayPort-2 --mode 1920x1080 --right-of DisplayPort-0
+    xrandr --output DisplayPort-0 --mode 1920x1080 --refresh 165.00 --primary --output DisplayPort-1 --mode 1920x1080 --left-of DisplayPort-0 --output DisplayPort-2 --mode 1920x1080 --right-of DisplayPort-0 ||
+        new-monitor-mode DisplayPort-0 1024 1280 157
 
 [[ $1 == "layout" ]] &&
     [[ $2 == "laptop" ]] &&
