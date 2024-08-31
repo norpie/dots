@@ -8,7 +8,7 @@ output=""
 
 while IFS= read -r device ; do
     macid=$(echo $device | awk '{print $2}')
-    name=$(echo $device | awk '{print $3}')
+    name=$(echo $device | cut -d ' ' -f 3-)
     device="$name"
     info=$(bluetoothctl info $macid | grep "Percentage" | awk '{print $4}' | sed 's/)/%)/g')
     [[ $info != "" ]] && device="$device $info"
