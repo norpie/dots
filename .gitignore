@@ -395,6 +395,5 @@ university
 .local/share/bottles
 .local/share/webkitgtk-4.1
 .config/nix
-.config/btop/btop.log
-.config/btop/btop.log.1
+.config/btop/btop.log*
 .nix-defexpr
