@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+# A wrapper for nh, for nix
+
+cd /home/$(whoami)/repos/nix &&
+    ./prepare.sh &&
+    $(whereis nh | awk '{print $3}') $@
