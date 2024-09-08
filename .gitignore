@@ -8,7 +8,6 @@
 .config/baloofileinformationrc
 .config/bashtop
 .config/Bitcoin
-.config/btop
 .config/calcurse
 .config/cargo
 .config/cef_user_data
@@ -396,3 +395,6 @@ university
 .local/share/bottles
 .local/share/webkitgtk-4.1
 .config/nix
+.config/btop/btop.log
+.config/btop/btop.log.1
+.nix-defexpr
