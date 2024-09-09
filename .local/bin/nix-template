@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+TEMPLATE_DIR="$HOME/.local/share/nix-templates"
+ORIG_DIR=$(pwd)
+
+[[ ! -d $TEMPLATE_DIR ]] && echo "No templates found." && exit 1
+
+cd $TEMPLATE_DIR
+
+selected=$(find -mindepth 1 -maxdepth 1 -exec echo {} \; | sed 's/^\.\///' | fzf --preview 'if [[ -d {} ]]; then; ls {}; else; pygmentize -g {}; fi;')
+
+[[ -z $selected ]] && echo "Nothing selected." && exit 1
+
+cd $ORIG_DIR
+
+if [[ -d $TEMPLATE_DIR/$selected ]]; then
+    cp -r $TEMPLATE_DIR/$selected/* .
+elif [[ $selected == *"shell"* ]]; then
+    cp $TEMPLATE_DIR/$selected shell.nix
+elif [[ $selected == *"flake"* ]]; then
+    cp $TEMPLATE_DIR/$selected flake.nix
+else
+    cp $TEMPLATE_DIR/$selected default.nix
+fi
