@@ -8,6 +8,10 @@ exclude=(
   "**/.venv/*"
   "**/__pycache__/*"
   "**/target/*"
+  "**/bin/*"
+  "**/bins/*"
+  "**/obj/*"
+  "**/dist/*"
 )
 
 function generate_find_exclude {
