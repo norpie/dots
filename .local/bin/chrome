@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-fix-chrome-crash-bubble && google-chrome-stable --new-window $@
