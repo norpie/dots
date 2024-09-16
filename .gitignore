@@ -48,7 +48,6 @@
 .config/google-chrome
 .config/gops
 .config/gtk-2.0
-.config/gtk-3.0
 .config/guvcview2
 .config/htop
 .config/inkscape
@@ -397,3 +396,4 @@ university
 .config/nix
 .config/btop/btop.log*
 .nix-defexpr
+.config/gtk-3.0/bookmarks
