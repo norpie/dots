@@ -1,0 +1,14 @@
+# check if ~/.cache/gamemode exists, then we are in gaming mode
+gamemode=$(test -f ~/.cache/gamemode && echo true || echo false)
+
+echo "Gaming mode: $gamemode"
+
+if [ $gamemode = true ]; then
+    echo "Setting up normal layout"
+    monitor layout desktop
+    rm -f ~/.cache/gamemode
+else
+    echo "Setting up gaming layout"
+    monitor layout desktop-gaming
+    touch ~/.cache/gamemode
+fi
