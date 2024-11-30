@@ -1,35 +1,95 @@
 #!/usr/bin/env zsh
 
-cd ~/.config/wallpapers/selection/
+# All the wallpapers are stored in ~/.config/wallpapers/selection/
+# Under `selection/` there are multiple directories, each containing a set of wallpapers
+# We want the user to be able to select individual wallpapers from these directories, or rotate
+# through them randomly if the user selected a directory
 
-function select_wallpaper() {
-    cp $1 ~/.config/wallpapers/wallpaper.png
+WALLPAPERS=~/.config/wallpapers/selection/
+DEFAULT_WALLPAPER=~/.config/wallpapers/wallpaper.png
+
+function print_help() {
+    echo "Usage: wallpaper [OPTION]"
+    echo "Set the wallpaper for the current session"
+    echo ""
+    echo "Options:"
+    echo "  --random    Set a random wallpaper from the selection"
+    echo "  --default   Set the default wallpaper"
+    echo "  --gui       Open a GUI to select a wallpaper"
+    echo "  --menu      Open a menu to select a wallpaper"
+    echo "  --kill      Kill the wallpaper process"
+    echo "  --rotate    Rotate through a directory of wallpapers"
+    echo "  --time      Time between each wallpaper change"
+    echo "  --help      Display this help message"
 }
 
-function apply_wallpaper() {
-    xwallpaper --zoom ~/.config/wallpapers/wallpaper.png
-}
-
-function random_wallpaper() {
-    selection=$(find * -type f | shuf -n 1)
-    select_wallpaper $selection
-    apply_wallpaper
-}
-
-# Handle --default, if not present -> random_wallpaper, apply_wallpaper
-if [[ $1 == "--default" ]]; then
-    [[ ! -f ~/.config/wallpapers/wallpaper.png ]] && random_wallpaper
-    apply_wallpaper
+function fix_exit() {
+    xwallpaper --zoom $DEFAULT_WALLPAPER
     exit 0
+}
+
+trap fix_exit INT TERM
+
+if [[ $1 == "" ]]; then
+    print_help
+    exit 1
 fi
 
-# Handle --gui
-if [[ $1 == "--gui" ]]; then
-    st -e wallpaper
-    exit 0
-fi
-
-selection=$(find * -type f | fzf-img)
-[[ $selection == "" ]] && exit 1
-select_wallpaper $selection
-apply_wallpaper
+for opt in $@; do
+    case $opt in
+        --random)
+            selection=$(find $WALLPAPERS -type f | shuf -n 1)
+            [[ $selection == "" ]] && exit 1
+            cp $selection $DEFAULT_WALLPAPER
+            xwallpaper --zoom $DEFAULT_WALLPAPER
+            exit 0
+            ;;
+        --default)
+            [[ -f ~/.config/wallpapers/wallpaper.png ]] && xwallpaper --zoom $DEFAULT_WALLPAPER
+            exit 0
+            ;;
+        --gui)
+            st -e wallpaper --menu
+            exit 0
+            ;;
+        --menu)
+            selection=$(find $WALLPAPERS -type f | fzf-img)
+            [[ $selection == "" ]] && exit 1
+            cp $selection $DEFAULT_WALLPAPER
+            xwallpaper --zoom $DEFAULT_WALLPAPER
+            exit 0
+            ;;
+        --kill)
+            existing=$(ps aux | grep .local/bin/wallpaper | grep -v grep | grep -v kill | grep -v nvim)
+            # If there are multiple instances of wallpaper running, kill the oldest one
+            [[ $(echo $existing | wc -l) -gt 1 ]] && kill $(echo $existing | head -n 1 | awk '{print $2}')
+            exit 0
+            ;;
+        --rotate)
+            wallpaper --kill
+            if [[ $2 == "" ]]; then
+                RANDOM_DIR=$(find $WALLPAPERS -type d | shuf -n 1)
+                [[ $RANDOM_DIR == "" ]] && exit 1
+            elif [[ -d $2 ]]; then
+                RANDOM_DIR=$2
+            else
+                echo "Directory $2 does not exist"
+                exit 1
+            fi
+            if [[ $3 == "--time" ]]; then
+                TIME=$4
+            else
+                TIME=60
+            fi
+            while true; do
+                selection=$(find $RANDOM_DIR -type f | shuf -n 1)
+                xwallpaper --zoom $selection
+                sleep $TIME
+            done
+            ;;
+        --help)
+            print_help
+            exit 0
+            ;;
+    esac
+done
