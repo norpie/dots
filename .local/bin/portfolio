@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+script_name=$(basename $0)
+nix_executable="/run/current-system/sw/bin/$script_name"
+
+if [ -f $nix_executable ]; then
+    sudo mkdir -p /home/$script_name &&
+        sudo chown -R $USER /home/$script_name &&
+        export HOME=/home/$script_name &&
+        $nix_executable $@
+else
+    echo "Error: $script_name is not installed"
+    exit 1
+fi
