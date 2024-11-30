@@ -32,6 +32,6 @@ mountpoint=$(cd /mnt && find * -maxdepth 0 -empty -type d | dmenu)
 sudo mkdir /mnt/$mountpoint
 
 # Mount it
-sudo mount -o rw,uid=$USER,gid=$USER $partition /mnt/$mountpoint
+sudo mount -o rw,uid=$USER $partition /mnt/$mountpoint
 
 # Save it?
