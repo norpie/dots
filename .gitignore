@@ -397,3 +397,6 @@ university
 .config/btop/btop.log*
 .nix-defexpr
 .config/gtk-3.0/bookmarks
+.config/Vencord
+.config/Discord Key Storage
+.config/Bitwarden
