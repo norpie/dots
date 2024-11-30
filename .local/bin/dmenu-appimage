@@ -4,4 +4,5 @@ APP_PATH="$HOME/.local/share/appimages"
 mkdir -p $APP_PATH && cd $APP_PATH
 cmd=$(find * | dmenu)
 
-eval $APP_PATH/$cmd --no-sandbox
+cd $APP_PATH
+appimage-run $cmd
