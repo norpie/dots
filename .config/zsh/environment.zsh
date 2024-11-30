@@ -98,6 +98,7 @@ alias gp="git push"
 alias gpl="git pull --rebase"
 alias gi="git ignore"
 alias gpr="git pull-request"
+alias lg="lazygit"
 
 # Dot aliases
 alias ds="dots status"
@@ -116,6 +117,7 @@ alias diff="diff --color=auto"
 alias rsync="rsync -avz --progress"
 alias mkdir="mkdir -p"
 alias mv="mv -v"
+alias nix-shell="HISTFILE=/dev/null nix-shell"
 
 # Define home
 export HOME="/home/$USER"
@@ -223,8 +225,8 @@ alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 # Hardware acceleration
 if [[ $HOST == "desktop" ]]; then
-    export LIBVA_DRIVER_NAME=nvidia
-    export VDPAU_DRIVER=nvidia
+    export LIBVA_DRIVER_NAME=radeonsi
+    export VDPAU_DRIVER=radeonsi
 fi
 
 # Instead of exit on tmux:
