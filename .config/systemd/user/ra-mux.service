@@ -5,7 +5,7 @@ Description=Rust analyzer multiplex server
 Type=simple
 Environment="RUSTUP_HOME=/home/norpie/.local/share/rustup"
 Environment="CARGO_HOME=/home/norpie/.local/share/cargo"
-ExecStart=/run/current-system/sw/bin/ra-multiplex server
+ExecStart=/home/norpie/.local/share/cargo/bin/ra-multiplex server
 
 [Install]
 WantedBy=default.target
