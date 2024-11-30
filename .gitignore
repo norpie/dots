@@ -401,3 +401,5 @@ university
 .config/Discord Key Storage
 .config/Bitwarden
 persist
+.local/share/data
+.local/share/DBeaverData
