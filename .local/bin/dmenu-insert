@@ -1,12 +1,15 @@
 #!/bin/sh
 
-arg=$(cd ~/.config/symbol-lists && ls --format single-column | dmenu -l 30)
-
-# Get user selection via dmenu from emoji file.
-chosen=$(grep . ~/.config/symbol-lists/$arg | dmenu -l 30 | sed "s/ .*//")
+arg=$(cd ~/.config/symbol-lists && find . -type f | sed 's/\.\/\(.*\)/\1/' | dmenu -l 30)
 
 # Exit if none chosen.
-[ $chosen == "" ] && exit
+[ "$arg" = "" ] && exit
 
-xdotool type "$chosen"
-printf $chosen | xclip -sel clip
+# Get user selection via dmenu from emoji file.
+arg=$(grep . ~/.config/symbol-lists/"$arg" | dmenu -l 30 | sed "s/ .*//")
+
+# Exit if none chosen.
+[ "$arg" = "" ] && exit
+
+xdotool type "$arg"
+printf '%s' "$arg" | xclip -sel clip
