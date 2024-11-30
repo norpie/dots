@@ -2,16 +2,17 @@
 
 # Array of files to exclude
 exclude=(
-  "*.git*"
-  "*.lock"
+  "**/.*"
   "**/node_modules/*"
-  "**/.venv/*"
   "**/__pycache__/*"
   "**/target/*"
   "**/bin/*"
+  "**/build/*"
   "**/bins/*"
   "**/obj/*"
   "**/dist/*"
+  "**/*.db/*"
+  "**/*.lock"
 )
 
 function generate_find_exclude {
