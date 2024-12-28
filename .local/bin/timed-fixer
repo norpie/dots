@@ -4,5 +4,6 @@ while true; do
     xorg-state-save
     output fix
     escapecaps
+    echo 0 | sudo tee /sys/class/leds/platform\:\:micmute/brightness
     sleep 10
 done
