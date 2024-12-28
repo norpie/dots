@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+[[ $# != 1 ]] && echo "Usage: $0 <file>" && exit 1
+
+[[ -f $1 ]] || { echo "File not found: $1"; exit 1; }
+
+file=${1}
+ext=${1##*.}
+
+function compile_tex() {
+    pdflatex $file
+    bibtex $file
+    pdflatex $file
+}
+
+# Switch on arg0
+case $ext in
+    tex)
+        echo $file | entr -narc bash -c "pdflatex $file && bibtex ${file%.*} && pdflatex $file"
+        ;;
+    *)
+        echo "Unknown file type: $ext"
+        ;;
+esac
