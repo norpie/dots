@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+# Lock file to prevent multiple instances of the script running at the same time
+[ -f ~/.cache/brightness.lock ] && exit 1
+
+touch ~/.cache/brightness.lock
+
 print_help() {
     echo "--- Help ---"
     echo "-h -- print this menu"
@@ -14,6 +19,10 @@ set_brightness() {
     rounded=$(python -c "print(5 * round($1/5))")
     float=$(( $rounded.0 / 100 * $max_brightness ))
     int=${float%.*}
+    # Cap int to >0
+    if [ $int -lt 1 ]; then
+        int=1
+    fi
     echo $int | sudo tee -a /sys/class/backlight/*/brightness >/dev/null
 }
 
@@ -34,20 +43,18 @@ while getopts "ha:i:d:" opt; do
     case "$opt" in
         h)
             print_help
-            exit 0
             ;;
         a)
             set_brightness $OPTARG && xroot-status-update
-            exit 0
             ;;
         i)
             increase_brightness $OPTARG && xroot-status-update
-            exit 0
             ;;
         d)
             decrease_brightness $OPTARG && xroot-status-update
-            exit 0
             ;;
 
     esac
 done
+
+rm ~/.cache/brightness.lock
