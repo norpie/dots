@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+# This is a wrapper for `touch`, this wrapper makes directories before touching
+
+[[ $# -eq 0 ]] && { echo "Usage: $0 <file> [<file> ...]" && exit 1 }
+
+for var in "$@"
+do
+    mkdir -p "$(dirname "$var")"
+    $(whereis touch | sed 's/touch: //g' | awk '{print $2}') "$var"
+done
