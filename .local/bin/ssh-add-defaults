@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 
-ssh-add ~/.config/ssh/identities/* 2>/dev/null
+ssh-add ~/.config/ssh/identities/*
 exit 0
