@@ -16,10 +16,11 @@ UB_PID=$(cat "$UB_PID_FILE")
 
 export SOCKET="$UEBERZUG_TMP_DIR"/ueberzugpp-"$UB_PID".socket
 export X=$(($(tput cols) / 2 + 1))
-# --max-width $FZF_PREVIEW_COLUMNS --max-height $FZF_PREVIEW_LINES
-# if FZF_PREVIEW_COLUMNS exists, use it, otherwise use tput cols
-[ -z "$FZF_PREVIEW_COLUMNS" ] && max_width=$(($(tput cols) - 2)) || max_width=$FZF_PREVIEW_COLUMNS
-[ -z "$FZF_PREVIEW_LINES" ] && max_height=$(($(tput lines) - 2)) || max_height=$FZF_PREVIEW_LINES
+
+export cols=$(tput cols)
+export rows=$(tput lines)
+export max_width=$((cols / 2))
+export max_height=$((rows / 2))
 
 # run fzf with preview
 fzf --ansi --literal --reverse --preview="ueberzugpp cmd -s $SOCKET -i fzfpreview -a add -x $X -y 1 --max-width $max_width --max-height $max_height -f {}"
