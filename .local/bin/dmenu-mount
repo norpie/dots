@@ -28,10 +28,5 @@ mountpoint=$(cd /mnt && find * -maxdepth 0 -empty -type d | dmenu)
 # If no selection exit
 [[ $mountpoint == "" ]] && exit 1
 
-# Make mount point to make sure it exists
-sudo mkdir /mnt/$mountpoint
-
 # Mount it
-sudo mount -o rw,uid=$USER $partition /mnt/$mountpoint
-
-# Save it?
+sudo mount --mkdir -o rw,uid=$USER $partition /mnt/$mountpoint
