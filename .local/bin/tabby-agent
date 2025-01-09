@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+export HOME=/home/tabby
+sudo mkdir -p $HOME
+sudo chown norpie $HOME -R
+/run/current-system/sw/bin/tabby-agent
