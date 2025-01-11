@@ -16,6 +16,7 @@ mouse=$(st-mouse-battery)
 [[ $bluetooth != "" ]] && fullstatus+="$bluetooth | "
 [[ $wlan != "" ]] && fullstatus+="$wlan | "
 fullstatus+="$volume - $music | "
+# fullstatus+="$music | "
 [[ $brightness != "" ]] && fullstatus+="$brightness | "
 [[ $battery != "" ]] && fullstatus+="$battery | "
 [[ $mouse != "" ]] && fullstatus+="$mouse | "
