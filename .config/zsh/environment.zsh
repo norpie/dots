@@ -108,7 +108,7 @@ alias da="dots add"
 alias dr="dots rm"
 alias dp="dots push --recurse-submodules=on-demand"
 alias dpl="dots pull && dots submodule update --init --recursive"
-alias dlg="lazygit -g ~/.dots"
+alias dlg="cd && lazygit -g $HOME/.dots && back"
 alias di="dots ignore --dots"
 
 # Always options
