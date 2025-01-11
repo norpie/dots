@@ -420,3 +420,8 @@ discord_krisp.log
 discord_utils.log
 .config/wallpapers
 .config/lazygit/state.yml
+.config/JetBrains
+.config/sql-language-server
+.config/ssh/archive
+.local/share/JetBrains
+.tabby
