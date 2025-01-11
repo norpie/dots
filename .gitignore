@@ -63,7 +63,6 @@
 .config/kde.org
 .config/kitty
 .config/komorebi
-.config/lazygit
 .config/libfm
 .config/libreoffice
 .config/lingot
@@ -420,3 +419,4 @@ vmware
 discord_krisp.log
 discord_utils.log
 .config/wallpapers
+.config/lazygit/state.yml
