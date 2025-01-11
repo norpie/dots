@@ -4,7 +4,6 @@ function append_path() {
 
 # cd with history, based on minecraft essentials /back
 function cd() {
-    export LAST_DIR=$(pwd)
     # Stop recording history if we cd into /mnt or move around in /mnt
     if [[ $1 == /mnt* || $PWD == /mnt* ]]; then
         [[ ! $HISTFILE == /dev/null ]] && export HISTFILE=/dev/null && echo "History disabled" && sed -i '$ d' $HOME/.cache/zsh/history
@@ -15,7 +14,7 @@ function cd() {
 }
 
 function back() {
-    cd $LAST_DIR
+    cd -
 }
 
 function telescope() {
