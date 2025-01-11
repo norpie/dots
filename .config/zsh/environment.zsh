@@ -265,8 +265,8 @@ export WEBKIT_DISABLE_DMABUF_RENDERER=1 # Fix for webkitgtk in dwm
 # e.g. $RUSTUP_HOME/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo
 # Put every $RUSTUP_HOME/toolchain/**/bin in $PATH
 # RUST_PATHS=$(find $RUSTUP_HOME/toolchains -maxdepth 2 -type d -name "bin" | tr '\n' ':' | sed 's/.$//')
-RUST_DEFAULT_TOOLCHAIN=$(cat $HOME/.local/share/rustup/settings.toml | grep default_toolchain | awk '{print $3}' | sed s/\"//g)
-RUSTUP_TOOLCHAIN_PATH=$HOME/.local/share/rustup/toolchains/$RUST_DEFAULT_TOOLCHAIN/bin
+# RUST_DEFAULT_TOOLCHAIN=$(cat $HOME/.local/share/rustup/settings.toml | grep default_toolchain | awk '{print $3}' | sed s/\"//g)
+# RUSTUP_TOOLCHAIN_PATH=$HOME/.local/share/rustup/toolchains/$RUST_DEFAULT_TOOLCHAIN/bin
 
 # Exports
 export PATH="\
@@ -278,5 +278,5 @@ $HOME/.local/share/spicetify\
 :/usr/lib/jvm/default/bin\
 :/var/lib/flatpak/exports/bin\
 :$XDG_DATA_HOME/go/bin\
-:$RUSTUP_TOOLCHAIN_PATH\
+# :$RUSTUP_TOOLCHAIN_PATH\
 :$PATH"
