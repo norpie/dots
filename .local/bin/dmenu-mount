@@ -9,13 +9,17 @@ partition=/dev/$(lsblk --list | grep part | grep -v / | grep -v SWAP | awk '{pri
 path_type=$(sudo blkid $partition -s TYPE -o value)
 
 if [[ $path_type == "crypto_LUKS" ]]; then
-    echo "prompting password"
+    which cryptsetup &>/dev/null || {
+        notify-send "cryptsetup not found"
+        exit 1
+    }
+    notify-send "prompting password"
     password=$(echo "" | dmenu -p "Enter password")
-    [[ $password == "" ]] && echo "password empty." && exit 1
+    [[ $password == "" ]] && notify-send "password empty." && exit 1
     current=$(cd /dev/mapper && find * -type l -name "secret*" | sed 's/[^0-9]//g' | sort | awk 'LR == 0')
     ((next = $current + 1))
     echo $password | sudo cryptsetup open "$partition" "secret$next" -
-    [[ $? != 0 ]] && echo "password wrong." && exit 1
+    [[ $? != 0 ]] && notify-send "password incorrect." && exit 1
     partition="/dev/mapper/secret$next"
 fi
 
