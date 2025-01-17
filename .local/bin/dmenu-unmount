@@ -7,12 +7,13 @@ mountpoint=$(echo $parts "\n"$crypts | dmenu)
 
 if [[ $(lsblk | grep $mountpoint | grep --count crypt) > 0 ]]; then
     crypt=$(lsblk | grep $mountpoint | awk '{print $1}' | sed 's/[^a-zA-Z0-9]//g')
-    echo $crypt
+    notify-send "Unmounting $mountpoint" "Unmounting $mountpoint and closing $crypt"
 fi
 
 # exit if no selection
-[[ $mountpoint == "" ]] && exit 1
+[[ $mountpoint == "" ]] && notify-send "No drive selected" && exit 1
 
 # unmount it
 sudo umount $mountpoint
 [[ -v crypt ]] && echo "crypt" && sudo cryptsetup close $crypt
+notify-send "Unmounted $mountpoint" "Drive $mountpoint unmounted"
