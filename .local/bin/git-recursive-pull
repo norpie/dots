@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# Directory containing the Git repositories
+BASE_DIR=$(pwd)
+
+# Navigate to the base directory
+cd "$BASE_DIR" || { echo "Directory not found: $BASE_DIR"; exit 1; }
+
+# Iterate over all subdirectories
+for dir in */; do
+    if [ -d "$dir/.git" ]; then
+        echo "Pulling updates in $dir..."
+        cd "$dir"
+        git pull
+        cd ..
+    else
+        echo "Skipping $dir (not a Git repository)"
+    fi
+done
