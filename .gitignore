@@ -425,3 +425,4 @@ discord_utils.log
 .config/ssh/archive
 .local/share/JetBrains
 .tabby
+.local/share/cargo/credentials.toml
