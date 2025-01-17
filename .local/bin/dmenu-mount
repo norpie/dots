@@ -33,4 +33,4 @@ mountpoint=$(cd /mnt && find * -maxdepth 0 -empty -type d | dmenu)
 [[ $mountpoint == "" ]] && exit 1
 
 # Mount it
-sudo mount --mkdir -o rw,uid=$USER $partition /mnt/$mountpoint
+sudo mount $partition /mnt/$mountpoint
