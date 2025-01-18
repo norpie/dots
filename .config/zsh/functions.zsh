@@ -10,6 +10,17 @@ function cd() {
     else
         [[ $HISTFILE == /dev/null ]] && export HISTFILE=$HOME/.cache/zsh/history && echo "History enabled"
     fi
+    # If no arguments, and in `git dir` and not in `git root`, cd to `git root`
+    if [[ $# == 0 ]]; then
+        GIT_ROOT=$(git root)
+        echo $GIT_ROOT
+        if [[ $GIT_ROOT != "" && $GIT_ROOT == $PWD ]]; then
+            builtin cd
+        else
+            builtin cd $GIT_ROOT
+        fi
+        return
+    fi
     builtin cd "$@"
 }
 
