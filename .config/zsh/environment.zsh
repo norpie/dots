@@ -211,6 +211,7 @@ export VIMDIR="$XDG_CONFIG_HOME/nvim"
 export TEXMFVAR="$XDG_CACHE_HOME"/texlive/texmf-var
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+export CARGO_HOME="$HOME/.local/share/cargo"
 export __GL_SHADER_DISK_CACHE_PATH="$XDG_CONFIG_HOME/nvidia"
 #export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"
 export XCOMPOSEFILE="$XDG_CONFIG_HOME"/X11/xcompose
@@ -257,9 +258,6 @@ function tmux_exit() {
 if [[ ! $TMUX == "" && ! $SSH_CONNECTION == "" ]]; then
     alias exit="tmux_exit"
 fi
-
-# Rust
-export CARGO_HOME="$HOME/.local/share/cargo"
 
 # QT
 export QT_QPA_PLATFORMTHEME="gtk2"
