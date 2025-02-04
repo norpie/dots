@@ -13,7 +13,6 @@ function cd() {
     # If no arguments, and in `git dir` and not in `git root`, cd to `git root`
     if [[ $# == 0 ]]; then
         GIT_ROOT=$(git root)
-        echo $GIT_ROOT
         if [[ $GIT_ROOT != "" && $GIT_ROOT == $PWD ]]; then
             builtin cd
         else
