@@ -190,7 +190,12 @@ alias dotenv='source .env'
 export SCRIPT_DIR="$HOME/.local/bin"
 export STUDY=$HOME/hs
 export REPO_DIR="$HOME/repos"
+
+# Nix
 export FLAKE="$HOME/repos/nix"
+export NIXPKGS_ALLOW_UNFREE=1
+export NIXPKGS_ALLOW_INSECURE=1
+export NIXPKGS_ALLOW_BROKEN=0
 
 # Moving dot dirs to .config
 export WAKATIME_HOME="$XDG_CONFIG_HOME/wakatime"
