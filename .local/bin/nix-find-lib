@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+[[ $# -ne 2 ]] && echo "Usage: $0 <libname> <file>" && exit 1
+
+nix-locate "$2" | sort -k2 | grep -- -"$1"- | grep -v "^(" | grep -v "legacy"
