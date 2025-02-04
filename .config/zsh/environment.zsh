@@ -175,6 +175,12 @@ alias txt="$EDITOR"
 alias img="$IMAGE_VIEWER"
 alias vid="$VIDEO_PLAYER"
 
+# javascript
+alias sv="npx sv"
+
+alias n="npm"
+alias nr="npm run dev"
+
 # Runtimes
 export JAVA_HOME="/usr/lib/jvm/default"
 alias activate="source .venv/bin/activate"
