@@ -37,7 +37,7 @@ if_exists_alias vim nvim
 
 function nvim() {
     if [[ $# == 0 ]]; then
-        command nvim .
+        command nvim
     else
         command nvim -p "$@"
     fi
