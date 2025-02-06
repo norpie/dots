@@ -1,3 +1,5 @@
+[include]
+    path = ~/.config/git/catppuccin.gitconfig
 [color]
     ui = true
     branch = true
@@ -9,7 +11,7 @@
     email = contact@norpie.dev
 [core]
     editor = nvim
-    pager = less
+    pager = delta
     sshCommand = ssh -o UserKnownHostsFile=~/.config/ssh/known_hosts -o StrictHostKeyChecking=no
 [init]
     defaultBranch = main
@@ -32,3 +34,12 @@
     autoSetupRemote = true
 [credential]
     helper = store
+[interactive]
+    diffFilter = delta --color-only --show-syntax-themes
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+[merge]
+    conflictstyle = zdiff3
+[delta]
+    features = catppuccin-mocha
