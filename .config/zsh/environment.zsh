@@ -100,6 +100,9 @@ alias gi="git ignore"
 alias gpr="git pull-request"
 alias lg="lazygit"
 
+# Github
+alias gh="gh-dash"
+
 # Dot aliases
 alias ds="dots status"
 alias dl="dots log --oneline --decorate --all --graph"
