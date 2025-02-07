@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
-[[ $# -ne 2 ]] && echo "Usage: $0 <libname> <file>" && exit 1
+[[ $# -eq 0 ]] && echo "Usage: $0 <file> [libname]" && exit 1
 
-nix-locate "$2" | sort -k2 | grep -- -"$1"- | grep -v "^(" | grep -v "legacy"
+[[ $# -eq 1 ]] && nix-locate "$1" | sort -k2 | grep -v "^(" | grep -v "legacy"
+[[ $# -eq 2 ]] && nix-locate "$1" | sort -k2 | grep -- -"$2"- | grep -v "^(" | grep -v "legacy"
