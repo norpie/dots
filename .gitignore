@@ -426,3 +426,4 @@ discord_utils.log
 .local/share/JetBrains
 .tabby
 .local/share/cargo/credentials.toml
+.local/share/delta/lesshst
