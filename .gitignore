@@ -427,3 +427,7 @@ discord_utils.log
 .tabby
 .local/share/cargo/credentials.toml
 .local/share/delta/lesshst
+.local/share/gwenview/recentfolders
+test
+.config/gwenviewrc
+.config/kdeconnect
