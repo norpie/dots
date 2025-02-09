@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+
+#!/bin/bash
+
+# Check if directory is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 /path/to/directory"
+  exit 1
+fi
+
+# Target directory
+TARGET_DIR="$1"
+
+# Check if the directory exists
+if [ ! -d "$TARGET_DIR" ]; then
+  echo "Directory not found: $TARGET_DIR"
+  exit 1
+fi
+
+# Create a temporary file to store hashes
+HASH_FILE=$(mktemp)
+
+# Find all files in the directory (recursively)
+find "$TARGET_DIR" -type f | while read -r file; do
+  # Compute the file's hash and store it with the file path
+  sha256sum "$file" >> "$HASH_FILE"
+done
+
+# Process the hash file and identify duplicates
+declare -A file_hashes
+
+while read -r hash file; do
+  if [[ -n "${file_hashes[$hash]}" ]]; then
+    echo "Duplicate found: $file (same as ${file_hashes[$hash]})"
+    rm "$file"  # Remove the duplicate
+  else
+    file_hashes[$hash]="$file"
+  fi
+done < "$HASH_FILE"
+
+# Clean up temporary hash file
+rm "$HASH_FILE"
+
+echo "Deduplication complete."

@@ -428,3 +428,7 @@ discord_utils.log
 .local/share/cargo/credentials.toml
 .local/share/delta/lesshst
 .config/Code
+.local/share/gwenview/recentfolders
+test
+.config/gwenviewrc
+.config/kdeconnect
