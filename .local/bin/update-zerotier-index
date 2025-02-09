@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+# The file looks like this:
+# {
+#   "desktop": "1.1.1.1",
+#   "laptop": 2.2.2.2
+# }
+ZEROTIER_INDEX_FILE="$HOME/persist/.zerotier-index"
+
+# This script updates the ZeroTier index file map with the latest IP address of the current host
+# We can get the current ip with `zerotier-ip`
+
+# Check if the ZeroTier index file exists, if not, create it
+[[ ! -f $ZEROTIER_INDEX_FILE ]] && echo "{}" >> $ZEROTIER_INDEX_FILE
+
+# Get the current hostname
+HOSTNAME=$(hostname)
+
+# Get the current ZeroTier IP address
+ZERO_TIER_IP=$(zerotier-ip)
+
+# Read the JSON content from the file
+JSON_CONTENT=$(cat $ZEROTIER_INDEX_FILE)
+
+# Update or add the entry for the current hostname
+if [[ -n $JSON_CONTENT ]]; then
+  UPDATED_JSON_CONTENT=$(echo $JSON_CONTENT | jq --arg host "$HOSTNAME" --arg ip "$ZERO_TIER_IP" '. * { ($host): $ip }')
+else
+  UPDATED_JSON_CONTENT=$(jq -n --arg host "$HOSTNAME" --arg ip "$ZERO_TIER_IP" '{"($host)": $ip}')
+fi
+
+# Write the updated JSON content back to the file
+echo $UPDATED_JSON_CONTENT > $ZEROTIER_INDEX_FILE
