@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+echo "http://$(zerotier-ip desktop):11434"
