@@ -1,3 +1,8 @@
 #!/usr/bin/env zsh
 
-sudo zerotier-cli -j listnetworks | jq .\[0\].assignedAddresses.\[\0] -r | sed 's/\/24//g'
+ZEROTIER_INDEX_FILE="$HOME/persist/.zerotier-index"
+
+[[ ! -f $ZEROTIER_INDEX_FILE ]] && sudo zerotier-cli -j listnetworks | jq 'keys' -r > $ZEROTIER_INDEX_FILE
+
+[[ $# -eq 0 ]] && sudo zerotier-cli -j listnetworks | jq .\[0\].assignedAddresses.\[\0] -r | sed 's/\/24//g'
+[[ $# -eq 1 ]] && cat $ZEROTIER_INDEX_FILE | jq ".$1" -r
