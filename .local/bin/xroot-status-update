@@ -9,6 +9,7 @@ music=$(st-music)
 volume=$(st-volume)
 brightness=$(st-brightness)
 battery=$(st-battery)
+gpu=$(st-gpu-usage)
 bluetooth=$(st-bluetooth)
 wlan=$(st-wlan)
 mouse=$(st-mouse-battery)
@@ -19,6 +20,7 @@ fullstatus+="$volume - $music | "
 # fullstatus+="$music | "
 [[ $brightness != "" ]] && fullstatus+="$brightness | "
 [[ $battery != "" ]] && fullstatus+="$battery | "
+[[ $gpu != "" ]] && fullstatus+="$gpu | "
 [[ $mouse != "" ]] && fullstatus+="$mouse | "
 fullstatus+="$time | $day $date"
 
