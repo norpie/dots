@@ -1,19 +1,31 @@
 #!/usr/bin/env zsh
 
+# If there are no tmux sessions, create one
 if [[ $(tmux ls | wc -l) -eq 0 ]]; then
-  tmux new-session -s default
-  exit
+    tmux new-session -s default
+    exit
 fi
 
+# If there is only one tmux session, attach to it
 if [[ $(tmux ls | wc -l) -eq 1 ]]; then
-  tmux attach-session -t $(tmux ls | awk 'NR==1 {print substr($1, 1, length($1)-1)}')
-  exit
+    tmux attach-session -t $(tmux ls | awk 'NR==1 {print substr($1, 1, length($1)-1)}')
+    exit
 fi
 
+# Use fzf to select a tmux session
 selected=$(tmux ls | awk '{print substr($1, 1, length($1)-1)}' | fzf --print-query --preview 'tmux capture-pane  -e -p -t {} | tail -n39')
 
-if [[ -z $selected ]]; then
-  tmux attach-session -t $selected
-else
-  tmux attach-session -t $(tmux ls | awk 'NR==1 {print substr($1, 1, length($1)-1)}')
+# If no session was selected, attach to the first one
+if [ -z "${selected}" ]; then
+    tmux attach-session -t $(tmux ls | awk 'NR==1 {print substr($1, 1, length($1)-1)}')
 fi
+
+# Check if the selected session exists
+tmux has-session -t $selected 2>/dev/null
+
+# If the session does not exist, create it
+if [[ $? -eq 1 ]]; then
+    tmux new-session -d -s $selected
+fi
+
+tmux attach-session -t $selected
