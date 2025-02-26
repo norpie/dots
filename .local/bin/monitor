@@ -1,15 +1,24 @@
 #!/usr/bin/env bash
 
-exec 1>~/.cache/monitor.log 2>&1
-set -x
+# exec 1>~/.cache/monitor.log 2>&1
+# set -x
 
 export DISPLAY=$(cat ~/.cache/display)
 
 # $0
 [[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]" && exit
 
-[[ $1 == "blanking" ]] && [[ $2 == "off" ]] && xset s off && xset -dpms && exit
-[[ $1 == "blanking" ]] && [[ $2 == "on" ]] && xset s on && xset +dpms && exit
+if [[ $1 == "blanking" ]]; then
+    echo "blanking: $2"
+    if [[ $2 == "on" ]]; then
+        xset s on
+        xset +dpms
+    elif [[ $2 == "off" ]]; then
+        xset s off
+        xset -dpms
+    fi
+    exit
+fi
 
 [[ $1 == "off" ]] && xset dpms force off && exit
 [[ $1 == "on" ]] && xset dpms force on && exit
