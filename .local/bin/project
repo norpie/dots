@@ -1,0 +1,57 @@
+#!/usr/bin/env zsh
+
+# Small cli to help with project management
+
+# Usage: project [command] [args]
+#                - root
+#                - subroot
+
+# Commands:
+#  - root: get the root of the project root (always scan up to `.git`)
+#  - subroot: get the root of the subproject (scan up to one of [`Cargo.toml`, `package.json`, `Makefile`])
+
+function project__root() {
+    local dir
+    dir=$PWD
+    while [[ ! -d "$dir/.git" ]]; do
+      dir=$(dirname "$dir")
+    done
+    echo "$dir"
+}
+
+function project__subroot() {
+    local dir=$PWD
+    local subroot_files=("Cargo.toml" "package.json" "Makefile")
+
+    while true; do
+        for file in "${subroot_files[@]}"; do
+            if [[ -f "$dir/$file" ]]; then
+                echo "$dir"
+                exit 0
+            fi
+        done
+        dir=$(dirname "$dir")
+
+        # Stop if we reach the root directory
+        if [[ "$dir" == "/" ]]; then
+            break
+        fi
+    done
+
+    exit 1
+}
+
+[[ $# -eq 0 ]] && echo "Usage: project [command] [args]" && exit 1
+
+case $1 in
+    root)
+        project__root
+        ;;
+    subroot)
+        project__subroot
+        ;;
+    *)
+        echo "Unknown command: $1"
+        exit 1
+        ;;
+esac
