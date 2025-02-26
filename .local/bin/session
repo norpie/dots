@@ -1,16 +1,14 @@
 #!/usr/bin/env zsh
 
 sessions=$(tmux ls | awk '{print substr($1, 1, length($1)-1)}')
-selected=$(echo $sessions | fzf --print-query | xargs)
+selected=$(echo $sessions | fzf --print-query --preview 'tmux capture-pane  -e -p -t {} | tail -n40' | xargs)
 
 if [ -z "${selected}" ]; then
     echo "No session selected: $selected"
     exit 1
 fi
 
-echo $selected
-
-echo $sessions | grep -w -q ^$selected
+tmux has-session -t $selected
 
 if [[ $? -eq 1 ]]; then
     tmux new-session -d -s $selected
