@@ -22,3 +22,13 @@ elif [[ $selected == *"flake"* ]]; then
 else
     cp $TEMPLATE_DIR/$selected default.nix
 fi
+
+if [[ ! -f .envrc ]]; then
+    direnv allow
+    if [[ -f flake.nix ]]; then
+        echo "use flake" >> .envrc
+        git add flake.nix
+    else
+        echo "use nix shell.nix" > .envrc
+    fi
+fi
