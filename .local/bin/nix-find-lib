@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-[[ $# -eq 0 ]] && echo "Usage: $0 <file> [libname]" && exit 1
+[[ $# -eq 0 ]] && echo "Usage: $0 <file> [libname] (--local)" && exit 1
 
 [[ $# -eq 1 ]] && nix-locate "$1" | sort -k2 | grep -v "^(" | grep -v "legacy"
 [[ $# -eq 2 ]] && nix-locate "$1" | sort -k2 | grep -- -"$2"- | grep -v "^(" | grep -v "legacy"
+[[ $# -eq 3 ]] && find /nix/store -name "$1" | grep -- -"$2"-
