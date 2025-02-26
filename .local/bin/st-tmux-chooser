@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+if [[ $(tmux ls | wc -l) -eq 0 ]]; then
+  tmux new-session -s default
+  exit
+fi
+
+if [[ $(tmux ls | wc -l) -eq 1 ]]; then
+  tmux attach-session -t $(tmux ls | awk 'NR==1 {print substr($1, 1, length($1)-1)}')
+  exit
+fi
+
+selected=$(tmux ls | awk '{print substr($1, 1, length($1)-1)}' | fzf --print-query --preview 'tmux capture-pane  -e -p -t {} | tail -n39')
+
+if [[ -z $selected ]]; then
+  tmux attach-session -t $selected
+else
+  tmux attach-session -t $(tmux ls | awk 'NR==1 {print substr($1, 1, length($1)-1)}')
+fi

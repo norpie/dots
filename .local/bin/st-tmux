@@ -1,4 +1,3 @@
 #!/usr/bin/env zsh
 
-# Attach to session `default` if it exists, otherwise create it
-st -e tmux new-session -A -s default
+st -e st-tmux-chooser
