@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-alias get_time="st-time-seconds | figlet -W | lolcat"
-
-while true; do
-    clear
-    get_time &&
-    sleep 1
-done

@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-organisation=$(git remote get-url origin | sed 's/git@github.com://g' | sed 's/\/.*//g')
-repository=$(basename "$(git rev-parse --show-toplevel)")
-branch=$(git rev-parse --abbrev-ref HEAD)
-
-URL="https://github.com/$organisation/$repository/pull/new/$branch"
-xdg-open "$URL"

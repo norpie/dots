@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-find -type f -name "*sync-conflict*" -delete

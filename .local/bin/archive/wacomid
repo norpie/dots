@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-
-[[ $# == 0 ]] && echo "enter device type" && exit 1
-
-xsetwacom --list | grep $1 | cut -d ":" -f2 | xargs | awk {'print $1'}

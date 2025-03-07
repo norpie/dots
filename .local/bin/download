@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-
-[[ $# == 0 ]] && echo "Usage: $0 [url]" && exit 1;
-
-wget --content-disposition "$1"

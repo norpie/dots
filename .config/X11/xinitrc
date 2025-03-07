@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# start some nice programs
-xrdb -merge ~/.config/X11/Xresources
-picom &
-dbus-launch startdwm

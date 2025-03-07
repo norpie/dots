@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-[[ $# == 0 ]] && echo "needed 1 argument" && exit 1
-stop $1; start $1

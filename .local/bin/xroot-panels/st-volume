@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-raw=$(pamixer --get-volume)
-[[ $raw == "" ]] && echo "󰝟" && exit 1
-[[ $raw == "0" ]] && emoji="󰖁"
-[[ $raw -lt 33 ]] && [[ $raw -gt 0 ]] && emoji="󰕿"
-[[ $raw -lt 66 ]] && [[ $raw -gt 32 ]] && emoji="󰖀"
-[[ $raw -lt 101 ]] && [[ $raw -gt 65 ]] && emoji="󰕾"
-echo "$emoji $raw"

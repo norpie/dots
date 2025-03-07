@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh 
-
-git dir && git rev-parse --show-toplevel

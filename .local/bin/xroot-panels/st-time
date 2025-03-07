@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-
-time=$(date +%H:%M)
-
-echo $time

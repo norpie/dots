@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-git dir && echo $(git rev-parse --show-prefix)$1

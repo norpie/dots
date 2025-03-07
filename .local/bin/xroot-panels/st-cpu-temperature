@@ -1,2 +1,0 @@
-#!/usr/bin/env zsh
-echo $(sensors | awk '/^Tccd1/ {print $2}')

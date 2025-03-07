@@ -1,2 +1,0 @@
-#!/usr/bin/env zsh
-xroot-status-loop & disown
