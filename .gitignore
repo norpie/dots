@@ -434,3 +434,4 @@ test
 .config/kdeconnect
 .local/share/direnv/allow
 .local/share/headless-chrome/linux-1095492/chrome-linux
+.config/SuperSlicer
