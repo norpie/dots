@@ -1,9 +1,7 @@
 if [[ ! -v SSH_AGENT_PID ]]; then
     echo "Missing SSH agent"
-    eval $(ssh-agent -s) 
+    eval $(ssh-agent -s)
     ssh-add-defaults
-else
-    echo "SSH agent present"
 fi
 
 source /home/norpie/.config/zsh/prompt.zsh || echo "error in prompt"
