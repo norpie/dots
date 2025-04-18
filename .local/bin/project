@@ -38,7 +38,7 @@ function project__subroot() {
         fi
     done
 
-    exit 1
+    project__root
 }
 
 [[ $# -eq 0 ]] && echo "Usage: project [command] [args]" && exit 1
