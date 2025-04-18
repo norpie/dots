@@ -10,6 +10,8 @@ function if_exists_alias() {
     return 1
 }
 
+if_exists_alias code code-insiders
+
 if_exists_alias top htop
 if_exists_alias top btop
 if_exists_alias top btm
