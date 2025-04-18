@@ -9,10 +9,10 @@ fi
 
 args=("$@")
 for arg in $args; do
-  processes=$(pgrep -i $arg)
-  pgrep=$(pgrep -i pgrep)
-  pgrepkill=$(pgrep -i pgrepkill)
-  restart=$(pgrep -i restart)
+  processes=$(pgrep -fi $arg)
+  pgrep=$(pgrep -fi pgrep)
+  pgrepkill=$(pgrep -fi pgrepkill)
+  restart=$(pgrep -fi restart)
   # dont kill restart
   [[ $restart != "" ]] && processes=$(echo $processes | grep -v $restart | grep -v $pgrep | grep -v $pgrepkill)
   [[ $processes == "" ]] && echo "no process: $arg" && continue
