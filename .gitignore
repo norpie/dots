@@ -435,3 +435,10 @@ test
 .local/share/direnv/allow
 .local/share/headless-chrome/linux-1095492/chrome-linux
 .config/SuperSlicer
+.cdi
+.docker
+.vscode-remote-containers
+.aws
+.azure
+.git-credentials
+.zsh_history
