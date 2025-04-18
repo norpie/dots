@@ -1,9 +1,14 @@
 #!/usr/bin/env zsh
 
-alias get_time="st-time-seconds | figlet -W | lolcat"
+function get_time() {
+    st-time-seconds | figlet -W | lolcat
+}
 
 while true; do
+    tmpfile=$(mktemp)
+    get_time > $tmpfile
     clear
-    get_time &&
+    cat $tmpfile
+    rm $tmpfile
     sleep 1
 done
