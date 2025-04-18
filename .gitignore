@@ -442,3 +442,11 @@ test
 .azure
 .git-credentials
 .zsh_history
+.config/Code - Insiders
+.config/vscode-sqltools
+.local/share/gk
+.local/share/vscode-sqltools
+.vscode
+.vscode-insiders
+work
+.wget-hsts
