@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+restart pavucontrol
+
 choices=$(bluetoothctl devices Connected | cut -c 8-99)
 
 choice=$(echo $choices | awk '{print $2}' | dmenu)

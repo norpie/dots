@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+restart pavucontrol
+
 choices=$(macid)
 
 bluetoothctl power on
