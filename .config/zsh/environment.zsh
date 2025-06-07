@@ -197,6 +197,7 @@ export STUDY=$HOME/hs
 export REPO_DIR="$HOME/repos"
 
 # Nix
+export NH_FLAKE="$HOME/repos/nix"
 export FLAKE="$HOME/repos/nix"
 export NIXPKGS_ALLOW_UNFREE=1
 export NIXPKGS_ALLOW_INSECURE=1
