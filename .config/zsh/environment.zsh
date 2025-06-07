@@ -124,8 +124,9 @@ alias mkdir="mkdir -p"
 alias mv="mv -v"
 alias nix-shell="HISTFILE=/dev/null nix-shell"
 
-# Define home
+# Define home and other standard vars
 export HOME="/home/$USER"
+[[ -f ~/.cache/display ]] && export DISPLAY=$(cat ~/.cache/display)
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config
