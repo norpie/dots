@@ -9,13 +9,14 @@ export DISPLAY=$(cat ~/.cache/display)
 [[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]" && exit
 
 if [[ $1 == "blanking" ]]; then
-    echo "blanking: $2"
     if [[ $2 == "on" ]]; then
         xset s on
         xset +dpms
+        echo "blanking: on"
     elif [[ $2 == "off" ]]; then
         xset s off
         xset -dpms
+        echo "blanking: off"
     fi
     exit
 fi
