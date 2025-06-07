@@ -2,6 +2,14 @@ function append_path() {
     export PATH="$PATH:$1"
 }
 
+# on init set HISTFILE to $HOME/.cache/zsh/history
+# or null if we are in /mnt
+if [[ $PWD == /mnt* ]]; then
+    export HISTFILE=/dev/null
+else
+    export HISTFILE=$HOME/.cache/zsh/history
+fi
+
 # cd with history, based on minecraft essentials /back
 function cd() {
     # Stop recording history if we cd into /mnt or move around in /mnt
@@ -20,7 +28,7 @@ function cd() {
         fi
         return
     fi
-    builtin cd "$@"
+    z $@
 }
 
 function back() {
