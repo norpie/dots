@@ -29,3 +29,5 @@ choice=$(echo $lines | grep . | dmenu | awk '{print $1}')
 [[ $choice == "" ]] && exit 1
 
 switch_sink $indexassociates[$choice]
+
+restart pavucontrol
