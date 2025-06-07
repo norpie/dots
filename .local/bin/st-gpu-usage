@@ -8,4 +8,4 @@ then
     exit
 fi
 
-echo  $(rocm-smi -u | grep "GPU use" | awk '{print $6}')%  $(rocm-smi | awk 'NR==8 {print $14}')
+echo  $(rocm-smi -u | grep "GPU use" | awk '{print $6}')%  $(rocm-smi | awk 'NR==8 {print $16}')
