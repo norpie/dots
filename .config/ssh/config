@@ -38,3 +38,4 @@ Host *
     StrictHostKeyChecking no
     UserKnownHostsFile ~/.config/ssh/known_hosts
     ConnectTimeout 10
+Include ~/persist/ssh/config
