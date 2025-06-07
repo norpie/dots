@@ -11,17 +11,22 @@
 #  - subroot: get the root of the subproject (scan up to one of [`Cargo.toml`, `package.json`, `Makefile`])
 
 function project__root() {
-    local dir
-    dir=$PWD
+    local dir=$PWD
+
     while [[ ! -d "$dir/.git" ]]; do
-      dir=$(dirname "$dir")
+        # If we're at the root directory, stop searching
+        if [[ "$dir" == "/" ]]; then
+            return 1
+        fi
+        dir=$(dirname "$dir")
     done
+
     echo "$dir"
 }
 
 function project__subroot() {
     local dir=$PWD
-    local subroot_files=("Cargo.toml" "package.json" "Makefile")
+    local subroot_files=("Cargo.toml" "package.json" "Makefile" ".git")
 
     while true; do
         for file in "${subroot_files[@]}"; do
