@@ -1,41 +1,40 @@
-Host desktop
-    ForwardAgent yes
+Host jupiter
     HostName 192.168.129.16
     User norpie
-Host desktopvpn
-    ForwardAgent yes
+Host jupiter.vpn
     HostName 10.147.17.202
     User norpie
-Host ubuntuvm
-    HostName 192.168.122.21
-    User norpie
-Host server
-    HostName 192.168.0.201
-    User norpie
-Host laptop
+
+Host venus
     HostName 192.168.129.63
     User norpie
+Host venus.vpn
+    HostName 10.147.17.196
+    User norpie
+
+Host mars
+    HostName 192.168.129.90
+    User norpie
+Host mars.vpn
+    HostName 10.147.17.250
+	User norpie
+
 Host octopi
     HostName 192.168.0.136
     User pi
-Host pi
-    HostName 10.0.0.1
-    User norpie
-Host pi3
-    HostName 192.168.0.159
-    User norpie
-Host pi4
-    HostName 192.168.0.102
-    User norpie
+
 Host github.com
     ForwardAgent yes
     Hostname ssh.github.com
     Port 443
     User git
+
 Host *.onion
     ProxyCommand connect -S localhost:9050 %h %p
+
 Host *
     StrictHostKeyChecking no
     UserKnownHostsFile ~/.config/ssh/known_hosts
     ConnectTimeout 10
+
 Include ~/persist/ssh/config
