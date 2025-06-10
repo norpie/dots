@@ -20,7 +20,7 @@ function cd() {
     fi
     # If no arguments, and in `git dir` and not in `git root`, cd to `git root`
     if [[ $# == 0 ]]; then
-        GIT_ROOT=$(git root)
+        GIT_ROOT=$(project subroot)
         if [[ $GIT_ROOT != "" && $GIT_ROOT == $PWD ]]; then
             builtin cd
         else
