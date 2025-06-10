@@ -50,10 +50,15 @@ function project__subroot() {
 
 case $1 in
     root)
-        project__root
+        echo $(project__root)
         ;;
     subroot)
-        project__subroot
+        project_subroot=$(project__subroot)
+        if [[ "$project_subroot" == "$PWD" ]]; then
+            project__root
+        else
+            echo "$project_subroot"
+        fi
         ;;
     *)
         echo "Unknown command: $1"
