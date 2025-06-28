@@ -43,3 +43,5 @@
     conflictstyle = zdiff3
 [delta]
     features = catppuccin-mocha
+[maintenance]
+	repo = /home/norpie/repos/mirabel
