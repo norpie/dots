@@ -13,6 +13,7 @@ gpu=$(st-gpu-usage)
 bluetooth=$(st-bluetooth)
 wlan=$(st-wlan)
 mouse=$(st-mouse-battery)
+ram=$(st-ram-used-percentage)
 
 [[ $bluetooth != "" ]] && fullstatus+="$bluetooth | "
 [[ $wlan != "" ]] && fullstatus+="$wlan | "
@@ -20,6 +21,7 @@ fullstatus+="$volume - $music | "
 # fullstatus+="$music | "
 [[ $brightness != "" ]] && fullstatus+="$brightness | "
 [[ $battery != "" ]] && fullstatus+="$battery | "
+[[ $ram != "" ]] && fullstatus+="$ram | "
 [[ $gpu != "" ]] && fullstatus+="$gpu | "
 [[ $mouse != "" ]] && fullstatus+="$mouse | "
 fullstatus+="$time | $day $date"
