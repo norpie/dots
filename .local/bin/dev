@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
 
-tmux new-window 'nix-shell'
-tmux new-window 'nix-shell'
-nix-shell
+tmux new-window
+tmux new-window 'lazygit'
