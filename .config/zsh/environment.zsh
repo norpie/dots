@@ -168,6 +168,8 @@ export FZF_DEFAULT_OPTS=" \
 --color=selected-bg:#45475A \
 --color=border:#313244,label:#CDD6F4"
 
+export MOZ_USE_XINPUT2="1"
+
 # Default apps
 export TERMINAL="st"
 export EDITOR="nvim"
