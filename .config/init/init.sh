@@ -9,7 +9,6 @@ xroot-status-restart
 xorg-state-load
 restart timed-fixer
 wallpaper --default
-tmux new-session -A -s default
 numlockx on
 
 # Delete stupid x files
