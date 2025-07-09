@@ -467,3 +467,4 @@ work
 .nuget
 .triton/cache
 .vscode-R
+.local/share/cargo/binstall
