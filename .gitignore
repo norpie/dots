@@ -479,3 +479,5 @@ work
 .local/share/digikam/marble_data/maps/earth/openstreetmap
 .local/share/geeqie
 .local/share/shotwell/data
+.config/sunshine
+.package-manager
