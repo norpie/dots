@@ -468,3 +468,14 @@ work
 .triton/cache
 .vscode-R
 .local/share/cargo/binstall
+.config/geeqie
+.config/nomacs
+.config/viewnior
+.config/xnviewmp
+.config/digikam_systemrc
+.config/digikamrc
+.config/kiorc
+.local/share/digikam/facesengine
+.local/share/digikam/marble_data/maps/earth/openstreetmap
+.local/share/geeqie
+.local/share/shotwell/data
