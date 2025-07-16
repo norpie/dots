@@ -38,3 +38,4 @@ Host *
     ConnectTimeout 10
 
 Include ~/persist/ssh/config
+Include ~/work/ssh/config
