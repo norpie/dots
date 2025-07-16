@@ -1,12 +1,21 @@
 #!/usr/bin/env zsh
 
-# This is a wrapper for `touch`, this wrapper makes directories before touching
-
-[[ $# -eq 0 ]] && { echo "Usage: $0 <file> [<file> ...]" && exit 1 }
+[[ $# -eq 0 ]] && { echo "Usage: $0 <file> [<file> ...]" >&2; exit 1 }
 
 for var in "$@"
 do
-    dir=$(dirname "$var")
-    mkdir -p "$dir"
-    $(whereis touch | sed 's/touch: //g' | awk '{print $2}') "$var"
+    # Handle empty arguments
+    [[ -z "$var" ]] && { echo "Skipping empty argument" >&2; continue }
+
+    # Use -- to handle paths starting with hyphens
+    dir=$(command dirname -- "$var")
+
+    # Skip if dirname returned usage message
+    if [[ "$dir" == *"Usage:"* ]]; then
+        echo "Invalid path: $var" >&2
+        continue
+    fi
+
+    mkdir -p -- "$dir"
+    $(whereis touch | sed 's/touch: //g' | awk '{print $2}') -- "$var"
 done
