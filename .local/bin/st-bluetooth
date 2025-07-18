@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-devices=$(bluetoothctl devices Connected)
+devices=$(bluetoothctl devices Connected | grep "^Device")
 
 [[ $devices == "" ]] && exit 0
 
