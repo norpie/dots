@@ -23,6 +23,10 @@ Host octopi
     HostName 192.168.0.136
     User pi
 
+Host messier
+    HostName 192.168.129.246
+    User norpie
+
 Host github.com
     ForwardAgent yes
     Hostname ssh.github.com
