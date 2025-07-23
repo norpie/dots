@@ -64,6 +64,9 @@ alias chmox="chmod +x"
 alias monitor-brightness="xrandr -q | grep \" connected\" | awk '{print \$1}' | xargs -I {} xrandr --output {} --brightness"
 alias doc2pdf="unoconv -f pdf"
 
+# use latest nix opencode
+alias opencode="nix run github:nixos/nixpkgs#opencode --"
+
 # Systemd
 alias sys="sudo systemctl"
 alias usys="systemctl --user"
