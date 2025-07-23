@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+# This script is used to setup .envrc with the proper `use`-contents.
+#
+# e.g. `use flake` should setup the .envrc with the contents `use flake`
+
+[[ $# != 1 ]] && echo "Usage: use <name>" && exit 1
+
+name=$1
+if [[ -z $name ]]; then
+  echo "Error: name cannot be empty"
+  exit 1
+fi
+
+echo "use $name" > .envrc
+direnv allow
