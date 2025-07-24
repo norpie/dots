@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+# Get opencode version
+OPENCODE_VERSION=$(nix run github:nixos/nixpkgs#opencode -- --version 2>/dev/null | head -1 | tr -d '\n')
+if [ -z "$OPENCODE_VERSION" ]; then
+    OPENCODE_VERSION="unknown"
+fi
+
+# Get project info
+PROJECT_ROOT=$(project root 2>/dev/null)
+if [ $? -eq 0 ] && [ -n "$PROJECT_ROOT" ]; then
+    PROJECT_NAME=$(basename "$PROJECT_ROOT")
+else
+    PROJECT_NAME=$(basename "$(pwd)")
+fi
+
+# Get current file from arguments or use current directory
+CURRENT_FILE=""
+if [ $# -gt 0 ]; then
+    LAST_ARG="${@: -1}"
+    if [ -f "$LAST_ARG" ]; then
+        CURRENT_FILE="$(realpath "$LAST_ARG")"
+    elif [ -f "$(pwd)/$LAST_ARG" ]; then
+        CURRENT_FILE="$(realpath "$(pwd)/$LAST_ARG")"
+    else
+        CURRENT_FILE="$(pwd)/opencode-session"
+    fi
+else
+    CURRENT_FILE="$(pwd)/opencode-session"
+fi
+
+# Function to send heartbeat
+send_heartbeat() {
+    wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "opencode-wakatime/$OPENCODE_VERSION" >/dev/null 2>&1 &
+}
+
+# Send initial heartbeat
+send_heartbeat
+
+# Start background heartbeat sender (every 2 minutes)
+(
+    while sleep 120; do
+        # Check if opencode is still running
+        if ! pgrep -f "opencode" >/dev/null; then
+            break
+        fi
+        send_heartbeat
+    done
+) &
+HEARTBEAT_PID=$!
+
+# Cleanup function
+cleanup() {
+    kill $HEARTBEAT_PID 2>/dev/null
+    wait $HEARTBEAT_PID 2>/dev/null
+}
+
+# Set trap to cleanup background process on exit
+trap cleanup EXIT INT TERM
+
+# Run opencode with all arguments
+nix run github:nixos/nixpkgs#opencode -- "$@"
