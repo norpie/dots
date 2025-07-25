@@ -29,6 +29,56 @@ else
     CURRENT_FILE="$(pwd)/opencode-session"
 fi
 
+# Idle detection variables
+IDLE_THRESHOLD=120  # 5 minutes
+LAST_ACTIVITY=$(date +%s)
+
+# Function to check if system is idle
+is_idle() {
+    local current_time=$(date +%s)
+    local activity_detected=false
+    
+    # Check 1: File modifications in project directory
+    if [ -n "$PROJECT_ROOT" ]; then
+        local recent_changes=$(find "$PROJECT_ROOT" -type f -newermt "-5 minutes" 2>/dev/null | wc -l)
+        if [ "$recent_changes" -gt 0 ]; then
+            activity_detected=true
+        fi
+    fi
+    
+    # Check 2: User input activity (system-wide idle time)
+    if command -v xprintidle >/dev/null 2>&1; then
+        # X11 systems
+        local idle_ms=$(xprintidle 2>/dev/null)
+        if [ -n "$idle_ms" ] && [ "$idle_ms" -lt $((IDLE_THRESHOLD * 1000)) ]; then
+            activity_detected=true
+        fi
+    elif [ -f /proc/uptime ]; then
+        # Fallback: check if load average indicates activity
+        local load=$(cat /proc/loadavg | cut -d' ' -f1)
+        if command -v bc >/dev/null 2>&1; then
+            if (( $(echo "$load > 0.1" | bc -l 2>/dev/null || echo 0) )); then
+                activity_detected=true
+            fi
+        else
+            # Simple integer comparison fallback
+            if [ "${load%.*}" -gt 0 ]; then
+                activity_detected=true
+            fi
+        fi
+    fi
+    
+    # Update last activity if any activity detected
+    if [ "$activity_detected" = true ]; then
+        LAST_ACTIVITY=$current_time
+        return 1  # Not idle
+    fi
+    
+    # Check if we've been idle longer than threshold
+    local idle_time=$((current_time - LAST_ACTIVITY))
+    [ $idle_time -gt $IDLE_THRESHOLD ]
+}
+
 # Function to send heartbeat
 send_heartbeat() {
     wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "opencode-wakatime/$OPENCODE_VERSION" >/dev/null 2>&1 &
@@ -44,7 +94,11 @@ send_heartbeat
         if ! pgrep -f "opencode" >/dev/null; then
             break
         fi
-        send_heartbeat
+        
+        # Only send heartbeat if not idle
+        if ! is_idle; then
+            send_heartbeat
+        fi
     done
 ) &
 HEARTBEAT_PID=$!
