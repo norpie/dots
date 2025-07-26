@@ -31,6 +31,12 @@ else
     CURRENT_FILE="$(pwd)/opencode-session"
 fi
 
+# Create temp file for tmux content tracking (if in tmux)
+TMUX_CONTENT_FILE=""
+if [ -n "$TMUX" ]; then
+    TMUX_CONTENT_FILE=$(mktemp -t "opencode_tmux_content_XXXXXX")
+fi
+
 # Idle detection variables
 IDLE_THRESHOLD=120  # 5 minutes
 LAST_ACTIVITY=$(date +%s)
@@ -40,32 +46,48 @@ is_idle() {
     local current_time=$(date +%s)
     local activity_detected=false
     
-    # Check 1: File modifications in project directory
-    if [ -n "$PROJECT_ROOT" ]; then
-        local recent_changes=$(find "$PROJECT_ROOT" -type f -newermt "-5 minutes" 2>/dev/null | wc -l)
-        if [ "$recent_changes" -gt 0 ]; then
-            activity_detected=true
-        fi
-    fi
-    
-    # Check 2: User input activity (system-wide idle time)
-    if command -v xprintidle >/dev/null 2>&1; then
-        # X11 systems
-        local idle_ms=$(xprintidle 2>/dev/null)
-        if [ -n "$idle_ms" ] && [ "$idle_ms" -lt $((IDLE_THRESHOLD * 1000)) ]; then
-            activity_detected=true
-        fi
-    elif [ -f /proc/uptime ]; then
-        # Fallback: check if load average indicates activity
-        local load=$(cat /proc/loadavg | cut -d' ' -f1)
-        if command -v bc >/dev/null 2>&1; then
-            if (( $(echo "$load > 0.1" | bc -l 2>/dev/null || echo 0) )); then
+    # Check tmux pane content changes (if in tmux)
+    if [ -n "$TMUX" ] && [ -n "$TMUX_CONTENT_FILE" ]; then
+        local current_content=$(tmux capture-pane -p 2>/dev/null)
+        if [ -n "$current_content" ] && [ -f "$TMUX_CONTENT_FILE" ]; then
+            local previous_content=$(cat "$TMUX_CONTENT_FILE" 2>/dev/null)
+            if [ "$current_content" != "$previous_content" ]; then
                 activity_detected=true
             fi
         else
-            # Simple integer comparison fallback
-            if [ "${load%.*}" -gt 0 ]; then
+            # First run or tmux command failed, assume activity
+            activity_detected=true
+        fi
+        echo "$current_content" > "$TMUX_CONTENT_FILE" 2>/dev/null
+    else
+        # Fallback checks when not in tmux
+        # Check 1: File modifications in project directory
+        if [ -n "$PROJECT_ROOT" ]; then
+            local recent_changes=$(find "$PROJECT_ROOT" -type f -newermt "-5 minutes" 2>/dev/null | wc -l)
+            if [ "$recent_changes" -gt 0 ]; then
                 activity_detected=true
+            fi
+        fi
+        
+        # Check 2: User input activity (system-wide idle time)
+        if command -v xprintidle >/dev/null 2>&1; then
+            # X11 systems
+            local idle_ms=$(xprintidle 2>/dev/null)
+            if [ -n "$idle_ms" ] && [ "$idle_ms" -lt $((IDLE_THRESHOLD * 1000)) ]; then
+                activity_detected=true
+            fi
+        elif [ -f /proc/uptime ]; then
+            # Fallback: check if load average indicates activity
+            local load=$(cat /proc/loadavg | cut -d' ' -f1)
+            if command -v bc >/dev/null 2>&1; then
+                if (( $(echo "$load > 0.1" | bc -l 2>/dev/null || echo 0) )); then
+                    activity_detected=true
+                fi
+            else
+                # Simple integer comparison fallback
+                if [ "${load%.*}" -gt 0 ]; then
+                    activity_detected=true
+                fi
             fi
         fi
     fi
@@ -109,6 +131,10 @@ HEARTBEAT_PID=$!
 cleanup() {
     kill $HEARTBEAT_PID 2>/dev/null
     wait $HEARTBEAT_PID 2>/dev/null
+    # Clean up tmux temp file
+    if [ -n "$TMUX_CONTENT_FILE" ] && [ -f "$TMUX_CONTENT_FILE" ]; then
+        rm -f "$TMUX_CONTENT_FILE"
+    fi
 }
 
 # Set trap to cleanup background process on exit
