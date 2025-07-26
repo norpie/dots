@@ -23,8 +23,23 @@ function print_help() {
     echo "  --help      Display this help message"
 }
 
+function set_hyprpaper() {
+    local wallpaper_path=$1
+    # Update hyprpaper config
+    echo "preload = $wallpaper_path" > ~/.config/hypr/hyprpaper.conf
+    echo "" >> ~/.config/hypr/hyprpaper.conf
+    echo "wallpaper = ,$wallpaper_path" >> ~/.config/hypr/hyprpaper.conf
+    echo "" >> ~/.config/hypr/hyprpaper.conf
+    echo "splash = false" >> ~/.config/hypr/hyprpaper.conf
+    echo "ipc = on" >> ~/.config/hypr/hyprpaper.conf
+    
+    # Restart hyprpaper
+    pkill hyprpaper
+    hyprctl dispatch exec hyprpaper
+}
+
 function fix_exit() {
-    xwallpaper --zoom $DEFAULT_WALLPAPER
+    set_hyprpaper $DEFAULT_WALLPAPER
     exit 0
 }
 
@@ -41,22 +56,22 @@ for opt in $@; do
             selection=$(find $WALLPAPERS -type f | shuf -n 1)
             [[ $selection == "" ]] && exit 1
             cp $selection $DEFAULT_WALLPAPER
-            xwallpaper --zoom $DEFAULT_WALLPAPER
+            set_hyprpaper $DEFAULT_WALLPAPER
             exit 0
             ;;
         --default)
-            [[ -f ~/.config/wallpapers/wallpaper.png ]] && xwallpaper --zoom $DEFAULT_WALLPAPER
+            [[ -f ~/.config/wallpapers/wallpaper.png ]] && set_hyprpaper $DEFAULT_WALLPAPER
             exit 0
             ;;
         --gui)
-            st -e wallpaper --menu
+            alacritty -e wallpaper --menu
             exit 0
             ;;
         --menu)
             selection=$(find $WALLPAPERS -type f | fzf-img)
             [[ $selection == "" ]] && exit 1
             cp $selection $DEFAULT_WALLPAPER
-            xwallpaper --zoom $DEFAULT_WALLPAPER
+            set_hyprpaper $DEFAULT_WALLPAPER
             exit 0
             ;;
         --kill)
@@ -83,7 +98,7 @@ for opt in $@; do
             fi
             while true; do
                 selection=$(find $RANDOM_DIR -type f | shuf -n 1)
-                xwallpaper --zoom $selection
+                set_hyprpaper $selection
                 sleep $TIME
             done
             ;;
