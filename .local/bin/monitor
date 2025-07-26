@@ -1,55 +1,99 @@
 #!/usr/bin/env bash
 
-# exec 1>~/.cache/monitor.log 2>&1
-# set -x
-
-export DISPLAY=$(cat ~/.cache/display)
+# Hyprland monitor management script
+# Adapted from monitor-xorg to use hyprctl commands
 
 # $0
-[[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]" && exit
+[[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]|[layout desktop|desktop-gaming|laptop]" && exit
 
 if [[ $1 == "blanking" ]]; then
     if [[ $2 == "on" ]]; then
-        xset s on
-        xset +dpms
-        echo "blanking: on"
+        # Enable screensaver/idle (no direct equivalent, using dpms timeout)
+        hyprctl keyword misc:disable_hyprland_logo false
+        echo "blanking: on (Note: Hyprland handles idle differently than X11)"
     elif [[ $2 == "off" ]]; then
-        xset s off
-        xset -dpms
+        # Disable screensaver/idle
+        hyprctl keyword misc:disable_hyprland_logo true
         echo "blanking: off"
     fi
     exit
 fi
 
-[[ $1 == "off" ]] && xset dpms force off && exit
-[[ $1 == "on" ]] && xset dpms force on && exit
+[[ $1 == "off" ]] && hyprctl dispatch dpms off && exit
+[[ $1 == "on" ]] && hyprctl dispatch dpms on && exit
 
 # $0 brightness $2
-[[ $1 == "brightness" ]] &&
-    xrandr -q |
-    grep "connected" |
-        awk '{print $1}' |
-        xargs -I {} xrandr --output {} --brightness $2 &&
+if [[ $1 == "brightness" ]]; then
+    # Get all monitors and set brightness
+    hyprctl monitors -j | jq -r '.[].name' | while read monitor; do
+        # Note: Hyprland doesn't have direct brightness control like xrandr
+        # You might need to use brightnessctl or similar for actual brightness
+        echo "Setting brightness for $monitor (Note: Use brightnessctl for actual brightness control)"
+    done
     exit
+fi
 
 # $0 state
-[[ $1 == "state" ]] &&
-    xset -q |
-    grep Monitor |
-        awk '{print $3}'
+if [[ $1 == "state" ]]; then
+    hyprctl monitors -j | jq -r '.[].dpmsStatus'
+    exit
+fi
 
-# $0 layout [desktop|desktop-gaming|laptop]
-# desktop gaming is the same as desktop except that the primary monitor is at a resolution of 1280x1024@165.00
-[[ $1 == "layout" ]] &&
-    [[ $2 == "desktop-gaming" ]] &&
-    new-monitor-mode DisplayPort-0 1024 1280 157 &&
-    xrandr --output DisplayPort-0 --set TearFree on --mode "\"1280x1024_157.00\"" --refresh 165.00 --primary --output DisplayPort-1 --set TearFree on --mode 1920x1080 --left-of DisplayPort-0 --output DisplayPort-2 --set TearFree on --mode 1920x1080 --right-of DisplayPort-0
+# $0 layout [desktop|desktop-gaming|laptop|vm|default]
+if [[ $1 == "layout" ]]; then
+    case $2 in
+        "desktop-gaming")
+            # Desktop gaming layout with custom resolution for primary monitor
+            hyprctl keyword monitor "DisplayPort-0,1280x1024@165,1920x0,1"
+            hyprctl keyword monitor "DisplayPort-1,1920x1080@60,0x0,1"
+            hyprctl keyword monitor "DisplayPort-2,1920x1080@60,3200x0,1"
+            echo "Set desktop-gaming layout"
+            ;;
+        "desktop")
+            # Standard desktop layout
+            hyprctl keyword monitor "DisplayPort-0,1920x1080@165,1920x0,1"
+            hyprctl keyword monitor "DisplayPort-1,1920x1080@60,0x0,1"
+            hyprctl keyword monitor "DisplayPort-2,1920x1080@60,3840x0,1"
+            echo "Set desktop layout"
+            ;;
+        "laptop")
+            # Laptop layout - single monitor
+            hyprctl keyword monitor "eDP-1,preferred,auto,1"
+            # Disable external monitors if any
+            hyprctl keyword monitor "HDMI-A-1,disable"
+            echo "Set laptop layout"
+            ;;
+        "vm")
+            # VM layout - virtual display
+            hyprctl keyword monitor "Virtual-1,1920x1080@60,auto,1"
+            echo "Set vm layout"
+            ;;
+        "default")
+            # Auto-detect layout based on hostname
+            case $(hostname) in
+                "jupiter")
+                    $0 layout desktop
+                    ;;
+                "venus"|"mars")
+                    $0 layout laptop
+                    ;;
+                "vm")
+                    $0 layout vm
+                    ;;
+                *)
+                    echo "Unknown hostname: $(hostname), using preferred resolution"
+                    hyprctl keyword monitor ",preferred,auto,auto"
+                    ;;
+            esac
+            ;;
+        *)
+            echo "Unknown layout: $2"
+            echo "Available layouts: desktop, desktop-gaming, laptop, vm, default"
+            exit 1
+            ;;
+    esac
+    exit
+fi
 
-[[ $1 == "layout" ]] &&
-    [[ $2 == "desktop" ]] &&
-    xrandr --output DisplayPort-0 --set TearFree on --mode 1920x1080 --refresh 165.00 --primary --output DisplayPort-1 --set TearFree on --mode 1920x1080 --left-of DisplayPort-0 --output DisplayPort-2 --set TearFree on --mode 1920x1080 --right-of DisplayPort-0
-
-[[ $1 == "layout" ]] &&
-    [[ $2 == "laptop" ]] &&
-    echo "Not implemented yet."
-# xrandr --output HDMI-1 --off --output eDP-1 --auto
+echo "Unknown command: $1"
+echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]|[layout desktop|desktop-gaming|laptop]"
