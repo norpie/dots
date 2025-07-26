@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+alacritty -e alacritty-tmux-chooser

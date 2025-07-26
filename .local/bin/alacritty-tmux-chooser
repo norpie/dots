@@ -1,0 +1,38 @@
+#!/usr/bin/env zsh
+
+# List all existing sessions
+sessions=$(tmux ls 2>/dev/null | awk '{print substr($1, 1, length($1)-1)}')
+
+# Use fzf to select or enter a session name and capture the output
+output=$(echo "$sessions" | tr ' ' '\n' | fzf --query="$1" --preview "tmux capture-pane -e -p -t {} | tail -n39" --prompt="Select or create session: " --print-query)
+
+if [ -z "$output" ]; then
+    echo "No session selected or entered."
+    exit 1
+fi
+
+echo "output: $output"
+
+# Read the output into two variables: query and selected
+query=$(echo "$output" | awk 'NR==1 {print $1}')
+selected=$(echo "$output" | awk 'NR==2 {print $1}')
+
+echo "query: $query"
+echo "selected: $selected"
+
+# If no session was selected, use the query as the new session name
+if [ -z "$selected" ]; then
+    selected="$query"
+fi
+
+# Check if the session exists
+tmux has-session -t "$selected" >/dev/null 2>&1
+
+if [[ $? -ne 0 ]]; then
+    # If the session does not exist, create it
+    tmux new-session -d -s "$selected"
+    echo "Created new session: $selected"
+fi
+
+# Switch to the selected or created session
+tmux a -t $selected
