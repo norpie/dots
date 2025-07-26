@@ -1,0 +1,55 @@
+* {
+    font-family: "JetBrainsMonoNL Nerd Font";
+    font-size: 13px;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: #cdd6f4;
+}
+
+#clock {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#pulseaudio, #mpris {
+    background-color: #1e1e2e;
+    border-radius: 20px;
+    padding: 8px 16px;
+    margin: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#pulseaudio {
+    color: #89b4fa;
+}
+
+#mpris {
+    color: #f5c2e7;
+}
+
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1;
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f38ba8;
+    color: #1e1e2e;
+}
+
+#network {
+    color: #94e2d5;
+}
+
+#memory {
+    color: #fab387;
+}
