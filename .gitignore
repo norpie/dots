@@ -483,3 +483,4 @@ work
 .package-manager
 .local/share/opencode
 .config/lact/ui.yaml
+.local/share/hyprland
