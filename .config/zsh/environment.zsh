@@ -130,6 +130,8 @@ alias nix-shell="HISTFILE=/dev/null nix-shell"
 # Define home and other standard vars
 export HOME="/home/$USER"
 [[ -f ~/.cache/display ]] && export DISPLAY=$(cat ~/.cache/display)
+[[ -f ~/.cache/wayland_display ]] && export WAYLAND_DISPLAY=$(cat ~/.cache/wayland_display)
+[[ -f ~/.cache/hyprland_instance ]] && export HYPRLAND_INSTANCE_SIGNATURE=$(cat ~/.cache/hyprland_instance)
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config

@@ -3,6 +3,19 @@
 # Hyprland monitor management script
 # Adapted from monitor-xorg to use hyprctl commands
 
+# Ensure we can connect to Hyprland
+if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
+    # Try to load from cache first
+    if [[ -f ~/.cache/hyprland_instance ]]; then
+        export HYPRLAND_INSTANCE_SIGNATURE=$(cat ~/.cache/hyprland_instance)
+    fi
+    
+    # If still not found, try to find the Hyprland instance signature
+    if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
+        export HYPRLAND_INSTANCE_SIGNATURE=$(ls /tmp/hypr/ | head -1 2>/dev/null)
+    fi
+fi
+
 # $0
 [[ $# -eq 0 ]] && echo "Usage: $(basename $0) [blanking off|on]|[off|on]|[brightness 0-1]|[state]|[layout desktop|desktop-gaming|laptop]" && exit
 
