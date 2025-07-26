@@ -132,6 +132,8 @@ export HOME="/home/$USER"
 [[ -f ~/.cache/display ]] && export DISPLAY=$(cat ~/.cache/display)
 [[ -f ~/.cache/wayland_display ]] && export WAYLAND_DISPLAY=$(cat ~/.cache/wayland_display)
 [[ -f ~/.cache/hyprland_instance ]] && export HYPRLAND_INSTANCE_SIGNATURE=$(cat ~/.cache/hyprland_instance)
+[[ -f ~/.cache/ssh_auth_sock ]] && export SSH_AUTH_SOCK=$(cat ~/.cache/ssh_auth_sock)
+[[ -f ~/.cache/ssh_agent_pid ]] && export SSH_AGENT_PID=$(cat ~/.cache/ssh_agent_pid)
 
 # XDG
 export XDG_CONFIG_HOME=$HOME/.config

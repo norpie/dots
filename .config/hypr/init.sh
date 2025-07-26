@@ -10,9 +10,11 @@ echo "Exported Java compatibility variable" >> /tmp/hypr-init.log
 dbus-update-activation-environment --all
 echo "Updated dbus activation environment" >> /tmp/hypr-init.log
 
-# Start ssh-agent
+# Start ssh-agent and cache variables
 eval $(ssh-agent -s)
-echo "Started ssh-agent" >> /tmp/hypr-init.log
+echo $SSH_AUTH_SOCK > ~/.cache/ssh_auth_sock
+echo $SSH_AGENT_PID > ~/.cache/ssh_agent_pid
+echo "Started ssh-agent and cached variables" >> /tmp/hypr-init.log
 
 source ~/.config/zsh/.zshrc
 echo "Sourced zshrc" >> /tmp/hypr-init.log
