@@ -28,4 +28,6 @@ done <<< "$devices"
 # Remove trailing comma and space
 output=${output%, }
 
+[[ $output ]] || exit 0
+
 echo  $output #  WH-1000XM5 (80%), Keyboard (100%)
