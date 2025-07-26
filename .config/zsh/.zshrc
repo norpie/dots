@@ -4,7 +4,7 @@ if [[ ! -v SSH_AGENT_PID ]]; then
     ssh-add-defaults
 fi
 
-if [[ ! -v TMUX ]]; then
+if [[ ! -v TMUX && -o interactive ]]; then
     echo "Starting tmux"
     tmux
 fi

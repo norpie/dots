@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Hyprctl wrapper that ensures proper environment variables
+
+# Always read fresh from cache files instead of inheriting old environment
+if [[ -f ~/.cache/hyprland_instance ]]; then
+    export HYPRLAND_INSTANCE_SIGNATURE=$(cat ~/.cache/hyprland_instance)
+fi
+
+if [[ -f ~/.cache/wayland_display ]]; then
+    export WAYLAND_DISPLAY=$(cat ~/.cache/wayland_display)
+fi
+
+# If cache doesn't exist or is empty, try to find current instance
+if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
+    export HYPRLAND_INSTANCE_SIGNATURE=$(ls /run/user/1000/hypr/ | tail -1 2>/dev/null)
+fi
+
+# Execute the real hyprctl with all arguments passed through
+exec /run/current-system/sw/bin/hyprctl "$@"
