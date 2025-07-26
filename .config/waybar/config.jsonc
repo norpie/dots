@@ -2,17 +2,22 @@
     "layer": "top",
     "position": "top",
     "height": 30,
-    
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "mpris"],
-    
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "mpris"
+    ],
     "hyprland/workspaces": {
         "format": "{name}",
         "on-click": "activate",
         "sort-by-number": true
     },
-    
     "hyprland/window": {
         "format": "{}",
         "max-length": 20,
@@ -21,16 +26,19 @@
             "": ""
         }
     },
-    
     "pulseaudio": {
         "format": "{icon} {volume} - ",
-        "format-muted": " muted",
+        "format-muted": "{icon} {volume} - ",
         "format-icons": {
-            "default": ["", "", ""]
+            "default": [
+                "󰕿",
+                "󰖀",
+                "󰕾"
+            ],
+            "default-muted": "󰝞"
         },
         "on-click": "pavucontrol"
     },
-    
     "mpris": {
         "format-paused": "{status_icon} {dynamic}",
         "format": "{status_icon} {dynamic}",
@@ -44,11 +52,13 @@
             "paused": "",
             "playing": ""
         },
-        "dynamic-order": ["artist", "title"],
+        "dynamic-order": [
+            "artist",
+            "title"
+        ],
         "dynamic-separator": " - ",
         "dynamic-len": 40
     },
-    
     "clock": {
         "format": " {:%H:%M %d %B}"
     }
