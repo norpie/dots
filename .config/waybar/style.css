@@ -1,6 +1,7 @@
 * {
     font-family: "JetBrainsMonoNL Nerd Font";
     font-size: 13px;
+    min-height: 0;
 }
 
 window#waybar {
@@ -10,15 +11,15 @@ window#waybar {
 
 #workspaces {
     background-color: transparent;
-    padding: 4px 12px;
-    margin: 5px;
+    padding: 0;
+    margin: 5px 8px;
 }
 
 #window {
     background-color: #1e1e2e;
     border-radius: 10px;
     padding: 4px 8px;
-    margin: 5px;
+    margin: 5px 0px 5px 0px;
     color: #a6e3a1;
     font-size: 13px;
 }
@@ -31,13 +32,17 @@ window#waybar {
 }
 
 #workspaces button {
-    background-color: transparent;
+    background-color: #313244;
     color: #cdd6f4;
     border: none;
-    padding: 4px 8px;
+    padding: 0px 10px;
     border-radius: 10px;
-    margin: 0 2px;
+    margin-right: 8px;
     font-size: 13px;
+}
+
+#workspaces button:last-child {
+    margin-right: 0;
 }
 
 #workspaces button.active {
@@ -58,7 +63,7 @@ window#waybar {
     color: #cdd6f4;
     border-radius: 10px;
     padding: 4px 8px;
-    margin: 5px;
+    margin: 5px 8px;
     font-size: 13px;
 }
 
@@ -66,7 +71,7 @@ window#waybar {
     background-color: #1e1e2e;
     border-radius: 10px;
     padding: 4px 8px;
-    margin: 5px;
+    margin: 5px 8px;
     font-size: 13px;
 }
 
