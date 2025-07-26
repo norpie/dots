@@ -2,6 +2,18 @@
 
 echo "Init script starting" >> /tmp/hypr-init.log
 
+# Java applications compatibility
+export _JAVA_AWT_WM_NONREPARENTING=1
+echo "Exported Java compatibility variable" >> /tmp/hypr-init.log
+
+# Update dbus activation environment
+dbus-update-activation-environment --all
+echo "Updated dbus activation environment" >> /tmp/hypr-init.log
+
+# Start ssh-agent
+eval $(ssh-agent -s)
+echo "Started ssh-agent" >> /tmp/hypr-init.log
+
 source ~/.config/zsh/.zshrc
 echo "Sourced zshrc" >> /tmp/hypr-init.log
 
