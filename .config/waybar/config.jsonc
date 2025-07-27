@@ -101,6 +101,7 @@
         "modules": [
             "custom/power",
             "custom/lock",
+            "idle_inhibitor",
             "custom/monitor-off",
             "custom/reboot"
         ]
@@ -124,5 +125,15 @@
         "format": "⏻",
         "tooltip": false,
         "on-click": "confirm \"Shutdown?\" \"systemctl poweroff\""
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰈈",
+            "deactivated": "󰈉"
+        },
+        "tooltip": true,
+        "tooltip-format-activated": "Idle inhibitor activated - screen won't sleep",
+        "tooltip-format-deactivated": "Idle inhibitor deactivated - screen may sleep"
     }
 }

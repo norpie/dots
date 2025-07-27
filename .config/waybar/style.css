@@ -58,7 +58,7 @@ window#waybar.empty #window {
     color: #a6e3a1;
 }
 
-#clock, #pulseaudio, #mpris, #bluetooth, #battery, #backlight, #custom-power, #custom-lock, #custom-monitor-off, #custom-reboot, #network, #memory {
+#clock, #pulseaudio, #mpris, #bluetooth, #battery, #backlight, #custom-power, #custom-lock, #idle_inhibitor, #custom-monitor-off, #custom-reboot, #network, #memory {
     background-color: transparent;
     background-color: #1e1e2e;
     color: #cdd6f4;
@@ -126,4 +126,18 @@ window#waybar.empty #window {
 
 #custom-reboot {
     color: #f9e2af;
+}
+
+#idle_inhibitor {
+    color: #b4befe;
+    padding-left: 6px;
+    padding-right: 10px;
+}
+
+#idle_inhibitor.activated {
+    color: #a6e3a1;
+}
+
+#idle_inhibitor.deactivated {
+    color: #585b70;
 }
