@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+switch_sink() {
+    pactl set-default-sink $1 ||
+      echo failed
+    pactl list sink-inputs | awk '/Sink Input #/{print $3}' | cut -c 2-99 | xargs -r -I{} pactl move-sink-input {} $1 ||
+        echo failed
+}
+
+
+indexes=$(pactl list sinks | grep -E 'Sink #' |  pactl list sinks | grep -E 'Sink #' | cut -c 7-99)
+descriptions=$(pactl list sinks | grep -E 'device.description =' | sed 's/"//g' | awk '{print $3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10}')
+devices=$(echo $indexes | wc -l)
+
+typeset -A indexassociates
+
+lines=""
+for i in $(seq $devices)
+do
+    realindex=$(echo $indexes | awk "NR==$i")
+    indexassociates[$i]=$realindex
+    line="$i "
+    line+=$(echo $descriptions | awk "NR==$i")
+    lines+=$line"\n"
+done
+
+choice=$(echo $lines | grep . | rofi -dmenu -p "Audio Output" | awk '{print $1}')
+
+[[ $choice == "" ]] && exit 1
+
+switch_sink $indexassociates[$choice]

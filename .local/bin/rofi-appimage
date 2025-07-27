@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+APP_PATH="$HOME/.local/share/appimages"
+mkdir -p $APP_PATH && cd $APP_PATH
+cmd=$(find * | rofi -dmenu -p "AppImage")
+
+cd $APP_PATH
+appimage-run $cmd

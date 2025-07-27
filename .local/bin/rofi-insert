@@ -1,0 +1,15 @@
+#!/bin/sh
+
+arg=$(cd ~/.config/symbol-lists && find . -type f | sed 's/\.\/\(.*\)/\1/' | rofi -dmenu -l 30 -p "Symbol List")
+
+# Exit if none chosen.
+[ "$arg" = "" ] && exit
+
+# Get user selection via dmenu from emoji file.
+arg=$(grep . ~/.config/symbol-lists/"$arg" | rofi -dmenu -l 30 -p "Symbol" | sed "s/ .*//")
+
+# Exit if none chosen.
+[ "$arg" = "" ] && exit
+
+xdotool type "$arg"
+printf '%s' "$arg" | xclip -sel clip

@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# rofi-drag - execute `drag` on a file selected with rofi
+
+DOWNLOADS_DIR=~/Downloads
+DOWNLOADS=$(find $DOWNLOADS_DIR -type f)
+
+CHOICE=$(echo "$DOWNLOADS" | rofi -dmenu -l 10 -p "Drag file")
+
+if [ -n "$CHOICE" ]; then
+    drag "$CHOICE"
+fi
