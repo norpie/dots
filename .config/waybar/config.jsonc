@@ -27,8 +27,8 @@
         }
     },
     "pulseaudio": {
-        "format": "{icon} {volume} - ",
-        "format-muted": "{icon} {volume} - ",
+        "format": "{icon} {volume}",
+        "format-muted": "{icon} {volume}",
         "format-icons": {
             "default": [
                 "󰕿",
@@ -40,8 +40,8 @@
         "on-click": "pavucontrol"
     },
     "mpris": {
-        "format-paused": "{status_icon} {dynamic}",
-        "format": "{status_icon} {dynamic}",
+        "format": "{status_icon} {player_icon} {artist} - {title}",
+        "format-paused": "{status_icon} {player_icon} {artist} - {title}",
         "player-icons": {
             "default": "",
             "mpv": "",
@@ -52,14 +52,11 @@
             "paused": "",
             "playing": ""
         },
-        "dynamic-order": [
-            "artist",
-            "title"
-        ],
-        "dynamic-separator": " - ",
-        "dynamic-len": 40
+        "artist-len": 15,
+        "title-len": 20,
+        "ellipsis": "…"
     },
     "clock": {
-        "format": " {:%H:%M %d %B}"
+        "format": " {:%d.%m.%Y | %H:%M} 󰥔"
     }
 }
