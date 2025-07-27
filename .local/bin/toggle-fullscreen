@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+# Use a flag file to track intended waybar state
+FLAG_FILE="/tmp/waybar_hidden"
+
+if [ -f "$FLAG_FILE" ]; then
+    # Waybar is hidden, show it
+    rm "$FLAG_FILE"
+    pkill waybar; hyprctl dispatch exec waybar
+else
+    # Waybar is visible, hide it
+    touch "$FLAG_FILE"
+    pkill waybar
+fi
