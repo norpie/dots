@@ -44,16 +44,16 @@ if [[ $1 == "layout" ]]; then
     case $2 in
         "desktop-gaming")
             # Desktop gaming layout with custom resolution for primary monitor
-            hyprctl keyword monitor "DisplayPort-0,1280x1024@165,1920x0,1"
-            hyprctl keyword monitor "DisplayPort-1,1920x1080@60,0x0,1"
-            hyprctl keyword monitor "DisplayPort-2,1920x1080@60,3200x0,1"
+            hyprctl keyword monitor "DP-2,1920x1080@60,0x0,1"
+            hyprctl keyword monitor "DP-1,1280x1024@165,1920x0,1"
+            hyprctl keyword monitor "DP-3,1920x1080@60,3200x0,1"
             echo "Set desktop-gaming layout"
             ;;
         "desktop")
             # Standard desktop layout
-            hyprctl keyword monitor "DisplayPort-0,1920x1080@165,1920x0,1"
-            hyprctl keyword monitor "DisplayPort-1,1920x1080@60,0x0,1"
-            hyprctl keyword monitor "DisplayPort-2,1920x1080@60,3840x0,1"
+            hyprctl keyword monitor "DP-2,1920x1080@60,0x0,1"
+            hyprctl keyword monitor "DP-1,1920x1080@165,1920x0,1"
+            hyprctl keyword monitor "DP-3,1920x1080@60,3840x0,1"
             echo "Set desktop layout"
             ;;
         "laptop")
