@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+# GPU usage dispatcher - detects GPU type and runs appropriate script
+
+gpu_info=$(lspci | grep -i vga)
+
+if echo "$gpu_info" | grep -qi "amd\|radeon"; then
+    st-gpu-amd
+elif echo "$gpu_info" | grep -qi "intel"; then
+    st-gpu-intel
+elif echo "$gpu_info" | grep -qi "nvidia"; then
+    # Could add st-gpu-nvidia later
+    echo ""
+else
+    echo ""
+fi

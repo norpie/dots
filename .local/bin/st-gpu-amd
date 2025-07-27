@@ -1,0 +1,18 @@
+#!/usr/bin/env zsh
+
+# AMD GPU usage script using rocm-smi with VRAM and nerd font icons
+
+if ! command -v rocm-smi &> /dev/null; then
+    echo ""
+    exit
+fi
+
+usage=$(rocm-smi -u | grep "GPU use" | awk '{print $6}')
+temp=$(rocm-smi | awk 'NR==8 {print $16}')
+vram=$(rocm-smi --showmemuse | grep "GPU memory use" | awk '{print $6}')
+
+if [[ -n "$usage" && -n "$temp" && -n "$vram" ]]; then
+    echo " ${usage}%  ${vram}  ${temp}"
+else
+    echo ""
+fi

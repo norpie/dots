@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+
+# Intel GPU usage script using sysfs and debugfs with nerd font icons
+
+# Get current frequency
+cur_freq=$(sudo cat /sys/class/drm/card1/gt/gt0/rps_cur_freq_mhz 2>/dev/null)
+
+# Get GPU memory usage from debugfs  
+gpu_mem=""
+if sudo test -r /sys/kernel/debug/dri/0000:00:02.0/i915_gem_objects 2>/dev/null; then
+    gpu_mem=$(sudo cat /sys/kernel/debug/dri/0000:00:02.0/i915_gem_objects 2>/dev/null | awk '/^[0-9]+ [a-z]+ \[.*\] objects, [0-9]+ bytes$/ {printf "%.0fMB", $4/1024/1024}')
+fi
+
+# Get uncore power (includes GPU on Intel integrated)
+power=""
+if sudo test -r /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/power/runtime_active_time 2>/dev/null; then
+    # Read energy twice with small delay to calculate power
+    energy1=$(sudo cat /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/energy_uj 2>/dev/null)
+    sleep 0.1
+    energy2=$(sudo cat /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/energy_uj 2>/dev/null)
+    if [[ -n "$energy1" && -n "$energy2" ]]; then
+        # Calculate power in watts (energy diff in microjoules over 0.1 seconds)
+        power_uw=$(( (energy2 - energy1) * 10 ))
+        power=$(printf "%.1fW" $(( power_uw / 1000000.0 )))
+    fi
+fi
+
+# Output
+if [[ -n "$gpu_mem" && -n "$cur_freq" && -n "$power" ]]; then
+    echo " ${cur_freq}MHz  ${gpu_mem}  ${power}"
+elif [[ -n "$gpu_mem" && -n "$cur_freq" ]]; then
+    echo " ${cur_freq}MHz  ${gpu_mem}"
+elif [[ -n "$cur_freq" ]]; then
+    echo " ${cur_freq}MHz"
+else
+    echo ""
+fi
