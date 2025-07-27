@@ -12,6 +12,7 @@
     "modules-right": [
         "mpris",
         "pulseaudio",
+        "wireplumber",
         "bluetooth",
         "custom/mouse-battery",
         "backlight",
@@ -163,5 +164,11 @@
         "format": "{}",
         "exec": "st-mouse-battery",
         "interval": 30
+    },
+    "wireplumber": {
+        "format": "{icon} {volume}%",
+        "format-muted": "{icon} {volume}%",
+        "format-icons": ["󰕿", "󰖀", "󰕾"],
+        "on-click": "helvum"
     }
 }
