@@ -3,10 +3,14 @@
 # Hyprctl wrapper that ensures proper environment variables
 
 # Always get the current running instance dynamically
-CURRENT_INSTANCE=$(ls /run/user/1000/hypr/ 2>/dev/null | head -1)
-if [[ -n "$CURRENT_INSTANCE" ]]; then
-    export HYPRLAND_INSTANCE_SIGNATURE="$CURRENT_INSTANCE"
-fi
+# Find the instance with both .socket.sock and hyprland.lock (active instance)
+for instance_dir in /run/user/1000/hypr/*/; do
+    if [[ -S "${instance_dir}.socket.sock" && -f "${instance_dir}hyprland.lock" ]]; then
+        CURRENT_INSTANCE=$(basename "$instance_dir")
+        export HYPRLAND_INSTANCE_SIGNATURE="$CURRENT_INSTANCE"
+        break
+    fi
+done
 
 # Set WAYLAND_DISPLAY from cache if available, otherwise use default
 if [[ -f ~/.cache/wayland_display ]]; then
@@ -15,5 +19,13 @@ else
     export WAYLAND_DISPLAY="wayland-1"
 fi
 
+# Find hyprctl in PATH, excluding this wrapper
+REAL_HYPRCTL=$(which -a hyprctl | grep -v "$(realpath "$0")" | head -1)
+
+if [[ -z "$REAL_HYPRCTL" ]]; then
+    echo "Error: Could not find real hyprctl in PATH" >&2
+    exit 1
+fi
+
 # Execute the real hyprctl with all arguments passed through
-exec /run/current-system/sw/bin/hyprctl "$@"
+exec "$REAL_HYPRCTL" "$@"
