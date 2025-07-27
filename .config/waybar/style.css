@@ -74,12 +74,12 @@ window#waybar.empty #window {
     color: #cdd6f4;
 }
 
-#pulseaudio {
-    color: #89b4fa;
-}
-
 #mpris {
     color: #f5c2e7;
+}
+
+#wireplumber {
+    color: #89b4fa;
 }
 
 #battery {
@@ -145,8 +145,4 @@ window#waybar.empty #window {
 
 #custom-mouse-battery {
     color: #cba6f7;
-}
-
-#wireplumber {
-    color: #f9e2af;
 }

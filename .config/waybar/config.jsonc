@@ -11,7 +11,6 @@
     ],
     "modules-right": [
         "mpris",
-        "pulseaudio",
         "wireplumber",
         "bluetooth",
         "custom/mouse-battery",
@@ -31,19 +30,6 @@
         "rewrite": {
             "": ""
         }
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-muted": "{icon} {volume}%",
-        "format-icons": {
-            "default": [
-                "󰕿",
-                "󰖀",
-                "󰕾"
-            ],
-            "default-muted": "󰝞"
-        },
-        "on-click": "pavucontrol"
     },
     "mpris": {
         "format": "{status_icon} {player_icon} {artist} - {title}",
@@ -167,8 +153,8 @@
     },
     "wireplumber": {
         "format": "{icon} {volume}%",
-        "format-muted": "{icon} {volume}%",
+        "format-muted": "󰝞 {volume}%",
         "format-icons": ["󰕿", "󰖀", "󰕾"],
-        "on-click": "helvum"
+        "on-click": "hyprctl dispatch exec \"[float; size 800 600; center] pavucontrol\""
     }
 }
