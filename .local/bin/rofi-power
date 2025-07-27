@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Options for powermenu  
+lock=""
+logout=""
+shutdown=""
+reboot=""
+sleep=""
+
+# Get answer from user via rofi (each option on new line)
+selected_option=$(echo "$lock
+$logout
+$reboot
+$sleep
+$shutdown" | rofi -dmenu\
+                  -i\
+                  -p "Power"\
+                  -theme "$HOME/.config/rofi/powermenu.rasi")
+
+# Do something based on selected option
+if [ "$selected_option" == "$lock" ]
+then
+    echo "Lock functionality not available - no lock command found"
+elif [ "$selected_option" == "$logout" ]
+then
+    loginctl terminate-user "$(whoami)"
+elif [ "$selected_option" == "$shutdown" ]
+then
+    systemctl poweroff
+elif [ "$selected_option" == "$reboot" ]
+then
+    systemctl reboot
+elif [ "$selected_option" == "$sleep" ]
+then
+    systemctl suspend
+else
+    echo "No match"
+fi
