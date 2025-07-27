@@ -20,7 +20,7 @@ $shutdown" | rofi -dmenu\
 # Do something based on selected option
 if [ "$selected_option" == "$lock" ]
 then
-    echo "Lock functionality not available - no lock command found"
+    hyprlock
 elif [ "$selected_option" == "$logout" ]
 then
     loginctl terminate-user "$(whoami)"
