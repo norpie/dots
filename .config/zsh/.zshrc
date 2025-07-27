@@ -1,5 +1,16 @@
-if [[ ! -v SSH_AGENT_PID ]]; then
-    echo "Missing SSH agent"
+# Use cached SSH agent from Hyprland init if available
+if [[ -f ~/.cache/ssh_auth_sock && -f ~/.cache/ssh_agent_pid ]]; then
+    export SSH_AUTH_SOCK=$(cat ~/.cache/ssh_auth_sock)
+    export SSH_AGENT_PID=$(cat ~/.cache/ssh_agent_pid)
+    
+    # Verify the agent is still running
+    if ! kill -0 $SSH_AGENT_PID 2>/dev/null; then
+        echo "Cached SSH agent is dead, starting new one"
+        eval $(ssh-agent -s)
+        ssh-add-defaults
+    fi
+elif [[ ! -v SSH_AGENT_PID ]]; then
+    echo "No cached SSH agent, starting new one"
     eval $(ssh-agent -s)
     ssh-add-defaults
 fi

@@ -7,7 +7,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 dbus-update-activation-environment --all
 
 # Start ssh-agent and cache variables
+mkdir -p ~/.cache
 eval $(ssh-agent -s)
+ssh-add-defaults
 echo $SSH_AUTH_SOCK > ~/.cache/ssh_auth_sock
 echo $SSH_AGENT_PID > ~/.cache/ssh_agent_pid
 
