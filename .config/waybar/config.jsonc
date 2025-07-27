@@ -13,6 +13,9 @@
         "mpris",
         "wireplumber",
         "bluetooth",
+        "cpu",
+        "memory",
+        "custom/gpu",
         "custom/mouse-battery",
         "backlight",
         "battery",
@@ -146,6 +149,12 @@
         "tooltip-format-activated": "Idle inhibitor activated - screen won't sleep",
         "tooltip-format-deactivated": "Idle inhibitor deactivated - screen may sleep"
     },
+    "custom/gpu": {
+        "format": "{}",
+        "exec": "st-gpu",
+        "interval": 5,
+        "tooltip": false
+    },
     "custom/mouse-battery": {
         "format": "{}",
         "exec": "st-mouse-battery",
@@ -156,5 +165,15 @@
         "format-muted": "󰝞 {volume}%",
         "format-icons": ["󰕿", "󰖀", "󰕾"],
         "on-click": "hyprctl dispatch exec \"[float; size 800 600; center] pavucontrol\""
+    },
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 5,
+        "tooltip": false
+    },
+    "memory": {
+        "format": " {percentage}%",
+        "tooltip-format": "RAM: {used:0.1f}G/{total:0.1f}G\nSwap: {swapUsed:0.1f}G/{swapTotal:0.1f}G",
+        "interval": 5
     }
 }

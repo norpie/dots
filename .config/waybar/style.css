@@ -59,7 +59,7 @@ window#waybar.empty #window {
     color: #a6e3a1;
 }
 
-#clock, #pulseaudio, #mpris, #bluetooth, #battery, #backlight, #custom-power, #custom-lock, #idle_inhibitor, #custom-monitor-off, #custom-reboot, #custom-mouse-battery, #wireplumber, #network, #memory {
+#clock, #pulseaudio, #mpris, #bluetooth, #battery, #backlight, #custom-power, #custom-lock, #idle_inhibitor, #custom-monitor-off, #custom-reboot, #custom-mouse-battery, #custom-gpu, #wireplumber, #network, #memory, #cpu {
     background-color: transparent;
     background-color: #1e1e2e;
     color: #cdd6f4;
@@ -145,4 +145,12 @@ window#waybar.empty #window {
 
 #custom-mouse-battery {
     color: #cba6f7;
+}
+
+#custom-gpu {
+    color: #f9e2af;
+}
+
+#cpu {
+    color: #94e2d5;
 }
