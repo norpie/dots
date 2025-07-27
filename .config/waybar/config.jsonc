@@ -4,19 +4,21 @@
     "height": 30,
     "modules-left": [
         "clock",
+        "wireplumber",
         "mpris"
     ],
     "modules-center": [
-        "hyprland/workspaces",
+        "hyprland/workspaces"
     ],
     "modules-right": [
-        "wireplumber",
         "bluetooth",
-        "cpu",
-        "memory",
+        "network#ethernet",
+        "network#wifi",
         "custom/gpu",
-        "custom/mouse-battery",
+        "memory",
+        "cpu",
         "backlight",
+        "custom/mouse-battery",
         "battery",
         "group/group-power"
     ],
@@ -168,11 +170,38 @@
     "cpu": {
         "format": " {usage}%",
         "interval": 5,
-        "tooltip": false
+        "tooltip": true
     },
     "memory": {
         "format": " {percentage}%",
         "tooltip-format": "RAM: {used:0.1f}G/{total:0.1f}G\nSwap: {swapUsed:0.1f}G/{swapTotal:0.1f}G",
+        "interval": 5
+    },
+    "network": {
+        "interface": "eno1",
+        "format-ethernet": "󰈀 {bandwidthDownBytes}",
+        "format-disconnected": "󰈂",
+        "format-linked": "󰈁 (No IP)",
+        "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}\nGateway: {gwaddr}\nNetmask: {netmask}\nCIDR: {cidr}",
+        "tooltip-format-disconnected": "Ethernet disconnected",
+        "interval": 5
+    },
+    "network#ethernet": {
+        "interface": "eno1",
+        "format-ethernet": "󰈀 {bandwidthDownBytes}",
+        "format-disconnected": "󰈂",
+        "format-linked": "󰈁 (No IP)",
+        "tooltip-format": "Ethernet\nInterface: {ifname}\nIP: {ipaddr}\nGateway: {gwaddr}\nNetmask: {netmask}\nCIDR: {cidr}",
+        "tooltip-format-disconnected": "Ethernet disconnected",
+        "interval": 5
+    },
+    "network#wifi": {
+        "interface": "wlp15s0f4u2u1u4",
+        "format-wifi": "󰖩 {signalStrength}%",
+        "format-disconnected": "",
+        "format-disabled": "",
+        "tooltip-format": "WiFi\nSSID: {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz",
+        "tooltip-format-disconnected": "WiFi disconnected",
         "interval": 5
     }
 }
