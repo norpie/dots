@@ -13,6 +13,7 @@
         "mpris",
         "pulseaudio",
         "bluetooth",
+        "custom/mouse-battery",
         "backlight",
         "battery",
         "group/group-power"
@@ -157,5 +158,10 @@
         "tooltip": true,
         "tooltip-format-activated": "Idle inhibitor activated - screen won't sleep",
         "tooltip-format-deactivated": "Idle inhibitor deactivated - screen may sleep"
+    },
+    "custom/mouse-battery": {
+        "format": "{}",
+        "exec": "st-mouse-battery",
+        "interval": 30
     }
 }
