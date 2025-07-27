@@ -189,14 +189,14 @@
     "network#ethernet": {
         "interface": "eno1",
         "format-ethernet": "󰈀 {bandwidthDownBytes}",
-        "format-disconnected": "󰈂",
+        "format-disconnected": "",
         "format-linked": "󰈁 (No IP)",
         "tooltip-format": "Ethernet\nInterface: {ifname}\nIP: {ipaddr}\nGateway: {gwaddr}\nNetmask: {netmask}\nCIDR: {cidr}",
         "tooltip-format-disconnected": "Ethernet disconnected",
         "interval": 5
     },
     "network#wifi": {
-        "interface": "wlp15s0f4u2u1u4",
+        "interface": "wlp0s20f3",
         "format-wifi": "󰖩 {signalStrength}%",
         "format-disconnected": "",
         "format-disabled": "",
