@@ -11,7 +11,8 @@
     ],
     "modules-right": [
         "pulseaudio",
-        "mpris"
+        "mpris",
+        "custom/power"
     ],
     "hyprland/workspaces": {
         "format": "{name}",
@@ -52,11 +53,26 @@
             "paused": "",
             "playing": ""
         },
-        "artist-len": 15,
-        "title-len": 20,
+        "artist-len": 13,
+        "title-len": 13,
         "ellipsis": "…"
     },
     "clock": {
         "format": " {:%d.%m.%Y | %H:%M} 󰥔"
+    },
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        }
+    },
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "shutdown now"
     }
 }
