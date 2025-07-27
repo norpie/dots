@@ -14,7 +14,7 @@
         "pulseaudio",
         "backlight",
         "battery",
-        "custom/power"
+        "group/group-power"
     ],
     "hyprland/workspaces": {
         "format": "{name}",
@@ -76,9 +76,38 @@
         "format": "{icon} {percent}%",
         "format-icons": ["󰃞", "󰃟", "󰃠"]
     },
+    "group/group-power": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "not-power",
+            "transition-left-to-right": false
+        },
+        "modules": [
+            "custom/power",
+            "custom/lock",
+            "custom/monitor-off",
+            "custom/reboot"
+        ]
+    },
+    "custom/lock": {
+        "format": "󰍁",
+        "tooltip": false,
+        "on-click": "hyprlock"
+    },
+    "custom/monitor-off": {
+        "format": "󰤄",
+        "tooltip": false,
+        "on-click": "hyprctl dispatch dpms off"
+    },
+    "custom/reboot": {
+        "format": "󰜉",
+        "tooltip": false,
+        "on-click": "confirm \"Reboot?\" \"systemctl reboot\""
+    },
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "rofi-power"
+        "on-click": "confirm \"Shutdown?\" \"systemctl poweroff\""
     }
 }

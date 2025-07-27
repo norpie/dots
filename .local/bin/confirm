@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Generic confirmation script
+# Usage: confirm "Action?" "command to execute"
+
+PROMPT="$1"
+COMMAND="$2"
+
+if [ -z "$PROMPT" ] || [ -z "$COMMAND" ]; then
+    echo "Usage: $0 \"Prompt?\" \"command\""
+    exit 1
+fi
+
+check=""
+cross=""
+
+# Get confirmation from user via rofi
+selected_option=$(echo "$check
+$cross" | rofi -dmenu\
+                  -i\
+                  -p "$PROMPT"\
+                   -theme "$HOME/.config/rofi/confirm.rasi")
+# Do something based on selected option
+if [ "$selected_option" == $check ]
+then
+    eval "$COMMAND"
+fi

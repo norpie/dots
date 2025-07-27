@@ -58,7 +58,7 @@ window#waybar.empty #window {
     color: #a6e3a1;
 }
 
-#clock, #pulseaudio, #mpris, #battery, #backlight, #custom-power, #network, #memory {
+#clock, #pulseaudio, #mpris, #battery, #backlight, #custom-power, #custom-lock, #custom-monitor-off, #custom-reboot, #network, #memory {
     background-color: transparent;
     background-color: #1e1e2e;
     color: #cdd6f4;
@@ -110,4 +110,16 @@ window#waybar.empty #window {
 
 #memory {
     color: #fab387;
+}
+
+#custom-lock {
+    color: #fab387;
+}
+
+#custom-monitor-off {
+    color: #94e2d5;
+}
+
+#custom-reboot {
+    color: #f9e2af;
 }
