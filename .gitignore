@@ -484,3 +484,7 @@ work
 .local/share/opencode
 .config/lact/ui.yaml
 .local/share/hyprland
+.config/environment.d
+.config/systemd/user/hyprland-session.target
+.config/systemd/user/tray.target
+.config/hypr/hyprland.conf
