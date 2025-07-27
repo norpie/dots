@@ -9,8 +9,7 @@ power_icon=""
 gpu_info=$(lspci | grep -i vga)
 
 if echo "$gpu_info" | grep -qi "amd\|radeon"; then
-    # Temporarily disabled AMD output
-    values=""
+    values=$(st-gpu-amd)
 elif echo "$gpu_info" | grep -qi "intel"; then
     values=$(st-gpu-intel)
 elif echo "$gpu_info" | grep -qi "nvidia"; then

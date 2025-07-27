@@ -1,16 +1,57 @@
 #!/usr/bin/env zsh
 
-# AMD GPU usage script - returns raw values: usage_percent memory_bytes temp_celsius
+# AMD GPU usage script - returns raw values: freq_hz memory_bytes power_uw
 
-if ! command -v rocm-smi &> /dev/null; then
+# Try to find AMD GPU card
+amd_card=""
+for card in /sys/class/drm/card*; do
+    if [[ -d "$card/device" && -f "$card/device/vendor" ]]; then
+        vendor=$(cat "$card/device/vendor" 2>/dev/null)
+        if [[ "$vendor" == "0x1002" ]]; then  # AMD vendor ID
+            amd_card="$card"
+            break
+        fi
+    fi
+done
+
+if [[ -z "$amd_card" ]]; then
     echo "0 0 0"
     exit
 fi
 
-usage=$(rocm-smi -u | grep "GPU use" | awk '{print $6}' | sed 's/%//')
-temp=$(rocm-smi | awk 'NR==8 {print $16}' | sed 's/C//')
-vram_mb=$(rocm-smi --showmemuse | grep "GPU memory use" | awk '{print $6}' | sed 's/MB//')
-vram_bytes=$((vram_mb * 1024 * 1024))
+# Get current frequency in Hz from sysfs
+freq_hz=0
+if [[ -f "$amd_card/device/pp_dpm_sclk" ]]; then
+    # Parse current sclk frequency (marked with *)
+    current_sclk=$(grep '\*' "$amd_card/device/pp_dpm_sclk" 2>/dev/null | awk '{print $2}' | sed 's/Mhz//')
+    if [[ "$current_sclk" =~ ^[0-9]+$ ]]; then
+        freq_hz=$((current_sclk * 1000000))
+    fi
+fi
+
+# Get GPU memory usage in bytes from sysfs
+vram_bytes=0
+if [[ -f "$amd_card/device/mem_info_vram_used" ]]; then
+    vram_bytes=$(cat "$amd_card/device/mem_info_vram_used" 2>/dev/null)
+    if [[ ! "$vram_bytes" =~ ^[0-9]+$ ]]; then
+        vram_bytes=0
+    fi
+fi
+
+# Get power consumption in microwatts from hwmon
+power_uw=0
+hwmon_dir="$amd_card/device/hwmon"
+if [[ -d "$hwmon_dir" ]]; then
+    for hwmon in "$hwmon_dir"/hwmon*; do
+        if [[ -f "$hwmon/power1_average" ]]; then
+            power_micro=$(cat "$hwmon/power1_average" 2>/dev/null)
+            if [[ "$power_micro" =~ ^[0-9]+$ ]]; then
+                power_uw=$power_micro
+                break
+            fi
+        fi
+    done
+fi
 
 # Output raw values
-echo "${usage:-0} ${vram_bytes:-0} ${temp:-0}"
+echo "$freq_hz $vram_bytes $power_uw"
