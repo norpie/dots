@@ -12,6 +12,7 @@
     "modules-right": [
         "pulseaudio",
         "mpris",
+        "backlight",
         "battery",
         "custom/power"
     ],
@@ -70,6 +71,10 @@
             "warning": 30,
             "critical": 15
         }
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"]
     },
     "custom/power": {
         "format": "⏻",

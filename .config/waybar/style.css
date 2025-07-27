@@ -106,6 +106,15 @@ window#waybar.empty #window {
     color: #1e1e2e;
 }
 
+#backlight {
+    background-color: #1e1e2e;
+    border-radius: 10px;
+    padding: 4px 8px;
+    margin-left: 8px;
+    font-size: 13px;
+    color: #fab387;
+}
+
 #custom-power {
     background-color: #1e1e2e;
     border-radius: 10px;
