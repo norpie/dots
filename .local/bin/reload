@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+# Usage: reload [<supported program>]
+# Reloads the specified program with custom logic.
+
+local program="$1"
+
+if [[ -z "$program" ]]; then
+  echo "Usage: reload <program>"
+  return 1
+fi
+
+case "$program" in
+  "waybar")
+    pkill waybar; hyprctl dispatch exec waybar
+    ;;
+  *)
+    echo "Unsupported program: $program"
+    return 1
+    ;;
+esac
+
+echo "$program reloaded successfully."
