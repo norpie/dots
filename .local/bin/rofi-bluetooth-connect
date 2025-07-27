@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+choices=$(macid)
+
+bluetoothctl power on
+bluetoothctl scan on
+
+choice=$(echo $choices | rofi -dmenu -p "Connect to device")
+
+[[ $choice == "" ]] && exit 1
+
+bluetoothctl connect $(macid $choice)
+
+bluetoothctl scan off

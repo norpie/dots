@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+choices=$(bluetoothctl devices Connected | grep "^Device" | cut -c 8-99)
+
+choice=$(echo $choices | awk '{print $2}' | rofi -dmenu -p "Disconnect device")
+
+[[ $choice == "" ]] && exit 1
+
+echo $choices
+echo $choice
+
+bluetoothctl disconnect $(echo $choices | grep $choice | cut -c 1-17)
