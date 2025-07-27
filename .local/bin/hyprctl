@@ -2,18 +2,17 @@
 
 # Hyprctl wrapper that ensures proper environment variables
 
-# Always read fresh from cache files instead of inheriting old environment
-if [[ -f ~/.cache/hyprland_instance ]]; then
-    export HYPRLAND_INSTANCE_SIGNATURE=$(cat ~/.cache/hyprland_instance)
+# Always get the current running instance dynamically
+CURRENT_INSTANCE=$(ls /run/user/1000/hypr/ 2>/dev/null | head -1)
+if [[ -n "$CURRENT_INSTANCE" ]]; then
+    export HYPRLAND_INSTANCE_SIGNATURE="$CURRENT_INSTANCE"
 fi
 
+# Set WAYLAND_DISPLAY from cache if available, otherwise use default
 if [[ -f ~/.cache/wayland_display ]]; then
     export WAYLAND_DISPLAY=$(cat ~/.cache/wayland_display)
-fi
-
-# If cache doesn't exist or is empty, try to find current instance
-if [[ -z "$HYPRLAND_INSTANCE_SIGNATURE" ]]; then
-    export HYPRLAND_INSTANCE_SIGNATURE=$(ls /run/user/1000/hypr/ | tail -1 2>/dev/null)
+else
+    export WAYLAND_DISPLAY="wayland-1"
 fi
 
 # Execute the real hyprctl with all arguments passed through
