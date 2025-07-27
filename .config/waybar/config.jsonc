@@ -10,8 +10,8 @@
         "clock"
     ],
     "modules-right": [
-        "pulseaudio",
         "mpris",
+        "pulseaudio",
         "backlight",
         "battery",
         "custom/power"
