@@ -92,7 +92,7 @@ window#waybar.empty #window {
     background-color: #1e1e2e;
     border-radius: 10px;
     padding: 4px 8px;
-    margin: 5px 0px 5px 8px;
+    margin-left: 8px;
     font-size: 13px;
     color: #a6e3a1;
 }
