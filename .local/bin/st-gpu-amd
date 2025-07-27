@@ -1,18 +1,16 @@
 #!/usr/bin/env zsh
 
-# AMD GPU usage script using rocm-smi with VRAM and nerd font icons
+# AMD GPU usage script - returns raw values: usage_percent memory_bytes temp_celsius
 
 if ! command -v rocm-smi &> /dev/null; then
-    echo ""
+    echo "0 0 0"
     exit
 fi
 
-usage=$(rocm-smi -u | grep "GPU use" | awk '{print $6}')
-temp=$(rocm-smi | awk 'NR==8 {print $16}')
-vram=$(rocm-smi --showmemuse | grep "GPU memory use" | awk '{print $6}')
+usage=$(rocm-smi -u | grep "GPU use" | awk '{print $6}' | sed 's/%//')
+temp=$(rocm-smi | awk 'NR==8 {print $16}' | sed 's/C//')
+vram_mb=$(rocm-smi --showmemuse | grep "GPU memory use" | awk '{print $6}' | sed 's/MB//')
+vram_bytes=$((vram_mb * 1024 * 1024))
 
-if [[ -n "$usage" && -n "$temp" && -n "$vram" ]]; then
-    echo " ${usage}%  ${vram}  ${temp}"
-else
-    echo ""
-fi
+# Output raw values
+echo "${usage:-0} ${vram_bytes:-0} ${temp:-0}"

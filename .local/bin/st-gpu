@@ -1,16 +1,57 @@
 #!/usr/bin/env zsh
 
-# GPU usage dispatcher - detects GPU type and runs appropriate script
+# GPU usage dispatcher - detects GPU type and formats output with icons
+
+freq_icon=""
+vram_icon=""
+power_icon=""
 
 gpu_info=$(lspci | grep -i vga)
 
 if echo "$gpu_info" | grep -qi "amd\|radeon"; then
-    st-gpu-amd
+    # Temporarily disabled AMD output
+    values=""
 elif echo "$gpu_info" | grep -qi "intel"; then
-    st-gpu-intel
+    values=$(st-gpu-intel)
 elif echo "$gpu_info" | grep -qi "nvidia"; then
     # Could add st-gpu-nvidia later
-    echo ""
+    values=""
 else
-    echo ""
+    values=""
 fi
+
+# Exit early if no values
+if [[ -z "$values" ]]; then
+    echo ""
+    exit
+fi
+
+# Parse values and convert units
+val1=$(echo $values | awk '{print $1}')
+val2=$(echo $values | awk '{print $2}')
+val3=$(echo $values | awk '{print $3}')
+
+# Convert to display units with appropriate scaling
+freq_hz=$val1
+mem_bytes=$val2
+power_uw=$val3
+
+# Format frequency (Hz -> MHz/GHz)
+if [[ $freq_hz -gt 1000000000 ]]; then
+    freq_display=$(awk "BEGIN {printf \"%.1fGHz\", $freq_hz / 1000000000}")
+else
+    freq_display=$(awk "BEGIN {printf \"%dMHz\", $freq_hz / 1000000}")
+fi
+
+# Format memory (bytes -> MB/GB)
+if [[ $mem_bytes -gt 1073741824 ]]; then
+    mem_display=$(awk "BEGIN {printf \"%.1fGB\", $mem_bytes / 1073741824}")
+else
+    mem_display=$(awk "BEGIN {printf \"%dMB\", $mem_bytes / 1048576}")
+fi
+
+# Format power (microwatts -> W)
+power_display=$(awk "BEGIN {printf \"%.1fW\", $power_uw / 1000000}")
+
+# Format output
+echo "${freq_icon} ${freq_display} ${vram_icon} ${mem_display} ${power_icon} ${power_display}"
