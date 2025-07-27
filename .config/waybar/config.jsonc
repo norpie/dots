@@ -3,14 +3,14 @@
     "position": "bottom",
     "height": 30,
     "modules-left": [
+        "clock",
+        "mpris"
+    ],
+    "modules-center": [
         "hyprland/workspaces",
         "hyprland/window"
     ],
-    "modules-center": [
-        "clock"
-    ],
     "modules-right": [
-        "mpris",
         "wireplumber",
         "bluetooth",
         "cpu",
