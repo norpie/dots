@@ -22,7 +22,6 @@ window#waybar > * {
 
 #window {
     background-color: #1e1e2e;
-    border-radius: 10px;
     padding: 4px 8px;
     margin: 0px 0px;
     color: #a6e3a1;
@@ -38,7 +37,6 @@ window#waybar.empty #window {
     color: #cdd6f4;
     border: none;
     padding: 0px 10px;
-    border-radius: 10px;
     margin-right: 8px;
     font-size: 13px;
 }
@@ -60,40 +58,30 @@ window#waybar.empty #window {
     color: #a6e3a1;
 }
 
-#clock {
+#clock, #pulseaudio, #mpris, #battery, #backlight, #custom-power, #network, #memory {
+    background-color: transparent;
     background-color: #1e1e2e;
     color: #cdd6f4;
-    border-radius: 10px;
+    border: none;
+    border-radius: 8px;
     padding: 4px 8px;
     margin-left: 8px;
-    margin-right: 8px;
     font-size: 13px;
 }
 
+#clock {
+    color: #cdd6f4;
+}
+
 #pulseaudio {
-    background-color: #1e1e2e;
-    border-radius: 10px;
-    padding: 4px 8px;
-    margin-left: 8px;
-    font-size: 13px;
     color: #89b4fa;
 }
 
 #mpris {
-    background-color: #1e1e2e;
-    border-radius: 10px;
-    padding: 4px 8px;
-    margin-left: 8px;
-    font-size: 13px;
     color: #f5c2e7;
 }
 
 #battery {
-    background-color: #1e1e2e;
-    border-radius: 10px;
-    padding: 4px 8px;
-    margin-left: 8px;
-    font-size: 13px;
     color: #a6e3a1;
 }
 
@@ -107,22 +95,13 @@ window#waybar.empty #window {
 }
 
 #backlight {
-    background-color: #1e1e2e;
-    border-radius: 10px;
-    padding: 4px 8px;
-    margin-left: 8px;
-    font-size: 13px;
     color: #fab387;
 }
 
 #custom-power {
-    background-color: #1e1e2e;
-    border-radius: 10px;
-    padding: 4px 10px 4px 8px;
-    margin-left: 8px;
-    margin-right: 8px;
-    font-size: 13px;
     color: #f38ba8;
+    padding: 4px 10px 4px 8px;
+    margin-right: 8px;
 }
 
 #network {
