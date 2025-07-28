@@ -488,3 +488,6 @@ work
 .config/systemd/user/hyprland-session.target
 .config/systemd/user/tray.target
 .config/hypr/hyprland.conf
+.claude/statsig
+.claude.json
+.claude.json.backup
