@@ -491,3 +491,10 @@ work
 .claude/statsig
 .claude.json
 .claude.json.backup
+.claude
+.claude-monitor
+.local/bin/ccm
+.local/bin/ccmonitor
+.local/bin/claude-code-monitor
+.local/bin/claude-monitor
+.local/bin/cmonitor
