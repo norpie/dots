@@ -1,0 +1,150 @@
+#!/usr/bin/env bash
+
+# Allow unfree packages
+export NIXPKGS_ALLOW_UNFREE=1
+
+# Define the nix command for claude-code
+NIX_CLAUDE_CMD="nix run --impure github:nixos/nixpkgs#claude-code --"
+
+$NIX_CLAUDE_CMD --version
+
+# Get claude-code version
+CLAUDE_VERSION=$($NIX_CLAUDE_CMD --version 2>/dev/null | head -1 | awk '{print $1}')
+if [ -z "$CLAUDE_VERSION" ]; then
+    CLAUDE_VERSION="unknown"
+fi
+
+# Get project info
+PROJECT_ROOT=$(project root 2>/dev/null)
+if [ $? -eq 0 ] && [ -n "$PROJECT_ROOT" ]; then
+    PROJECT_NAME=$(basename "$PROJECT_ROOT")
+else
+    PROJECT_NAME=$(basename "$(pwd)")
+fi
+
+# Get current file from arguments or use current directory
+CURRENT_FILE=""
+if [ $# -gt 0 ]; then
+    LAST_ARG="${@: -1}"
+    if [ -f "$LAST_ARG" ]; then
+        CURRENT_FILE="$(realpath "$LAST_ARG")"
+    elif [ -f "$(pwd)/$LAST_ARG" ]; then
+        CURRENT_FILE="$(realpath "$(pwd)/$LAST_ARG")"
+    else
+        CURRENT_FILE="$(pwd)/claude-session"
+    fi
+else
+    CURRENT_FILE="$(pwd)/claude-session"
+fi
+
+# Create temp file for tmux content tracking (if in tmux)
+TMUX_CONTENT_FILE=""
+if [ -n "$TMUX" ]; then
+    TMUX_CONTENT_FILE=$(mktemp -t "claude_tmux_content_XXXXXX")
+fi
+
+# Idle detection variables
+IDLE_THRESHOLD=120  # 5 minutes
+LAST_ACTIVITY=$(date +%s)
+
+# Function to check if system is idle
+is_idle() {
+    local current_time=$(date +%s)
+    local activity_detected=false
+    
+    # Check tmux pane content changes (if in tmux)
+    if [ -n "$TMUX" ] && [ -n "$TMUX_CONTENT_FILE" ]; then
+        local current_content=$(tmux capture-pane -p 2>/dev/null)
+        if [ -n "$current_content" ] && [ -f "$TMUX_CONTENT_FILE" ]; then
+            local previous_content=$(cat "$TMUX_CONTENT_FILE" 2>/dev/null)
+            if [ "$current_content" != "$previous_content" ]; then
+                activity_detected=true
+            fi
+        else
+            # First run or tmux command failed, assume activity
+            activity_detected=true
+        fi
+        echo "$current_content" > "$TMUX_CONTENT_FILE" 2>/dev/null
+    else
+        # Fallback checks when not in tmux
+        # Check 1: File modifications in project directory
+        if [ -n "$PROJECT_ROOT" ]; then
+            local recent_changes=$(find "$PROJECT_ROOT" -type f -newermt "-5 minutes" 2>/dev/null | wc -l)
+            if [ "$recent_changes" -gt 0 ]; then
+                activity_detected=true
+            fi
+        fi
+        
+        # Check 2: User input activity (system-wide idle time)
+        if command -v xprintidle >/dev/null 2>&1; then
+            # X11 systems
+            local idle_ms=$(xprintidle 2>/dev/null)
+            if [ -n "$idle_ms" ] && [ "$idle_ms" -lt $((IDLE_THRESHOLD * 1000)) ]; then
+                activity_detected=true
+            fi
+        elif [ -f /proc/uptime ]; then
+            # Fallback: check if load average indicates activity
+            local load=$(cat /proc/loadavg | cut -d' ' -f1)
+            if command -v bc >/dev/null 2>&1; then
+                if (( $(echo "$load > 0.1" | bc -l 2>/dev/null || echo 0) )); then
+                    activity_detected=true
+                fi
+            else
+                # Simple integer comparison fallback
+                if [ "${load%.*}" -gt 0 ]; then
+                    activity_detected=true
+                fi
+            fi
+        fi
+    fi
+    
+    # Update last activity if any activity detected
+    if [ "$activity_detected" = true ]; then
+        LAST_ACTIVITY=$current_time
+        return 1  # Not idle
+    fi
+    
+    # Check if we've been idle longer than threshold
+    local idle_time=$((current_time - LAST_ACTIVITY))
+    [ $idle_time -gt $IDLE_THRESHOLD ]
+}
+
+# Function to send heartbeat
+send_heartbeat() {
+    wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "claude-wakatime/$CLAUDE_VERSION" >/dev/null 2>&1 &
+}
+
+# Send initial heartbeat
+send_heartbeat
+
+# Start background heartbeat sender (every 2 minutes)
+(
+    while sleep 120; do
+        # Check if claude-code is still running
+        if ! pgrep -f "claude-code" >/dev/null; then
+            break
+        fi
+        
+        # Only send heartbeat if not idle
+        if ! is_idle; then
+            send_heartbeat
+        fi
+    done
+) &
+HEARTBEAT_PID=$!
+
+# Cleanup function
+cleanup() {
+    kill $HEARTBEAT_PID 2>/dev/null
+    wait $HEARTBEAT_PID 2>/dev/null
+    # Clean up tmux temp file
+    if [ -n "$TMUX_CONTENT_FILE" ] && [ -f "$TMUX_CONTENT_FILE" ]; then
+        rm -f "$TMUX_CONTENT_FILE"
+    fi
+}
+
+# Set trap to cleanup background process on exit
+trap cleanup EXIT INT TERM
+
+# Run claude-code with all arguments
+$NIX_CLAUDE_CMD "$@"
