@@ -498,3 +498,9 @@ work
 .local/bin/claude-code-monitor
 .local/bin/claude-monitor
 .local/bin/cmonitor
+.config/LM Studio
+.config/psysh
+.config/smithery
+.lmstudio
+.local/share/dioxus/wasm-bindgen
+.lmstudio-home-pointer
