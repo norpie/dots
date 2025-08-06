@@ -66,7 +66,7 @@ alias doc2pdf="unoconv -f pdf"
 
 # use latest nix opencode
 # alias opencode="nix run github:nixos/nixpkgs#opencode --"
-alias cm="ccm --plan pro --timezone Europe/Brussels --time-format 24h"
+alias cm="ccm --plan max5 --timezone Europe/Brussels --time-format 24h"
 
 # Systemd
 alias sys="sudo systemctl"
