@@ -41,6 +41,10 @@ CLAUDE_VERSION=$($NIX_CLAUDE_CMD --version 2>/dev/null | head -1 | awk '{print $
 if [ -z "$CLAUDE_VERSION" ]; then
     CLAUDE_VERSION="unknown"
 fi
+CLAUDE_PLUGIN_NAME="claude-wakatime"
+
+CLAUDE_PLUGIN_STRING="$CLAUDE_PLUGIN_NAME/$CLAUDE_VERSION"
+echo "Using plugin string: $CLAUDE_PLUGIN_STRING"
 
 # Get project info
 PROJECT_ROOT=$(project root 2>/dev/null)
@@ -139,7 +143,7 @@ is_idle() {
 
 # Function to send heartbeat
 send_heartbeat() {
-    wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "claude-wakatime/$CLAUDE_VERSION" >/dev/null 2>&1 &
+    wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "$CLAUDE_PLUGIN_STRING" >/dev/null 2>&1 &
 }
 
 # Send initial heartbeat
