@@ -23,9 +23,36 @@
         "group/group-power"
     ],
     "hyprland/workspaces": {
-        "format": "{name}",
+        "rotate": 0,
+        "format": "{icon}",
+        "format-icons": {
+            "10": "1",
+            "11": "2",
+            "12": "3",
+            "13": "4",
+            "14": "5",
+            "15": "6",
+            "16": "7",
+            "17": "8",
+            "18": "9",
+            "19": "1",
+            "20": "2",
+            "21": "3",
+            "22": "4",
+            "23": "5",
+            "24": "6",
+            "25": "7",
+            "26": "8",
+            "27": "9"
+        },
+        "class": "no-margin-padding",
+        "all-outputs": false,
+        "active-only": false,
         "on-click": "activate",
-        "sort-by-number": true
+        "disable-scroll": false,
+        "on-scroll-up": "hyprctl dispatch split:workspace r+1",
+        "on-scroll-down": "hyprctl dispatch split:workspace r-1",
+        "persistent-workspaces": {}
     },
     "hyprland/window": {
         "format": "{}",
