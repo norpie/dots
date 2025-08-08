@@ -146,6 +146,9 @@ export XDG_LOCAL_BIN=$HOME/.local/bin
 export XDG_DATA_GAMES=$HOME/.local/share/games
 export XDG_DOWNLOADS_HOME=$HOME/Downloads
 
+# CS2 Wayland
+export SDL_VIDEO_DRIVER=wayland
+
 # Locale
 export LANG="en_US.UTF-8"
 
