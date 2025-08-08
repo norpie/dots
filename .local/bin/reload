@@ -14,6 +14,9 @@ case "$program" in
   "waybar")
     pkill waybar; hyprctl dispatch exec waybar
     ;;
+  "hyprland")
+      hyprctl reload
+    ;;
   "hyprlock")
     pkill hyprlock; hyprctl dispatch exec hyprlock
     ;;
