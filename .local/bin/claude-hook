@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Claude hook script that parses JSON with jq and sends smart notifications
+# Reads JSON from stdin and extracts relevant information
+
+content=$(cat)
+
+# Parse common fields
+hook_event=$(echo "$content" | jq -r '.hook_event_name // "Unknown"')
+session_id=$(echo "$content" | jq -r '.session_id // "Unknown"' | cut -c1-8)
+cwd=$(echo "$content" | jq -r '.cwd // "Unknown"')
+
+# Create event-specific notifications
+case "$hook_event" in
+    # "PreToolUse")
+    #     tool_name=$(echo "$content" | jq -r '.tool_name // "Unknown"')
+    #     tool_input=$(echo "$content" | jq -c '.tool_input // {}')
+    #     title="🔧 Pre-Tool: $tool_name"
+    #     body="Session: $session_id\nDir: $cwd\nInput: $tool_input"
+    #     ;;
+    # "PostToolUse")
+    #     tool_name=$(echo "$content" | jq -r '.tool_name // "Unknown"')
+    #     success=$(echo "$content" | jq -r '.tool_response.success // "unknown"')
+    #     title="✅ Post-Tool: $tool_name"
+    #     body="Session: $session_id\nDir: $cwd\nSuccess: $success"
+    #     ;;
+    # "UserPromptSubmit")
+    #     prompt=$(echo "$content" | jq -r '.prompt // "No prompt"')
+    #     # Truncate long prompts
+    #     prompt_short=$(echo "$prompt" | head -c 100)
+    #     if [ ${#prompt} -gt 100 ]; then
+    #         prompt_short="${prompt_short}..."
+    #     fi
+    #     title="💬 User Prompt"
+    #     body="Session: $session_id\nDir: $cwd\nPrompt: $prompt_short"
+    #     ;;
+    "Stop")
+        title="🛑 Agent Stop"
+        body="Session: $session_id\nDir: $cwd\nAgent finished"
+        notify-send "$title" "$body" --app-name="Claude Code" --urgency=low
+        ;;
+    # "SubagentStop")
+    #     title="🔄 Subagent Stop"
+    #     body="Session: $session_id\nDir: $cwd\nSubagent finished"
+    #     ;;
+    # "SessionStart")
+    #     title="🚀 Session Start"
+    #     body="Session: $session_id\nDir: $cwd\nNew session started"
+    #     ;;
+    "Notification")
+        message=$(echo "$content" | jq -r '.message // "System notification"')
+        title="🔔 Claude Notification"
+        body="Session: $session_id\nDir: $cwd\nMessage: $message"
+        notify-send "$title" "$body" --app-name="Claude Code" --urgency=low
+        ;;
+    *)
+        title="❓ Claude Hook: $hook_event"
+        body="Session: $session_id\nDir: $cwd\nRaw: $content"
+        ;;
+esac
+
