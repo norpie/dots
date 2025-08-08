@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-EXTRA_PROMPT_MATERIAL="
-CRITICAL WORKFLOW REQUIREMENT 
+EXTRA_PROMPT_MATERIAL="CRITICAL WORKFLOW REQUIREMENT 
 
     MANDATORY PLANNING STEP: Before executing ANY tool (Read, Write, Edit, Bash, Grep, Glob,
     WebSearch, etc.), you MUST:
@@ -25,8 +24,7 @@ CRITICAL WORKFLOW REQUIREMENT
     ENFORCEMENT: If you execute ANY tool without first using exit_plan_mode for the current
     user instruction, you have violated this requirement. Always plan first, execute second.
 
-    WORKFLOW FOR EACH USER REQUEST: Plan → User Approval → Execute (NEVER: Execute → Plan)
-"
+    WORKFLOW FOR EACH USER REQUEST: Plan → User Approval → Execute (NEVER: Execute → Plan)"
 
 # Allow unfree packages
 export NIXPKGS_ALLOW_UNFREE=1
@@ -179,4 +177,4 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 # Run claude-code with all arguments
-$NIX_CLAUDE_CMD --append-system-prompt $EXTRA_PROMPT_MATERIAL "$@"
+$NIX_CLAUDE_CMD --append-system-prompt "$EXTRA_PROMPT_MATERIAL" "$@"
