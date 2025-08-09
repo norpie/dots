@@ -35,7 +35,7 @@ edit = [
 	{ run = 'code -w %*', block = true,  desc = "code (block)",   for = "windows" },
 ]
 open = [
-	{ run = 'xdg-open "$1"',                desc = "Open", for = "linux" },
+	{ run = 'rifle "$1"',                desc = "Open", for = "linux" },
 	{ run = 'open "$@"',                    desc = "Open", for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Open", for = "windows" },
 	{ run = 'termux-open "$1"',             desc = "Open", for = "android" },
@@ -52,7 +52,7 @@ extract = [
 	{ run = 'ya pub extract --list %*',   desc = "Extract here", for = "windows" },
 ]
 play = [
-	{ run = 'xdg-open "$1"',                desc = "Play", for = "linux" },
+	{ run = 'rifle "$1"',                desc = "Play", for = "linux" },
 	{ run = 'open "$@"',                    desc = "Play", for = "macos" },
 	{ run = 'start "" "%1"', orphan = true, desc = "Play", for = "windows" },
 	{ run = 'termux-open "$1"',             desc = "Play", for = "android" },
