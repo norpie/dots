@@ -1,1 +1,131 @@
 @theme "catppuccin-default"
+
+configuration {
+    font: "JetBrainsMono Nerd Font 12";
+    show-icons: false;
+    lines: 8;
+    columns: 1;
+}
+
+window {
+    background-color: @background;
+    border: 2px;
+    border-radius: 8px;
+    padding: 10px;
+    width: 450px;
+    transparency: "real";
+}
+
+mainbox {
+    border-radius: 6px;
+    padding: 5px;
+    spacing: 8px;
+}
+
+inputbar {
+    background-color: transparent;
+    border: 0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    spacing: 8px;
+    margin: 0 0 8px 0;
+    children: ["textbox-prompt-colon", "entry"];
+}
+
+entry {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    placeholder: "Search...";
+}
+
+prompt {
+    enabled: false;
+}
+
+textbox-prompt-colon {
+    str: " ";
+    background-color: transparent;
+    text-color: @subtext1;
+    padding: 0;
+    border: 0;
+    expand: false;
+}
+
+listview {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    spacing: 3px;
+    cycle: true;
+    dynamic: false;
+    scrollbar: true;
+    fixed-height: true;
+    lines: 8;
+}
+
+element {
+    background-color: transparent;
+    border: 0;
+    border-radius: 6px;
+    padding: 4px 8px;
+    spacing: 6px;
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color: @normal-foreground;
+    border: 0;
+}
+
+element selected.normal {
+    background-color: @blue;
+    text-color: @background;
+    border: 2px;
+    border-color: @blue;
+}
+
+element normal.active {
+    background-color: transparent;
+    text-color: @blue;
+    border: 0;
+}
+
+element selected.active {
+    background-color: @blue;
+    text-color: @background;
+    border: 2px;
+    border-color: @blue;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color: @normal-foreground;
+    border: 0;
+}
+
+element alternate.active {
+    background-color: transparent;
+    text-color: @blue;
+    border: 0;
+}
+
+element-icon {
+    size: 20px;
+    background-color: transparent;
+    vertical-align: 0.5;
+}
+
+element-text {
+    background-color: transparent;
+    vertical-align: 0.5;
+}
+
+scrollbar {
+    handle-color: @blue;
+    handle-width: 6px;
+    background-color: @lightbg;
+    border-radius: 4px;
+    width: 6px;
+}
