@@ -1,0 +1,98 @@
+#!/usr/bin/env zsh
+
+# Hyprpicker format selector using rofi
+# Always copies the selected color to clipboard
+
+# Define available formats with descriptions
+declare -A formats=(
+    ["hex"]="Hex format (e.g., #RRGGBB)"
+    ["rgb"]="RGB format (e.g., rgb(255,255,255))"
+    ["hsl"]="HSL format (e.g., hsl(360,100%,100%))"
+    ["hsv"]="HSV format (e.g., hsv(360,100%,100%))"
+    ["cmyk"]="CMYK format (e.g., cmyk(0%,0%,0%,0%))"
+)
+
+# Create rofi menu options
+menu=""
+for fmt in hex rgb hsl hsv cmyk; do
+    menu+="${formats[$fmt]}\n"
+done
+
+# Show rofi menu and get selection
+selected=$(echo -e "${menu::-2}" | rofi -dmenu -p "Select color format" -i)
+
+# Exit if nothing selected
+[[ -z "$selected" ]] && exit 1
+
+# Map selection back to format flag
+format_flag=""
+case "$selected" in
+    *"Hex"*)
+        format_flag="hex"
+        ;;
+    *"RGB"*)
+        format_flag="rgb"
+        ;;
+    *"HSL"*)
+        format_flag="hsl"
+        ;;
+    *"HSV"*)
+        format_flag="hsv"
+        ;;
+    *"CMYK"*)
+        format_flag="cmyk"
+        ;;
+    *)
+        echo "Invalid format selected"
+        exit 1
+        ;;
+esac
+
+# Call hyprpicker with selected format
+# -n flag prevents auto-copy so we can format it first
+# -f flag sets the format
+raw_output=$(hyprpicker -n -f "$format_flag")
+
+# Exit if color picking was cancelled
+[[ -z "$raw_output" ]] && exit 1
+
+# Parse and format the output based on selected format
+formatted_color=""
+case "$format_flag" in
+    "hex")
+        # Hex is already in correct format
+        formatted_color="$raw_output"
+        ;;
+    "rgb")
+        # Convert "255 255 255" to "rgb(255,255,255)"
+        IFS=' ' read -r r g b <<< "$raw_output"
+        formatted_color="rgb($r,$g,$b)"
+        ;;
+    "hsl")
+        # Convert "229 21% 69%" to "hsl(229,21%,69%)"
+        IFS=' ' read -r h s l <<< "$raw_output"
+        formatted_color="hsl($h,$s,$l)"
+        ;;
+    "hsv")
+        # Convert "229 21% 69%" to "hsv(229,21%,69%)"
+        IFS=' ' read -r h s v <<< "$raw_output"
+        formatted_color="hsv($h,$s,$v)"
+        ;;
+    "cmyk")
+        # Convert "0% 0% 0% 0%" to "cmyk(0%,0%,0%,0%)"
+        IFS=' ' read -r c m y k <<< "$raw_output"
+        formatted_color="cmyk($c,$m,$y,$k)"
+        ;;
+    *)
+        formatted_color="$raw_output"
+        ;;
+esac
+
+# Copy formatted color to clipboard
+echo -n "$formatted_color" | wl-copy
+
+# Optional: Show notification with the picked color
+# Uncomment if you want notifications
+# if command -v notify-send &> /dev/null; then
+#     notify-send "Color Picked" "$formatted_color copied to clipboard"
+# fi
