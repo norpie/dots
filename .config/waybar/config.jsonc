@@ -23,12 +23,56 @@
         "group/group-power"
     ],
     "hyprland/workspaces": {
+        "format-window-separator": " | ",
+        "window-rewrite-default": "",
+        "window-rewrite": {
+            "class<firefox>": "",                          // General Firefox
+
+            // Search
+            "class<firefox> title<.*google.*>": "",        // Firefox - Google
+
+            // Repositories
+            "class<firefox> title<.*github.*>": "",        // Firefox - GitHub
+            "class<firefox> title<.*gitlab.*>": "",        // Firefox - GitLab
+
+            // Development
+            "class<firefox> title<.*stackoverflow.*>": "", // Firefox - Stack Overflow
+            "class<firefox> title<.*stackexchange.*>": "", // Firefox - Stack Exchange
+
+            // Social Media
+            "class<firefox> title<.*linkedin.*>": "",      // Firefox - LinkedIn
+            "class<firefox> title<.*reddit.*>": "",        // Firefox - Reddit
+            "class<firefox> title<.*twitter.*>": "",       // Firefox - Twitter
+            "class<firefox> title<.*facebook.*>": "",      // Firefox - Facebook
+            "class<firefox> title<.*instagram.*>": "",     // Firefox - Instagram
+
+            // Media
+            "class<firefox> title<.*youtube.*>": "",       // Firefox - YouTube
+            "class<firefox> title<.*twitch.*>": "",        // Firefox - Twitch
+            "class<firefox> title<.*plex.*>": "󰚺",          // Firefox - Plex
+
+            "alacritty": "",                           // Terminal
+            "Discord": "",                             // Discord
+            "ncspot": "",                              // ncspot
+            "spotify": "",                             // Spotify
+            "Blueman": "",                             // Blueman
+            "chrome": "",                              // Google Chrome
+            "pavucontrol": "",                         // Pavucontrol
+            "mpv": "",                                 // MPV
+
+            "code": "󰨞",                                // VS Code
+            "qbitt": "",                               // Qbittorrent
+            "steam": "",                               // Steam
+            "Android Emulator": "",                    // Emulator
+            "Emulator": "",                            // Emulator
+
+            "kenniscentrum": "",                       // Kenniscentrum
+            "empire": ""                               // Specific application
+    	},
         "rotate": 0,
-        "format": "{icon}",
+        "format": "{icon}. {windows}",
         "format-icons": {
-            "1": "",
-            "2": "",
-            "10": "",
+            "10": "1",
             "11": "2",
             "12": "3",
             "13": "4",
@@ -37,15 +81,15 @@
             "16": "7",
             "17": "8",
             "18": "9",
-            "19": "",
-            "20": "",
-            "21": "󰚺",
+            "19": "1",
+            "20": "2",
+            "21": "3",
             "22": "4",
             "23": "5",
             "24": "6",
             "25": "7",
             "26": "8",
-            "27": ""
+            "27": "9"
         },
         "class": "no-margin-padding",
         "all-outputs": false,
