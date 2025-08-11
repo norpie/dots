@@ -59,6 +59,7 @@
             "chrome": "",                              // Google Chrome
             "pavucontrol": "",                         // Pavucontrol
             "mpv": "",                                 // MPV
+            "zathura": "󰈙",                             // Zathura
 
             "code": "󰨞",                                // VS Code
             "qbitt": "",                               // Qbittorrent
