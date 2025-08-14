@@ -5,10 +5,16 @@ choices=$(macid)
 bluetoothctl power on
 bluetoothctl scan on
 
-choice=$(echo "$choices" | rofi -dmenu -p "Connect to device")
+# Add numbers to choices
+numbered_choices=$(echo "$choices" | nl -w2 -s'. ')
+
+choice=$(echo "$numbered_choices" | rofi -dmenu -p "Connect to device")
 
 [[ $choice == "" ]] && exit 1
 
-bluetoothctl connect $(macid $choice)
+# Extract just the device name (everything after the number and '. ')
+device_name=$(echo "$choice" | sed 's/^[[:space:]]*[0-9]*\.[[:space:]]*//')
+
+bluetoothctl connect $(macid "$device_name")
 
 bluetoothctl scan off

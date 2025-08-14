@@ -2,11 +2,14 @@
 
 choices=$(bluetoothctl devices Connected | grep "^Device" | cut -c 8-99)
 
-choice=$(echo "$choices" | awk '{print $2}' | rofi -dmenu -p "Disconnect device")
+# Add numbers to choices  
+numbered_choices=$(echo "$choices" | awk '{print $2}' | nl -w2 -s'. ')
+
+choice=$(echo "$numbered_choices" | rofi -dmenu -p "Disconnect device")
 
 [[ $choice == "" ]] && exit 1
 
-echo "$choices"
-echo "$choice"
+# Extract just the device name (everything after the number and '. ')
+device_name=$(echo "$choice" | sed 's/^[[:space:]]*[0-9]*\.[[:space:]]*//')
 
-bluetoothctl disconnect $(echo "$choices" | grep "$choice" | cut -c 1-17)
+bluetoothctl disconnect $(echo "$choices" | grep "$device_name" | cut -c 1-17)
