@@ -50,8 +50,11 @@ should_ignore() {
 # Get initial file list
 get_files() {
     if git rev-parse --git-dir >/dev/null 2>&1; then
-        # Use git ls-files for speed in git repos
-        git ls-files 2>/dev/null | sort
+        # In git repos: combine tracked files and untracked files, exclude ignored
+        {
+            git ls-files 2>/dev/null
+            git ls-files --others --exclude-standard 2>/dev/null
+        } | sort -u
     else
         # Fallback to find with basic filtering
         find . -type f -not -path './.git/*' -not -name '.*' 2>/dev/null | sort
@@ -90,16 +93,19 @@ echo "Watching for new files... (Press Ctrl+C to stop)"
 echo ""
 
 while true; do
-    sleep 1
+    # Interruptible sleep - sleep in background and wait for it
+    sleep 1 &
+    sleep_pid=$!
+    wait $sleep_pid 2>/dev/null || break
     
-    # Check if command is still running
-    if [[ -n "$command_pid" ]] && ! kill -0 "$command_pid" 2>/dev/null; then
-        echo "⚠️  Command exited (PID: $command_pid)"
-        command_pid=""
-    fi
-    
+    # Always check for file changes first
     new_files=$(get_files)
     new_count=$(echo "$new_files" | wc -l)
+    
+    # Debug output
+    if [[ $WATCHER_DEBUG == "1" ]]; then
+        echo "DEBUG: Current count: $current_count, New count: $new_count"
+    fi
     
     if [[ "$new_files" != "$current_files" ]]; then
         echo ""
@@ -110,17 +116,44 @@ while true; do
             echo "📄 New files:"
             comm -13 <(echo "$current_files") <(echo "$new_files") | head -5 | sed 's/^/  /'
             [[ $new_count -gt $((current_count + 5)) ]] && echo "  ... and $((new_count - current_count - 5)) more"
+        elif [[ $new_count -lt $current_count ]]; then
+            echo "🗑️  Removed files:"
+            comm -23 <(echo "$current_files") <(echo "$new_files") | head -5 | sed 's/^/  /'
+            [[ $current_count -gt $((new_count + 5)) ]] && echo "  ... and $((current_count - new_count - 5)) more"
+        else
+            echo "✏️  Modified files detected"
         fi
         
         current_files="$new_files"
         current_count="$new_count"
         
         echo ""
-        # Restart command
+        # Restart command (this will kill the previous one if still running)
         start_command "$@"
         echo ""
+    else
+        # Only check command status if no file changes (to avoid spam)
+        if [[ -n "$command_pid" ]] && ! kill -0 "$command_pid" 2>/dev/null; then
+            echo "⚠️  Command exited (PID: $command_pid)"
+            echo "No file changes detected. Exiting watcher."
+            exit 0
+        fi
     fi
 done
 
-# Cleanup on exit
-trap 'kill -TERM "$command_pid" 2>/dev/null; exit' INT TERM
+# Cleanup function
+cleanup() {
+    echo ""
+    echo "🛑 Stopping watcher..."
+    if [[ -n "$command_pid" ]]; then
+        echo "Killing command (PID: $command_pid)"
+        kill -TERM "$command_pid" 2>/dev/null
+        wait "$command_pid" 2>/dev/null
+    fi
+    # Kill any background sleep processes
+    jobs -p | xargs -r kill 2>/dev/null
+    exit 0
+}
+
+# Set up signal handlers
+trap cleanup INT TERM
