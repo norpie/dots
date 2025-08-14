@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # GPU usage dispatcher - detects GPU type and formats output with icons
 

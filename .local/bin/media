@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # File: media
 # Description: This script will control playing media using playerctl,
 # this is a wrapper script for playerctl to make it behave better.

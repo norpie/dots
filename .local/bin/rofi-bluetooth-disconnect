@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 choices=$(bluetoothctl devices Connected | grep "^Device" | cut -c 8-99)
 

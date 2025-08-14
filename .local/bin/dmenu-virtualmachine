@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 if [[ $(kernel | awk 'NR==3 {print $5}') == "yes" ]]; then 
     dmenu-prompt "Kernel has updated, do we reboot" && reboot && exit 0

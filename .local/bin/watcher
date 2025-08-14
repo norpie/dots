@@ -1,6 +1,9 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-[[ $# -eq 0 ]] && { echo "Usage: $0 <command> [args...]" >&2; exit 1 }
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $0 <command> [args...]" >&2
+    exit 1
+fi
 
 # Function to check if a file should be ignored based on .gitignore
 should_ignore() {
@@ -17,7 +20,8 @@ should_ignore() {
         # Simple pattern matching - this is basic but covers most cases
         while IFS= read -r pattern; do
             # Skip empty lines and comments
-            [[ -z "$pattern" || "$pattern" =~ ^# ]] && continue
+            [[ -z "$pattern" ]] && continue
+            case "$pattern" in '#'*) continue ;; esac
             
             # Remove leading/trailing whitespace
             pattern=$(echo "$pattern" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
@@ -26,7 +30,7 @@ should_ignore() {
             case "$pattern" in
                 */)
                     # Directory pattern
-                    [[ "$file" =~ ^${pattern%/} ]] && return 0
+                    case "$file" in ${pattern%/}*) return 0 ;; esac
                     ;;
                 */*)
                     # Path with slash

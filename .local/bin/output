@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 [[ $1 == "fix" ]] &&
     pactl update-sink-proplist alsa_output.pci-0000_0d_00.6.analog-surround-51 device.description=Speakers &&

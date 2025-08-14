@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # This script generates a new modeline for a given resolution and refresh rate
 # and applies it to the specified output.

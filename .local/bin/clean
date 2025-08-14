@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 dirs=(.nv .renpy .swt .java .pkg-cache .vcpkg .npm .pgadmin .android .eclipse .m2 .dotnet .nyx .gitkraken go .yarn .tabby-client .nix-defexpr .pki)
 files=(.yarnrc .wget-hsts .python_history .nvidia-settings-rc .mysql_history .gitconfig .pulse-cookie .nix-profile)

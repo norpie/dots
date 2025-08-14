@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 free=$(free -h | awk '/^Mem:/ {print $3}' | sed 's/i//')
 echo  $free

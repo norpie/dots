@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 batteries=$(find /sys/class/power_supply/ -mindepth 1 -maxdepth 1 -name "hidpp_battery*")
 

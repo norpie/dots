@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 process=$(ps -A | awk 'NR != 1 {print $4}' | grep -v / | uniq | rofi -dmenu -p "Restart Process")
 restart $process

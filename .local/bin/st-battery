@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 info=$(upower -i $(upower  -e | grep BAT) |  upower -i $(upower  -e | grep BAT))
 native_path=$(echo $info | grep native-path | awk '{print $2}')

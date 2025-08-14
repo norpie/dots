@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 [[ ! -f "$XDG_CACHE_HOME/xorg_state.txt" ]] && echo "no saved state" && exit 1
 

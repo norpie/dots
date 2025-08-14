@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 sudo chown -vR mediamanager /mnt/media
 sudo chown -vR mediamanager /mnt/data/data

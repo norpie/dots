@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Lock file to prevent multiple instances of the script running at the same time
 [ -f ~/.cache/brightness.lock ] && exit 1

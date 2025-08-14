@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 STUDY_MINUTES=25
 BREAK_MINUTES=5

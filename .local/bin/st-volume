@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 raw=$(pamixer --get-volume)
 [[ $raw == "" ]] && echo "󰝟" && audio restart && exit 1

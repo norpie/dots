@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # Don't do anything if the there is no backlight device
 if [ ! -d /sys/class/backlight/intel_backlight ]; then
     echo ""

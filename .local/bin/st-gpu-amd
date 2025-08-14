@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # AMD GPU usage script - returns raw values: freq_hz memory_bytes power_uw
 
@@ -24,18 +24,19 @@ freq_hz=0
 if [[ -f "$amd_card/device/pp_dpm_sclk" ]]; then
     # Parse current sclk frequency (marked with *)
     current_sclk=$(grep '\*' "$amd_card/device/pp_dpm_sclk" 2>/dev/null | awk '{print $2}' | sed 's/Mhz//')
-    if [[ "$current_sclk" =~ ^[0-9]+$ ]]; then
-        freq_hz=$((current_sclk * 1000000))
-    fi
+    case "$current_sclk" in
+        ''|*[!0-9]*) ;;
+        *) freq_hz=$((current_sclk * 1000000)) ;;
+    esac
 fi
 
 # Get GPU memory usage in bytes from sysfs
 vram_bytes=0
 if [[ -f "$amd_card/device/mem_info_vram_used" ]]; then
     vram_bytes=$(cat "$amd_card/device/mem_info_vram_used" 2>/dev/null)
-    if [[ ! "$vram_bytes" =~ ^[0-9]+$ ]]; then
-        vram_bytes=0
-    fi
+    case "$vram_bytes" in
+        ''|*[!0-9]*) vram_bytes=0 ;;
+    esac
 fi
 
 # Get power consumption in microwatts from hwmon
@@ -45,10 +46,10 @@ if [[ -d "$hwmon_dir" ]]; then
     for hwmon in "$hwmon_dir"/hwmon*; do
         if [[ -f "$hwmon/power1_average" ]]; then
             power_micro=$(cat "$hwmon/power1_average" 2>/dev/null)
-            if [[ "$power_micro" =~ ^[0-9]+$ ]]; then
-                power_uw=$power_micro
-                break
-            fi
+            case "$power_micro" in
+                ''|*[!0-9]*) ;;
+                *) power_uw=$power_micro; break ;;
+            esac
         fi
     done
 fi

@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # A wrapper for nh, for nix
 
 cd /home/$(whoami)/repos/nix &&

@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 programs=(discord steam spotify qbittorrent chrome firefox pavucontrol plexmediaplayer)
 

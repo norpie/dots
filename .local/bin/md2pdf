@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 [[ $# != 1 ]] && echo "Usage: mdpdf <filename>" && exit 1
 [[ ! -f $1 ]] && echo "File doesn't exist" && exit 1

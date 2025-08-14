@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Hyprpicker format selector using rofi
 # Always copies the selected color to clipboard

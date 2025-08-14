@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 [[ $# == 0 ]] && echo "Usage: git sclone 'user/repo'" && exit 1
 

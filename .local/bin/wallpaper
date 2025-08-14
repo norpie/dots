@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # All the wallpapers are stored in ~/.config/wallpapers/selection/
 # Under `selection/` there are multiple directories, each containing a set of wallpapers

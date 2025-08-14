@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 [[ $# == 0 ]] && echo "1 or more arguments needed" && exit 1
 

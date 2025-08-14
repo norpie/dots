@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 switch_sink() {
     pactl set-default-sink $1 ||
@@ -8,24 +8,24 @@ switch_sink() {
 }
 
 
-indexes=$(pactl list sinks | grep -E 'Sink #' |  pactl list sinks | grep -E 'Sink #' | cut -c 7-99)
+indexes=$(pactl list sinks | grep -E 'Sink #' | cut -c 7-99)
 descriptions=$(pactl list sinks | grep -E 'device.description =' | sed 's/"//g' | awk '{print $3 ,$4 ,$5 ,$6 ,$7 ,$8 ,$9 ,$10}')
-devices=$(echo $indexes | wc -l)
+devices=$(echo "$indexes" | wc -l)
 
-typeset -A indexassociates
+declare -A indexassociates
 
 lines=""
 for i in $(seq $devices)
 do
-    realindex=$(echo $indexes | awk "NR==$i")
+    realindex=$(echo "$indexes" | awk "NR==$i")
     indexassociates[$i]=$realindex
     line="$i "
-    line+=$(echo $descriptions | awk "NR==$i")
-    lines+=$line"\n"
+    line+=$(echo "$descriptions" | awk "NR==$i")
+    lines+="$line"$'\n'
 done
 
-choice=$(echo $lines | grep . | rofi -dmenu -p "Audio Output" | awk '{print $1}')
+choice=$(echo "$lines" | grep . | rofi -dmenu -p "Audio Output" | awk '{print $1}')
 
 [[ $choice == "" ]] && exit 1
 
-switch_sink $indexassociates[$choice]
+switch_sink "${indexassociates[$choice]}"

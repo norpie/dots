@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-APP_PATH="$HOME/.local/share/appimages"
-mkdir -p $APP_PATH && cd $APP_PATH
-cmd=$(find * | dmenu)
-
-cd $APP_PATH
-appimage-run $cmd

@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 device_status=$(nmcli device status | grep wifi | awk 'NR==1')
 

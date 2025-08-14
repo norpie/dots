@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Directory containing the Git repositories
 BASE_DIR=$(pwd)

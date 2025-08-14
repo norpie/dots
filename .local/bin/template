@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 TEMPLATE_DIR="$XDG_CONFIG_HOME/templates"
 file=$(find $TEMPLATE_DIR -type f | fzf)

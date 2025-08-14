@@ -1,11 +1,11 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 choices=$(macid)
 
 bluetoothctl power on
 bluetoothctl scan on
 
-choice=$(echo $choices | rofi -dmenu -p "Connect to device")
+choice=$(echo "$choices" | rofi -dmenu -p "Connect to device")
 
 [[ $choice == "" ]] && exit 1
 

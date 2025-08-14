@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Get the drive to mount
 partition=/dev/$(lsblk --list | grep part | grep -v / | grep -v SWAP | awk '{print $1 " " $4}' | rofi -dmenu -p "Mount Partition" | awk '{print $1}')

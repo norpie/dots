@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 home="94.225.210.162"
 ip=$(curl --ipv4 "ifconfig.me" -s --max-time 3)

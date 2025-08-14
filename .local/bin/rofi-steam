@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 libraries=$(cat ~/.local/share/Steam/steamapps/libraryfolders.vdf |
     grep path |

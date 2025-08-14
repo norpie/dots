@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # rofi-drag - execute `drag` on a file selected with rofi
 

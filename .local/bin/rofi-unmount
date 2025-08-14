@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Get the drive to mount
 parts=$(sudo lsblk | grep part | grep / | awk '{print $7}' | awk '$1 != "/" {print $1}' | grep -v boot | grep -v "nix/store")

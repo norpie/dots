@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 declare -A devices
 devices=(
@@ -14,11 +14,11 @@ devices=(
     )
 
 if [[ $# == 0 ]]; then
-    for i in ${(k)devices}
+    for i in "${!devices[@]}"
     do
         echo $i
     done
     exit 1
 fi
 
-echo $devices[$1]
+echo "${devices[$1]}"

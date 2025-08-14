@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 script_name=$(basename $0)
 nix_executable="/run/current-system/sw/bin/$script_name"

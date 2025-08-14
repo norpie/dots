@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 function real_sync() {
     $(whereis sync | sed 's/sync: //g' | awk '{print $2}')

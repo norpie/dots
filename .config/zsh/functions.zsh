@@ -54,7 +54,7 @@ function script() {
         [[ -f $file ]] && $EDITOR $file
     else
         SCRIPT_PATH="/home/norpie/.local/bin/$1"
-        [ ! -f $SCRIPT_PATH ] && echo '#!/usr/bin/env zsh' > $SCRIPT_PATH && chmod +x $SCRIPT_PATH
+        [ ! -f $SCRIPT_PATH ] && echo '#!/usr/bin/env bash' > $SCRIPT_PATH && chmod +x $SCRIPT_PATH
         $EDITOR $SCRIPT_PATH
     fi
 }

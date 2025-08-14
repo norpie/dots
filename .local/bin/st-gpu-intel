@@ -1,22 +1,21 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Intel GPU usage script - returns raw values: freq_hz memory_bytes power_uw
 
 # Get current frequency in Hz
 cur_freq_mhz=$(sudo cat /sys/class/drm/card1/gt/gt0/rps_cur_freq_mhz 2>/dev/null)
-if [[ -n "$cur_freq_mhz" && "$cur_freq_mhz" =~ ^[0-9]+$ ]]; then
-    cur_freq=$((cur_freq_mhz * 1000000))
-else
-    cur_freq=0
-fi
+case "$cur_freq_mhz" in
+    ''|*[!0-9]*) cur_freq=0 ;;
+    *) cur_freq=$((cur_freq_mhz * 1000000)) ;;
+esac
 
 # Get GPU memory usage in bytes
 gpu_mem_bytes=0
 if sudo test -r /sys/kernel/debug/dri/0000:00:02.0/i915_gem_objects 2>/dev/null; then
     gpu_mem_bytes=$(sudo cat /sys/kernel/debug/dri/0000:00:02.0/i915_gem_objects 2>/dev/null | awk '/^[0-9]+ [a-z]+ \[.*\] objects, [0-9]+ bytes$/ {print $4}')
-    if [[ ! "$gpu_mem_bytes" =~ ^[0-9]+$ ]]; then
-        gpu_mem_bytes=0
-    fi
+    case "$gpu_mem_bytes" in
+        ''|*[!0-9]*) gpu_mem_bytes=0 ;;
+    esac
 fi
 
 # Get uncore power in microwatts
@@ -26,10 +25,15 @@ if sudo test -r /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/energy_uj 2>/dev
     energy1=$(sudo cat /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/energy_uj 2>/dev/null)
     sleep 0.1
     energy2=$(sudo cat /sys/class/powercap/intel-rapl:0/intel-rapl:0:1/energy_uj 2>/dev/null)
-    if [[ -n "$energy1" && -n "$energy2" && "$energy1" =~ ^[0-9]+$ && "$energy2" =~ ^[0-9]+$ ]]; then
-        # Calculate power in microwatts (energy diff in microjoules over 0.1 seconds)
-        power_uw=$(( (energy2 - energy1) * 10 ))
-    fi
+    case "$energy1" in
+        ''|*[!0-9]*) ;;
+        *)
+            case "$energy2" in
+                ''|*[!0-9]*) ;;
+                *) power_uw=$(( (energy2 - energy1) * 10 )) ;;
+            esac
+            ;;
+    esac
 fi
 
 # Output raw values
