@@ -18,11 +18,17 @@ shift $((OPTIND-1))
 
 [[ $# -eq 0 ]] && usage
 
-DIR=$(pwd)
-path=$DIR/$1
+# Convert to absolute path properly
+if [[ "$1" = /* ]]; then
+    # Already absolute path
+    path="$1"
+else
+    # Relative path - resolve it
+    path="$(realpath "$1")"
+fi
 
 if [[ $should_clipboard -eq 1 ]]; then
-    echo $path | /run/current-system/sw/bin/xclip -i -selection clipboard
+    echo $path | /run/current-system/sw/bin/wl-copy
     /run/current-system/sw/bin/notify-send "Copied $path to clipboard"
 fi
 
