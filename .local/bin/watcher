@@ -1,0 +1,122 @@
+#!/usr/bin/env zsh
+
+[[ $# -eq 0 ]] && { echo "Usage: $0 <command> [args...]" >&2; exit 1 }
+
+# Function to check if a file should be ignored based on .gitignore
+should_ignore() {
+    local file="$1"
+    
+    # Use git check-ignore if we're in a git repo
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        git check-ignore "$file" >/dev/null 2>&1
+        return $?
+    fi
+    
+    # If not in git repo, check for .gitignore manually
+    if [[ -f .gitignore ]]; then
+        # Simple pattern matching - this is basic but covers most cases
+        while IFS= read -r pattern; do
+            # Skip empty lines and comments
+            [[ -z "$pattern" || "$pattern" =~ ^# ]] && continue
+            
+            # Remove leading/trailing whitespace
+            pattern=$(echo "$pattern" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+            
+            # Convert gitignore pattern to shell pattern
+            case "$pattern" in
+                */)
+                    # Directory pattern
+                    [[ "$file" =~ ^${pattern%/} ]] && return 0
+                    ;;
+                */*)
+                    # Path with slash
+                    [[ "$file" == $pattern ]] && return 0
+                    ;;
+                *)
+                    # Simple pattern
+                    [[ "$(basename "$file")" == $pattern ]] && return 0
+                    ;;
+            esac
+        done < .gitignore
+    fi
+    
+    return 1
+}
+
+# Get initial file list
+get_files() {
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        # Use git ls-files for speed in git repos
+        git ls-files 2>/dev/null | sort
+    else
+        # Fallback to find with basic filtering
+        find . -type f -not -path './.git/*' -not -name '.*' 2>/dev/null | sort
+    fi
+}
+
+echo "Starting watcher for command: $*"
+echo "Monitoring directory: $(pwd)"
+
+# Get initial state
+current_files=$(get_files)
+current_count=$(echo "$current_files" | wc -l)
+echo "Initial file count: $current_count"
+
+# Start the command
+command_pid=""
+start_command() {
+    if [[ -n "$command_pid" ]]; then
+        echo "🔄 Stopping previous command (PID: $command_pid)"
+        kill -TERM "$command_pid" 2>/dev/null
+        wait "$command_pid" 2>/dev/null
+    fi
+    
+    echo "🚀 Starting command: $*"
+    echo "----------------------------------------"
+    "$@" &
+    command_pid=$!
+    echo "Command started with PID: $command_pid"
+}
+
+# Start initial command
+start_command "$@"
+
+# Watch for changes
+echo "Watching for new files... (Press Ctrl+C to stop)"
+echo ""
+
+while true; do
+    sleep 1
+    
+    # Check if command is still running
+    if [[ -n "$command_pid" ]] && ! kill -0 "$command_pid" 2>/dev/null; then
+        echo "⚠️  Command exited (PID: $command_pid)"
+        command_pid=""
+    fi
+    
+    new_files=$(get_files)
+    new_count=$(echo "$new_files" | wc -l)
+    
+    if [[ "$new_files" != "$current_files" ]]; then
+        echo ""
+        echo "📁 File change detected! ($current_count -> $new_count files)"
+        
+        # Show what changed
+        if [[ $new_count -gt $current_count ]]; then
+            echo "📄 New files:"
+            comm -13 <(echo "$current_files") <(echo "$new_files") | head -5 | sed 's/^/  /'
+            [[ $new_count -gt $((current_count + 5)) ]] && echo "  ... and $((new_count - current_count - 5)) more"
+        fi
+        
+        current_files="$new_files"
+        current_count="$new_count"
+        
+        echo ""
+        # Restart command
+        start_command "$@"
+        echo ""
+    fi
+done
+
+# Cleanup on exit
+trap 'kill -TERM "$command_pid" 2>/dev/null; exit' INT TERM
