@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+[[ $# -eq 0 ]] && { echo "Usage: $0 <command> [args...]" >&2; exit 1 }
+
+exec /run/current-system/sw/bin/"$@"
