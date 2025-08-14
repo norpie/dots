@@ -229,13 +229,14 @@
     "custom/gpu": {
         "format": "{}",
         "exec": "st-gpu",
+        "return-type": "json",
         "interval": 5,
-        "tooltip": false
+        "tooltip": true
     },
     "custom/mouse-battery": {
         "format": "{}",
         "exec": "st-mouse-battery",
-        "interval": 30
+        "interval": 15
     },
     "wireplumber": {
         "format": "{icon} {volume}%",
