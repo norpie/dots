@@ -17,5 +17,5 @@ do
     fi
 
     mkdir -p -- "$dir"
-    $(whereis touch | sed 's/touch: //g' | awk '{print $2}') -- "$var"
+    sys-cmd touch -- "$var"
 done
