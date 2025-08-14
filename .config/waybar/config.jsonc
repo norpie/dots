@@ -60,6 +60,7 @@
             "pavucontrol": "",                         // Pavucontrol
             "mpv": "",                                 // MPV
             "zathura": "󰈙",                             // Zathura
+            "class<dbeaver>": "",                      // DBeaver
 
             "code": "󰨞",                                // VS Code
             "qbitt": "",                               // Qbittorrent
