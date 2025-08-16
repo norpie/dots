@@ -3,11 +3,11 @@
 # Usage: reload [<supported program>]
 # Reloads the specified program with custom logic.
 
-local program="$1"
+program="$1"
 
 if [[ -z "$program" ]]; then
   echo "Usage: reload <program>"
-  return 1
+  exit 1
 fi
 
 case "$program" in
@@ -22,7 +22,7 @@ case "$program" in
     ;;
   *)
     echo "Unsupported program: $program"
-    return 1
+    exit 1
     ;;
 esac
 
