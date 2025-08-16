@@ -523,3 +523,4 @@ work
 .config/hearth
 .local/share/.dx
 .local/share/hearth-desktop-*
+.tor project
