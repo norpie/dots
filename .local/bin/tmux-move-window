@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# Get current session and window info
+current_session=$(tmux display-message -p '#S')
+current_window=$(tmux display-message -p '#I')
+current_window_name=$(tmux display-message -p '#W')
+
+# List all existing sessions (excluding current one for clarity)
+sessions=$(tmux ls 2>/dev/null | cut -d: -f1 | grep -v "^$current_session$")
+
+# Use fzf to select or enter a session name
+output=$(echo "$sessions" | fzf \
+    --query="$1" \
+    --preview "echo 'Windows in {}:'; tmux list-windows -t '{}' 2>/dev/null || echo 'Session does not exist yet'" \
+    --prompt="Move window '$current_window_name' to session: " \
+    --print-query \
+    --header="Current: $current_session:$current_window ($current_window_name)")
+
+if [ -z "$output" ]; then
+    echo "No session selected."
+    exit 1
+fi
+
+# Read the output into query and selected
+query=$(echo "$output" | sed -n '1p')
+selected=$(echo "$output" | sed -n '2p')
+
+# If no session was selected, use the query as the session name
+if [ -z "$selected" ]; then
+    selected="$query"
+fi
+
+# Don't move to the same session
+if [ "$selected" == "$current_session" ]; then
+    echo "Cannot move window to the same session."
+    exit 1
+fi
+
+# Check if the target session exists
+session_existed=true
+tmux has-session -t "$selected" >/dev/null 2>&1
+
+if [[ $? -ne 0 ]]; then
+    # Create the session if it doesn't exist
+    tmux new-session -d -s "$selected"
+    session_existed=false
+    echo "Created new session: $selected"
+fi
+
+# Move the current window to the target session
+tmux move-window -s "$current_session:$current_window" -t "$selected:"
+
+# If we created a new session, kill the default window after moving
+if [[ "$session_existed" == false ]]; then
+    tmux kill-window -t "$selected:1"
+fi
+
+echo "Moved window '$current_window_name' to session '$selected'"
+
+# Switch to the target session
+tmux switch-client -t "$selected"
