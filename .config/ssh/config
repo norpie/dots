@@ -1,30 +1,37 @@
 Host jupiter
-    HostName 192.168.129.16
+    HostName jupiter.local
     User norpie
 Host jupiter.vpn
     HostName 10.147.17.202
     User norpie
 
 Host venus
-    HostName 192.168.129.63
+    HostName venus.local
     User norpie
 Host venus.vpn
     HostName 10.147.17.196
     User norpie
 
 Host mars
-    HostName 192.168.129.90
+    HostName mars.local
     User norpie
 Host mars.vpn
     HostName 10.147.17.250
 	User norpie
 
+Host work
+    HostName work.local
+    User norpie
+Host work.vpn
+    HostName 10.147.17.32
+    User norpie
+
 Host octopi
-    HostName 192.168.0.136
+    HostName octopi.local
     User pi
 
 Host messier
-    HostName 192.168.129.246
+    HostName pi.hole
     User norpie
 
 Host vm
