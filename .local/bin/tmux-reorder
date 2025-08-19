@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Get current session and window information
+session=$(tmux display-message -p '#S')
+windows_info=$(tmux list-windows -F '#{window_index}:#{window_name} (#{window_panes} panes)' | sort -n)
+
+# Create a temporary file for editing
+temp_file=$(mktemp)
+echo "$windows_info" > "$temp_file"
+
+# Open editor to edit the window order
+nvim "$temp_file"
+
+# Check if the file was modified (user saved)
+if [[ -f "$temp_file" ]]; then
+    # Read the new order from the temp file
+    new_order=()
+    while IFS= read -r line; do
+        if [[ -n "$line" ]]; then
+            new_order+=("$line")
+        fi
+    done < "$temp_file"
+    
+    # Check if order actually changed
+    original_order=$(echo "$windows_info")
+    new_order_content=$(printf '%s\n' "${new_order[@]}")
+    
+    if [[ "$original_order" == "$new_order_content" ]]; then
+        # No changes made, exit early
+        exit 0
+    fi
+    
+    # First, move all windows to temporary high indices to avoid conflicts
+    temp_base=1000
+    temp_index=$temp_base
+    
+    for line in "${new_order[@]}"; do
+        window_index=$(echo "$line" | cut -d':' -f1)
+        tmux move-window -s "$window_index" -t "$temp_index"
+        ((temp_index++))
+    done
+    
+    # Now move from temp positions to final positions
+    target_index=1
+    temp_index=$temp_base
+    
+    for line in "${new_order[@]}"; do
+        tmux move-window -s "$temp_index" -t "$target_index"
+        ((target_index++))
+        ((temp_index++))
+    done
+    
+    # Renumber windows to fill gaps
+    tmux move-window -r
+fi
+
+# Clean up
+rm -f "$temp_file"
