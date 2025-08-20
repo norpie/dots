@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Run a command in a tmux popup that closes when the command exits
+# Usage: tmux-popup <command> [args...]
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: tmux-popup <command> [args...]"
+    exit 1
+fi
+
+# Get current directory for popup context
+current_dir="#{pane_current_path}"
+
+# Run command in popup that closes when command exits
+tmux display-popup -d "$current_dir" -xC -yC -w80% -h80% -E "$*"
