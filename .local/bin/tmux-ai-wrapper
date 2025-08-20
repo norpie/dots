@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Wrapper script for AI sessions that properly handles cleanup
+session_name="$1"
+command="$2"
+
+# Set tmux to not switch to another session when this one ends
+tmux set-option -t "$session_name" detach-on-destroy on
+
+# Run the command
+exec "$command"

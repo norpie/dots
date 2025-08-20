@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# List all existing sessions
-sessions=$(tmux ls 2>/dev/null | cut -d: -f1)
+# List all existing sessions, filtering out AI sessions
+sessions=$(tmux ls 2>/dev/null | cut -d: -f1 | grep -v "^__ai_.*__$")
 
 # Use fzf to select or enter a session name and capture the output
 output=$(echo "$sessions" | fzf --query="$1" --preview "tmux capture-pane -e -p -t '{}:' | tail -n39" --prompt="Select or create session: " --print-query)
