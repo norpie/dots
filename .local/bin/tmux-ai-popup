@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Wrapper script for AI sessions that properly handles cleanup and direnv
+session_name="$(tmux display-message -p "#S")"
+command="$1"
+ai_session="__ai_${session_name}_${command}__"
+
+# Check if the command is provided
+if [[ -z "$command" ]]; then
+    echo "Usage: $0 <command>"
+    echo "Available commands: claude, opencode"
+    exit 1
+fi
+
+# If we're already an `__ai_` session, just detach to get toggle functionality
+if [[ "$session_name" == __ai_* ]]; then
+    tmux detach -s "$session_name"
+    exit 0
+fi
+
+# Is there an existing AI session?
+if tmux has-session -t "$ai_session" 2>/dev/null; then
+    tmux-popup tmux attach-session -t "$ai_session"
+else
+    # Get the current directory and project root
+    current_pane_path=$(tmux display-message -p '#{pane_current_path}')
+    target_dir=$(cd "$current_pane_path" && project root --fallback)
+
+    # Create a new AI session with the specified command
+    tmux new-session -d -s "$ai_session" -c "$target_dir" "atomic-shell $command" \; set-option -t "$ai_session" detach-on-destroy on
+    tmux-popup tmux attach-session -t "$ai_session"
+fi
