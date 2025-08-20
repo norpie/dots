@@ -2,9 +2,12 @@
 
 # Small cli to help with project management
 
-# Usage: project [command] [args]
+# Usage: project [--fallback] [command] [args]
 #                - root
 #                - subroot
+
+# Options:
+#  --fallback: return home directory if no project root is found
 
 # Commands:
 #  - root: get the root of the project root (always scan up to `.git`)
@@ -46,22 +49,54 @@ function project__subroot() {
     project__root
 }
 
-[[ $# -eq 0 ]] && echo "Usage: project [command] [args]" && exit 1
+[[ $# -eq 0 ]] && echo "Usage: project [--fallback] [command] [args]" && exit 1
 
-case $1 in
+# Parse options and extract command
+fallback=false
+command=""
+args=()
+
+for arg in "$@"; do
+    case "$arg" in
+        --fallback)
+            fallback=true
+            ;;
+        *)
+            if [[ -z "$command" ]]; then
+                command="$arg"
+            else
+                args+=("$arg")
+            fi
+            ;;
+    esac
+done
+
+[[ -z "$command" ]] && echo "Usage: project [--fallback] [command] [args]" && exit 1
+
+case $command in
     root)
-        echo $(project__root)
+        result=$(project__root)
+        if [[ $? -eq 0 && -n "$result" ]]; then
+            echo "$result"
+        elif [[ "$fallback" == true ]]; then
+            echo "$HOME"
+        fi
         ;;
     subroot)
         project_subroot=$(project__subroot)
         if [[ "$project_subroot" == "$PWD" ]]; then
-            project__root
+            result=$(project__root)
+            if [[ $? -eq 0 && -n "$result" ]]; then
+                echo "$result"
+            elif [[ "$fallback" == true ]]; then
+                echo "$HOME"
+            fi
         else
             echo "$project_subroot"
         fi
         ;;
     *)
-        echo "Unknown command: $1"
+        echo "Unknown command: $command"
         exit 1
         ;;
 esac
