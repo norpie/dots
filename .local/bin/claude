@@ -32,6 +32,7 @@ export NIXPKGS_ALLOW_UNFREE=1
 # Define the nix command for claude-code
 NIX_CLAUDE_CMD="nix run --impure github:nixos/nixpkgs#claude-code --"
 
+pwd
 $NIX_CLAUDE_CMD --version
 
 # Get claude-code version
