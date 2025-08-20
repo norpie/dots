@@ -34,5 +34,11 @@ if [[ $? -ne 0 ]]; then
     echo "Created new session: $selected"
 fi
 
-# Switch to the selected or created session
-tmux switch-client -t "$selected"
+# Check if we're inside tmux or not and use appropriate command
+if [ -n "$TMUX" ]; then
+    # Inside tmux - switch client
+    tmux switch-client -t "$selected"
+else
+    # Outside tmux - attach to session
+    tmux a -t "$selected"
+fi
