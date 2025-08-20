@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
-# Wrapper script for AI sessions that properly handles cleanup
+# Wrapper script for AI sessions that properly handles cleanup and direnv
 session_name="$1"
 command="$2"
 
 # Set tmux to not switch to another session when this one ends
 tmux set-option -t "$session_name" detach-on-destroy on
+
+# Load direnv if available and .envrc exists
+if command -v direnv >/dev/null 2>&1 && [[ -f ".envrc" ]]; then
+    eval "$(direnv export bash)"
+fi
 
 # Run the command
 exec "$command"
