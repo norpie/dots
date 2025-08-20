@@ -524,3 +524,4 @@ work
 .local/share/.dx
 .local/share/hearth-desktop-*
 .tor project
+.cargo
