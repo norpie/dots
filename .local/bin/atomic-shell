@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Atomic shell that runs a command in zsh with direnv support and exits
+# Usage: atomic-shell <command> [args...]
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: atomic-shell <command> [args...]"
+    exit 1
+fi
+
+# Build the command to run in zsh
+zsh_command=""
+
+# Load direnv if available and .envrc exists
+if command -v direnv >/dev/null 2>&1 && [[ -f ".envrc" ]]; then
+    zsh_command="eval \"\$(direnv export zsh)\"; "
+fi
+
+# Add the user command
+zsh_command+="$*"
+
+# Run in zsh and exit
+exec zsh -i -c "$zsh_command"
