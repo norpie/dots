@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# File to store long-running session names
+LONG_RUNNING_FILE="$HOME/.config/tmux/long-running-sessions"
+
+# Ensure the config directory exists
+mkdir -p "$(dirname "$LONG_RUNNING_FILE")"
+
+# Get all sessions (excluding AI sessions)
+all_sessions=$(tmux ls 2>/dev/null | cut -d: -f1 | grep -v "^__ai_.*__$")
+
+# Read existing long-running sessions
+if [[ -f "$LONG_RUNNING_FILE" ]]; then
+    long_running_sessions=$(cat "$LONG_RUNNING_FILE")
+else
+    long_running_sessions=""
+fi
+
+# Create a temporary file for editing
+temp_file=$(mktemp)
+
+# Create the buffer content with all sessions
+echo "# Mark sessions as long-running by adding '-' at the start of the line" > "$temp_file"
+echo "# Sessions marked as long-running will be hidden from the normal session picker" >> "$temp_file"
+echo "# Lines starting with # are comments and will be ignored" >> "$temp_file"
+echo "" >> "$temp_file"
+
+for session in $all_sessions; do
+    if echo "$long_running_sessions" | grep -q "^$session$"; then
+        echo "-$session" >> "$temp_file"
+    else
+        echo "$session" >> "$temp_file"
+    fi
+done
+
+# Open editor to mark long-running sessions
+nvim "$temp_file"
+
+# Check if the file was modified (user saved)
+if [[ -f "$temp_file" ]]; then
+    # Parse the new long-running sessions
+    new_long_running=""
+    while IFS= read -r line; do
+        # Skip comments and empty lines
+        if [[ "$line" =~ ^[[:space:]]*# ]] || [[ -z "${line// }" ]]; then
+            continue
+        fi
+        
+        # Check if line starts with -
+        if [[ "$line" =~ ^[[:space:]]*- ]]; then
+            session_name=$(echo "$line" | sed 's/^[[:space:]]*-[[:space:]]*//')
+            if [[ -n "$session_name" ]]; then
+                new_long_running+="$session_name"$'\n'
+            fi
+        fi
+    done < "$temp_file"
+    
+    # Write the new long-running sessions to file
+    echo -n "$new_long_running" > "$LONG_RUNNING_FILE"
+    
+    echo "Updated long-running sessions list"
+fi
+
+# Clean up
+rm -f "$temp_file"

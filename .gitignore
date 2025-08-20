@@ -525,3 +525,4 @@ work
 .local/share/hearth-desktop-*
 .tor project
 .cargo
+.config/tmux/long-running-sessions
