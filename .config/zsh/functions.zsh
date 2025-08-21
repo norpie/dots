@@ -35,6 +35,15 @@ function back() {
     cd -
 }
 
+function yazi() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    command yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
 function telescope() {
     file=$(find | fzf --preview 'if [[ -d {} ]]; then; ls {}; else; pygmentize -g {}; fi;')
     [[ -d $file ]] && cd $file
