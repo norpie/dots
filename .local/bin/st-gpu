@@ -10,12 +10,7 @@ gpu_info=$(lspci | grep -i vga)
 
 if echo "$gpu_info" | grep -qi "amd\|radeon"; then
     values=$(st-gpu-amd)
-    raw_smi=$(rocm-smi --showpids | sed '1,6d' | head -n -2 | awk '{
-    if ($4 > 1073741824) 
-        printf "%s %.1fGB\n", $2, $4/1073741824
-    else 
-        printf "%s %dMB\n", $2, $4/1048576
-}' | tr '\000-\037' '\n' | tr -s '\n')
+    raw_smi=$(gpu-processes)
 elif echo "$gpu_info" | grep -qi "intel"; then
     values=$(st-gpu-intel)
     raw_smi=$(intel_gpu_top -l 1 -s 1)

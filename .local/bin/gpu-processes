@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+
+# Optimized GPU processes script
+vram_icon=" "
+ram_icon=" "
+
+# Get all PIDs using GPU in one go
+pids=($(lsof -n /dev/dri/card0 /dev/dri/renderD128 2>/dev/null | awk 'NR>1 {print $2}' | sort -un))
+
+if [[ ${#pids[@]} -eq 0 ]]; then
+    exit 0
+fi
+
+# Get all process info in single ps call
+ps_data=$(ps -p "$(IFS=,; echo "${pids[*]}")" -o pid,args 2>/dev/null | tail -n +2)
+
+# Temporary arrays for sorting
+declare -a process_data
+
+while IFS= read -r line; do
+    [[ -z "$line" ]] && continue
+    
+    read -r pid args <<< "$line"
+    
+    # Extract binary name - handle cases where args might be empty
+    if [[ -n "$args" ]]; then
+        full_comm=$(basename "$(echo "$args" | awk '{print $1}')")
+    else
+        # Fallback to reading /proc/pid/comm if args is empty
+        full_comm=$(cat "/proc/$pid/comm" 2>/dev/null || echo "unknown")
+    fi
+    
+    if [[ ${#full_comm} -gt 25 ]]; then
+        comm="${full_comm:0:22}..."
+    else
+        comm="$full_comm"
+    fi
+    
+    # Get RAM usage
+    vmrss=$(awk '/^VmRSS:/ {print $2}' "/proc/$pid/status" 2>/dev/null)
+    if [[ -n "$vmrss" && "$vmrss" =~ ^[0-9]+$ ]]; then
+        if [[ $vmrss -gt 1048576 ]]; then
+            ram_display=$(awk "BEGIN {printf \"%.1fGB\", $vmrss / 1048576}")
+        else
+            ram_display=$(awk "BEGIN {printf \"%dMB\", $vmrss / 1024}")
+        fi
+        ram_sort_kb=$vmrss
+    else
+        ram_display="N/A"
+        ram_sort_kb=0
+    fi
+    
+    # Get VRAM usage - optimized fdinfo reading
+    total_vram_kb=0
+    declare -A seen_clients
+    
+    # Use glob instead of ls for fdinfo files
+    for fdinfo in /proc/$pid/fdinfo/*; do
+        [[ -f "$fdinfo" ]] || continue
+        
+        # Read file once and extract both values
+        while IFS=: read -r key value; do
+            case "$key" in
+                "drm-client-id") client_id=$(echo "$value" | xargs) ;;
+                "drm-total-vram") vram_kb=$(echo "$value" | awk '{print $1}') ;;
+            esac
+        done < "$fdinfo" 2>/dev/null
+        
+        if [[ -n "$vram_kb" && "$vram_kb" =~ ^[0-9]+$ && -n "$client_id" ]]; then
+            if [[ -z "${seen_clients[$client_id]}" ]]; then
+                seen_clients[$client_id]="$vram_kb"
+                total_vram_kb=$((total_vram_kb + vram_kb))
+            fi
+        fi
+        
+        # Reset for next iteration
+        unset client_id vram_kb
+    done
+    
+    if [[ $total_vram_kb -gt 0 ]]; then
+        if [[ $total_vram_kb -gt 1048576 ]]; then
+            vram_display=$(awk "BEGIN {printf \"%.1fGB\", $total_vram_kb / 1048576}")
+        else
+            vram_display=$(awk "BEGIN {printf \"%dMB\", $total_vram_kb / 1024}")
+        fi
+        vram_sort_kb=$total_vram_kb
+    else
+        vram_display="N/A"
+        vram_sort_kb=0
+    fi
+    
+    # Store data for sorting
+    process_data+=("$vram_sort_kb $ram_sort_kb $comm $vram_display $ram_display")
+    
+done <<< "$ps_data"
+
+# Print header
+printf "%-25s %11s %11s\n" "Process" "${vram_icon} VRAM" " ${ram_icon} RAM"
+
+# Sort and output
+printf '%s\n' "${process_data[@]}" | sort -nr -k1,1 -k2,2 | while read vram_sort ram_sort comm vram_display ram_display; do
+    printf "%-25s %9s %9s\n" "$comm" "$vram_display" "$ram_display"
+done
