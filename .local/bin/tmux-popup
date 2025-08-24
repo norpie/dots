@@ -12,4 +12,4 @@ fi
 current_dir="#{pane_current_path}"
 
 # Run command in popup that closes when command exits
-tmux display-popup -d "$current_dir" -xC -yC -w80% -h80% -E "$*"
+tmux display-popup -d "$current_dir" -xC -yC -w90% -h90% -E "$*"
