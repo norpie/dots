@@ -179,4 +179,4 @@ trap cleanup EXIT INT TERM
 
 # Run claude-code with all arguments
 # $NIX_CLAUDE_CMD --append-system-prompt "$EXTRA_PROMPT_MATERIAL" "$@"
-$NIX_CLAUDE_CMD "$@"
+$NIX_CLAUDE_CMD --verbose "$@"
