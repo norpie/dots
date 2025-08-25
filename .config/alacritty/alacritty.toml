@@ -2,6 +2,9 @@
 # Based on st config from https://github.com/norpie/st
 # Colors from catppuccin-mocha
 
+[env]
+term = "xterm-256color"
+
 [window]
 dimensions = { columns = 80, lines = 24 }
 padding = { x = 0, y = 0 }
