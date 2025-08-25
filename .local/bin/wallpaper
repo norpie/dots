@@ -65,7 +65,7 @@ function validate_image() {
     
     # Check if it's a supported image format
     local ext="${abs_path##*.}"
-    case "${(L)ext}" in
+    case "${ext,,}" in
         jpg|jpeg|png|webp|bmp|gif)
             ;;
         *)
@@ -173,7 +173,7 @@ function show_menu() {
 }
 
 function show_gui() {
-    alacritty --title 'Wallpaper Selector' -e zsh -c "~/.local/bin/wallpaper --menu"
+    alacritty --title 'Wallpaper Selector' -e bash -c "~/.local/bin/wallpaper --menu"
 }
 
 function set_default_wallpaper() {
