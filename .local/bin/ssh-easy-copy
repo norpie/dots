@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# SSH Easy Copy Script
+# Usage: ./ssh-easy-copy.sh <email> <keyname> <user@hostname>
+
+set -e  # Exit on any error
+
+# Check if correct number of arguments provided
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 <email> <keyname> <user@hostname>"
+    echo "Example: $0 john@example.com myserver john@192.168.1.100"
+    exit 1
+fi
+
+EMAIL="$1"
+KEYNAME="$2"
+USER_HOST="$3"
+
+# Create SSH identities directory
+SSH_DIR="$HOME/.config/ssh/identities"
+mkdir -p "$SSH_DIR"
+
+# Set proper permissions for the SSH directory
+chmod 700 "$SSH_DIR"
+
+KEY_PATH="$SSH_DIR/$KEYNAME"
+
+echo "Creating SSH key pair..."
+echo "Key name: $KEYNAME"
+echo "Target: $USER_HOST"
+echo "Email: $EMAIL"
+echo "Key location: $KEY_PATH"
+echo ""
+
+# Generate SSH key
+ssh-keygen -t ed25519 -f "$KEY_PATH" -C "$EMAIL"
+
+echo ""
+echo "Copying public key to $USER_HOST..."
+
+# Copy public key to server
+ssh-copy-id -F /home/norpie/.config/ssh/config -o UserKnownHostsFile=/home/norpie/.config/ssh/known_hosts -i "$KEY_PATH.pub" "$USER_HOST"
+
+echo ""
+echo "✅ SSH key setup complete!"
+echo ""
+echo "To use this key, you can:"
+echo "1. \`ssh-add-defaults\`"
+echo "2. \`ssh $USER_HOST\`"
