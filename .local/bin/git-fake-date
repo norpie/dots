@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Default to HEAD~3 if no argument provided
+COMMIT_RANGE="${1:-HEAD~3}"
+
+# Get current timestamp
+CURRENT_TIME=$(date)
+
+echo "Changing commit dates for range: $COMMIT_RANGE"
+echo "New date will be: $CURRENT_TIME"
+echo
+
+# Get the list of commits in reverse order (oldest first)
+# Handle HEAD~N syntax properly to only get the last N commits
+if [[ "$COMMIT_RANGE" =~ ^HEAD~[0-9]+$ ]]; then
+    COMMITS=$(git rev-list --reverse "$COMMIT_RANGE..HEAD")
+else
+    COMMITS=$(git rev-list --reverse "$COMMIT_RANGE")
+fi
+
+if [ -z "$COMMITS" ]; then
+    echo "No commits found in range: $COMMIT_RANGE"
+    exit 1
+fi
+
+COMMIT_COUNT=$(echo "$COMMITS" | wc -l)
+echo "Found $COMMIT_COUNT commits to modify:"
+echo
+
+# Display commits with ellipsis if more than 10
+if [ "$COMMIT_COUNT" -le 10 ]; then
+    # Show all commits
+    for commit in $COMMITS; do
+        git --no-pager log --oneline --format="  %h %s" -1 "$commit"
+    done
+else
+    # Show first 4, ellipsis, last 4
+    FIRST_4=$(echo "$COMMITS" | head -4)
+    LAST_4=$(echo "$COMMITS" | tail -4)
+    
+    for commit in $FIRST_4; do
+        git --no-pager log --oneline --format="  %h %s" -1 "$commit"
+    done
+    echo "  ... ($(($COMMIT_COUNT - 8)) more commits) ..."
+    for commit in $LAST_4; do
+        git --no-pager log --oneline --format="  %h %s" -1 "$commit"
+    done
+fi
+
+echo
+
+# Confirm with user
+read -p "This will rewrite git history. Are you sure? (y/N): " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Operation cancelled."
+    exit 1
+fi
+
+# Set the filter to change both author and committer dates
+export FILTER_BRANCH_SQUELCH_WARNING=1
+
+if [[ "$COMMIT_RANGE" =~ ^HEAD~[0-9]+$ ]]; then
+    git filter-branch -f --env-filter "
+        export GIT_AUTHOR_DATE='$CURRENT_TIME'
+        export GIT_COMMITTER_DATE='$CURRENT_TIME'
+    " "$COMMIT_RANGE..HEAD"
+else
+    git filter-branch -f --env-filter "
+        export GIT_AUTHOR_DATE='$CURRENT_TIME'
+        export GIT_COMMITTER_DATE='$CURRENT_TIME'
+    " "$COMMIT_RANGE"
+fi
+
+echo
+echo "✅ Commit dates updated successfully!"
+echo "⚠️  Note: This has rewritten git history. Force push will be required if these commits were already pushed."
+echo
+echo "To push changes: git push --force-with-lease origin <branch-name>"
