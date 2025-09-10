@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-[[ $# -eq 0 ]] && { echo "Usage: $0 <command> [args...]" >&2; exit 1 }
+[[ $# -eq 0 ]] && echo "Usage: $0 <command> [args...]" && exit 1
 
-exec /run/current-system/sw/bin/"$@"
+exec "/run/current-system/sw/bin/$@"
