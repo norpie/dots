@@ -3,6 +3,7 @@
 declare -A devices
 devices=(
     ["sony"]="AC:80:0A:91:63:B1"
+    ["corne"]="F2:40:6D:AD:F4:03"
     ["bose"]="BC:87:FA:44:FA:2E"
     ["keyboard"]="E6:C9:A6:A7:E9:52"
     ["wacom"]="E0:9F:2A:1C:43:2B"
