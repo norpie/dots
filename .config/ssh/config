@@ -28,7 +28,7 @@ Host work.vpn
 
 Host octopi
     HostName octopi.local
-    User pi
+    User norpie
 
 Host messier
     HostName pi.hole
