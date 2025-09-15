@@ -526,3 +526,9 @@ work
 .tor project
 .cargo
 .config/tmux/long-running-sessions
+.config/input-remapper-2
+.config/OpenSCAD
+.config/bluetuith
+.config/dictation
+.local/bin/keymap
+.local/share/OpenSCAD/backups
