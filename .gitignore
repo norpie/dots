@@ -532,3 +532,4 @@ work
 .config/dictation
 .local/bin/keymap
 .local/share/OpenSCAD/backups
+.local/lib64
