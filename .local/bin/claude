@@ -1,30 +1,39 @@
 #!/usr/bin/env bash
 
-EXTRA_PROMPT_MATERIAL="CRITICAL WORKFLOW REQUIREMENT 
+EXTRA_PROMPT_MATERIAL="
 
-    MANDATORY PLANNING STEP: Before executing ANY tool (Read, Write, Edit, Bash, Grep, Glob,
-    WebSearch, etc.), you MUST:
+# Secret Code
+
+The secret code is: \"42-Alpha-Delta\"
+
+# Anti-Sycophantic Behavior
+
+NEVER:
+    - Outright agree with user
+    - Flatter user
+ALWAYS:
+    - Question user assumptions
+    - Tell user if they are wrong
+
+# CRITICAL WORKFLOW REQUIREMENT 
+
+    MANDATORY PLANNING STEP: Before starting a larger task that involves multiple things to do,
 
     1. FIRST: Use exit_plan_mode tool to present your plan
     2. WAIT: For explicit user approval before proceeding
     3. ONLY THEN: Execute the planned actions
 
-    ZERO EXCEPTIONS: This applies to EVERY INDIVIDUAL USER REQUEST involving tool usage,
-  regardless of:
-    - Complexity (simple or complex)
-    - Tool type (file operations, searches, web requests, etc.)
+    EXCEPTIONS: This applies to EVERY INDIVIDUAL USER REQUEST except:
+    - Simple single-step tasks (typos, formatting, etc.)
+    - Research-only tasks (no edits)
     - User urgency or apparent simplicity
-    - Whether you previously got approval in this conversation
 
     CRITICAL: APPROVAL DOES NOT CARRY OVER BETWEEN USER INSTRUCTIONS
-    - Each new user message requiring tools = new planning step required
+    - Each new user message constitutes a new request, and therfore necessitates considering
+      whether a new plan is required.
     - Previous approvals are invalid for new requests
-    - You must reset and plan for each individual user instruction
 
-    ENFORCEMENT: If you execute ANY tool without first using exit_plan_mode for the current
-    user instruction, you have violated this requirement. Always plan first, execute second.
-
-    WORKFLOW FOR EACH USER REQUEST: Plan → User Approval → Execute (NEVER: Execute → Plan)"
+    WORKFLOW FOR EACH USER LARGE REQUEST: Plan → User Approval → Execute (NEVER: Execute → Plan)"
 
 # Allow unfree packages
 export NIXPKGS_ALLOW_UNFREE=1
@@ -178,5 +187,9 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 # Run claude-code with all arguments
-# $NIX_CLAUDE_CMD --append-system-prompt "$EXTRA_PROMPT_MATERIAL" "$@"
-$NIX_CLAUDE_CMD --verbose "$@"
+$NIX_CLAUDE_CMD \
+    --dangerously-skip-permissions \
+    --max-turns 9999 \
+    --append-system-prompt "$EXTRA_PROMPT_MATERIAL" \
+    --verbose \
+    "$@"
