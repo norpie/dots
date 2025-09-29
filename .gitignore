@@ -533,3 +533,8 @@ work
 .local/bin/keymap
 .local/share/OpenSCAD/backups
 .local/lib64
+.config/qBittorrent2/qBittorrent
+.config/dynamics-cli/csv-cache
+.config/dynamics-cli
+.config/onlyoffice
+.local/bin/ct2-translator
