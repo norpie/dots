@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "$(date): Launching dictation-popup" >> /tmp/dictation-launch.log
+exec dictation-popup 2>&1 | tee -a /tmp/dictation-launch.log
