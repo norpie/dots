@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#
+# G-Wolves mouse battery status for waybar/statusbar
+# Minimal wrapper around battery query
+#
+
+# Quick inline Python to avoid separate script dependency
+battery_info=$(python3 - <<'EOF'
+import hid
+import sys
+
+VENDOR_ID = 0x33e4
+PRODUCT_ID_RECEIVER = 0x5817
+PRODUCT_ID_MOUSE = 0x5808
+INTERFACE_NUM = 2
+
+def read_battery(product_id):
+    try:
+        for d in hid.enumerate(VENDOR_ID, product_id):
+            if d.get('interface_number') == INTERFACE_NUM:
+                h = hid.device()
+                h.open_path(d['path'])
+
+                cmd = bytearray(65)
+                cmd[1:4] = [0x00, 0x02, 0x8f]
+                cmd[4] = 0x01
+
+                h.send_feature_report(cmd)
+                import time
+                time.sleep(0.1)
+                response = h.get_feature_report(0x00, 65)
+                h.close()
+
+                if response and len(response) >= 7:
+                    charging = response[5]
+                    percentage = response[6]
+                    percentage = min(percentage, 95 if charging else 100)
+                    print(f"{percentage}|{charging}")
+                    return True
+                break
+    except:
+        pass
+    return False
+
+# Try mouse first, then receiver
+if not read_battery(PRODUCT_ID_MOUSE):
+    read_battery(PRODUCT_ID_RECEIVER)
+EOF
+)
+
+# Parse output
+if [[ -z "$battery_info" ]]; then
+    echo ""
+    exit 1
+fi
+
+IFS='|' read -r capacity charging <<< "$battery_info"
+
+# Output with icons (matching your st-mouse-battery style)
+if [[ "$charging" == "1" ]]; then
+    echo "󰍿 $capacity%"
+elif [[ "$charging" == "0" ]]; then
+    echo "󰍽 $capacity%"
+else
+    echo "󰍾"
+fi
