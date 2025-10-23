@@ -51,6 +51,9 @@ function telescope() {
 }
 
 function config() {
+    [[ $# == 1 && $1 == "cs" ]] &&
+        $EDITOR "$HOME/.local/share/Steam/steamapps/common/Counter-Strike Global Offensive/game/csgo/cfg/autoexec.cfg" &&
+        return    
     file=$(find $XDG_CONFIG_HOME -maxdepth 5 | fzf --preview 'if [[ -d {} ]]; then; ls {}; else; pygmentize -g {}; fi;')
     [[ -d $file ]] && cd $file
     [[ -f $file ]] && $EDITOR $file
