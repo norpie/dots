@@ -29,3 +29,5 @@ fi
 
 # Execute the real hyprctl with all arguments passed through
 exec "$REAL_HYPRCTL" "$@"
+
+# hyprctl --instance 0 "$@"
