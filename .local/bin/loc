@@ -1,7 +1,22 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Array of files to exclude
-exclude=(
+# Colors
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[0;33m'
+readonly BLUE='\033[0;34m'
+readonly BOLD='\033[1m'
+readonly RESET='\033[0m'
+
+# Default configuration
+VERBOSE=true
+SORT_BY_SIZE=true
+SHOW_STATS=true
+TARGET_DIR="."
+
+# Default exclusion patterns
+exclude_patterns=(
   "**/.*"
   "**/node_modules/*"
   "**/__pycache__/*"
@@ -15,13 +30,159 @@ exclude=(
   "**/*.lock"
 )
 
-function generate_find_exclude {
-  local exclude=()
-  for i in $@; do
-    exclude+=(-not -wholename $i)
+show_help() {
+  cat << EOF
+${BOLD}loc${RESET} - Count lines of code
+
+${BOLD}USAGE:${RESET}
+  loc [OPTIONS] [DIRECTORY]
+
+${BOLD}OPTIONS:${RESET}
+  -v, --verbose       Show per-file line counts
+  -s, --sort          Sort files by line count (descending)
+  -n, --no-stats      Don't show statistics
+  -e, --exclude PATTERN
+                      Add exclusion pattern (can be used multiple times)
+  -h, --help          Show this help message
+
+${BOLD}EXAMPLES:${RESET}
+  loc                 Count lines in current directory
+  loc ~/project       Count lines in ~/project
+  loc -v              Show verbose output with all files
+  loc -v -s           Show files sorted by line count
+  loc -e "*.test.js"  Exclude additional pattern
+
+${BOLD}DEFAULT EXCLUSIONS:${RESET}
+EOF
+  for pattern in "${exclude_patterns[@]}"; do
+    echo "  - $pattern"
   done
-  echo $exclude
 }
 
-#cd $(git root)
-wc -l $(find -type f $(generate_find_exclude $exclude))
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case $1 in
+      -v|--verbose)
+        VERBOSE=true
+        shift
+        ;;
+      -s|--sort)
+        SORT_BY_SIZE=true
+        VERBOSE=true
+        shift
+        ;;
+      -n|--no-stats)
+        SHOW_STATS=false
+        shift
+        ;;
+      -e|--exclude)
+        if [[ -z "${2:-}" ]]; then
+          echo -e "${RED}Error: --exclude requires a pattern${RESET}" >&2
+          exit 1
+        fi
+        exclude_patterns+=("$2")
+        shift 2
+        ;;
+      -h|--help)
+        show_help
+        exit 0
+        ;;
+      -*)
+        echo -e "${RED}Error: Unknown option: $1${RESET}" >&2
+        show_help >&2
+        exit 1
+        ;;
+      *)
+        TARGET_DIR="$1"
+        shift
+        ;;
+    esac
+  done
+}
+
+count_lines() {
+  local target_dir="$1"
+
+  if [[ ! -d "$target_dir" ]]; then
+    echo -e "${RED}Error: Directory not found: $target_dir${RESET}" >&2
+    exit 1
+  fi
+
+  # Build find command with exclusions
+  local find_args=()
+  for pattern in "${exclude_patterns[@]}"; do
+    find_args+=(-not -wholename "$pattern")
+  done
+
+  # Get all matching files
+  local files=()
+  mapfile -t files < <(find "$target_dir" -type f "${find_args[@]}" 2>/dev/null || true)
+
+  if [[ ${#files[@]} -eq 0 ]]; then
+    echo -e "${YELLOW}No files found in $target_dir${RESET}"
+    exit 0
+  fi
+
+  # Count lines
+  local wc_output=""
+  wc_output=$(wc -l "${files[@]}" 2>/dev/null || true)
+
+  # Parse output
+  local total_lines=0
+  local total_files=0
+  local -a file_counts=()
+
+  while IFS= read -r line; do
+    if [[ "$line" =~ ^[[:space:]]*([0-9]+)[[:space:]]+(.+)$ ]]; then
+      local count filepath
+      count="${BASH_REMATCH[1]}"
+      filepath="${BASH_REMATCH[2]}"
+
+      if [[ "$filepath" == "total" ]]; then
+        total_lines="$count"
+      else
+        ((total_files++)) || true
+        if [[ "$VERBOSE" == true ]]; then
+          file_counts+=("$count|$filepath")
+        fi
+      fi
+    fi
+  done <<< "$wc_output"
+
+  # Display results
+  if [[ "$VERBOSE" == true ]]; then
+    if [[ "$SORT_BY_SIZE" == true ]]; then
+      printf '%s\n' "${file_counts[@]}" | sort -t'|' -k1 -nr | while IFS='|' read -r count filepath; do
+        printf "${BLUE}%8d${RESET}  %s\n" "$count" "$filepath"
+      done
+    else
+      for entry in "${file_counts[@]}"; do
+        IFS='|' read -r count filepath <<< "$entry"
+        printf "${BLUE}%8d${RESET}  %s\n" "$count" "$filepath"
+      done
+    fi
+    echo
+  fi
+
+  # Show statistics
+  if [[ "$SHOW_STATS" == true ]]; then
+    local avg_lines=0
+    if [[ $total_files -gt 0 ]]; then
+      avg_lines=$((total_lines / total_files))
+    fi
+    echo -e "${BOLD}Statistics:${RESET}"
+    echo -e "  Total lines:  ${GREEN}${total_lines}${RESET}"
+    echo -e "  Total files:  ${GREEN}${total_files}${RESET}"
+    echo -e "  Average/file: ${GREEN}${avg_lines}${RESET}"
+  else
+    echo -e "${GREEN}${total_lines}${RESET}"
+  fi
+}
+
+# Main
+main() {
+  parse_args "$@"
+  count_lines "$TARGET_DIR"
+}
+
+main "$@"
