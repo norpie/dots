@@ -12,13 +12,14 @@ fi
 
 case "$program" in
   "waybar")
-    pkill waybar; hyprctl dispatch exec waybar
+      pkill waybar; hyprctl dispatch exec waybar
     ;;
   "hyprland")
       hyprctl reload
     ;;
   "hyprlock")
-    pkill hyprlock; hyprctl dispatch exec hyprlock
+      hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1' &&
+          hyprctl --instance 0 'dispatch exec hyprlock'
     ;;
   *)
     echo "Unsupported program: $program"
