@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+batteries=$(find /sys/class/power_supply/ -mindepth 1 -maxdepth 1 -name "hidpp_battery*")
+
+# If empty then no battery
+[[ -z $batteries ]] && echo "" && exit 1
+
+# Get the first line of the $batteries variable
+battery=$(echo $batteries | tail -n 1)
+
+capacity=$(cat $battery/capacity)
+batterystatus=$(cat $battery/status)
+
+if [[ $batterystatus == "Discharging" ]]; then
+    echo "󰍽 $capacity"%
+elif [[ $batterystatus == "Charging" ]]; then
+    echo "󰍿 $capacity"%
+else
+    echo "󰍾"
+fi
