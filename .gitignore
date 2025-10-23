@@ -541,3 +541,8 @@ work
 .config/enchant
 .config/scribe
 scribe-target
+.config/ghidra
+.config/easyeffects/output
+.config/wireshark
+.config/cargo-dist
+.local/share/onlyoffice/desktopeditors
