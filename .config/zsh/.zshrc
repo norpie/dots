@@ -15,6 +15,14 @@ elif [[ ! -v SSH_AGENT_PID ]]; then
     ssh-add-defaults
 fi
 
+# Auto-start tmux only in WSL
+if [[ -f /proc/version ]] && grep -qi microsoft /proc/version; then
+  if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+    export TERM=xterm-256color
+    exec tmux new-session -A -s default
+  fi
+fi
+
 source /home/norpie/.config/zsh/prompt.zsh || echo "error in prompt"
 source /home/norpie/.config/zsh/plugins.zsh || echo "error in plugins"
 source /home/norpie/.config/zsh/environment.zsh || echo "error in environment"
