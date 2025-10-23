@@ -8,6 +8,7 @@ ram_icon=" "
 pids=($(lsof -n /dev/dri/card0 /dev/dri/renderD128 2>/dev/null | awk 'NR>1 {print $2}' | sort -un))
 
 if [[ ${#pids[@]} -eq 0 ]]; then
+    echo "No GPU processes detected"
     exit 0
 fi
 
@@ -62,7 +63,7 @@ while IFS= read -r line; do
         while IFS=: read -r key value; do
             case "$key" in
                 "drm-client-id") client_id=$(echo "$value" | xargs) ;;
-                "drm-total-vram") vram_kb=$(echo "$value" | awk '{print $1}') ;;
+                "drm-memory-vram") vram_kb=$(echo "$value" | awk '{print $1}') ;;
             esac
         done < "$fdinfo" 2>/dev/null
         
