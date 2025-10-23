@@ -538,3 +538,6 @@ work
 .config/dynamics-cli
 .config/onlyoffice
 .local/bin/ct2-translator
+.config/enchant
+.config/scribe
+scribe-target
