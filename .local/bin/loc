@@ -14,6 +14,7 @@ VERBOSE=true
 SORT_BY_SIZE=true
 SHOW_STATS=true
 TARGET_DIR="."
+USE_GIT=true
 
 # Default exclusion patterns
 exclude_patterns=(
@@ -28,6 +29,7 @@ exclude_patterns=(
   "**/dist/*"
   "**/*.db/*"
   "**/*.lock"
+  "*.lock"
 )
 
 show_help() {
@@ -43,6 +45,7 @@ ${BOLD}OPTIONS:${RESET}
   -n, --no-stats      Don't show statistics
   -e, --exclude PATTERN
                       Add exclusion pattern (can be used multiple times)
+  --no-git            Disable git integration (git is used by default)
   -h, --help          Show this help message
 
 ${BOLD}EXAMPLES:${RESET}
@@ -83,6 +86,10 @@ parse_args() {
         exclude_patterns+=("$2")
         shift 2
         ;;
+      --no-git)
+        USE_GIT=false
+        shift
+        ;;
       -h|--help)
         show_help
         exit 0
@@ -108,15 +115,45 @@ count_lines() {
     exit 1
   fi
 
-  # Build find command with exclusions
-  local find_args=()
-  for pattern in "${exclude_patterns[@]}"; do
-    find_args+=(-not -wholename "$pattern")
-  done
-
   # Get all matching files
   local files=()
-  mapfile -t files < <(find "$target_dir" -type f "${find_args[@]}" 2>/dev/null || true)
+
+  # Try to use git if enabled and we're in a git repo
+  if [[ "$USE_GIT" == true ]] && git -C "$target_dir" rev-parse --git-dir >/dev/null 2>&1; then
+    # Use git ls-files to respect .gitignore
+    mapfile -t files < <(cd "$target_dir" && git ls-files 2>/dev/null || true)
+    # Convert to absolute paths if target_dir is not current directory
+    if [[ "$target_dir" != "." ]]; then
+      local abs_files=()
+      for file in "${files[@]}"; do
+        abs_files+=("$target_dir/$file")
+      done
+      files=("${abs_files[@]}")
+    fi
+    # Apply exclusion patterns to git files
+    local filtered_files=()
+    for file in "${files[@]}"; do
+      local excluded=false
+      for pattern in "${exclude_patterns[@]}"; do
+        # Convert glob pattern to work with case statement
+        if [[ "$file" == $pattern ]]; then
+          excluded=true
+          break
+        fi
+      done
+      if [[ "$excluded" == false ]]; then
+        filtered_files+=("$file")
+      fi
+    done
+    files=("${filtered_files[@]}")
+  else
+    # Fall back to find with exclusions
+    local find_args=()
+    for pattern in "${exclude_patterns[@]}"; do
+      find_args+=(-not -wholename "$pattern")
+    done
+    mapfile -t files < <(find "$target_dir" -type f "${find_args[@]}" 2>/dev/null || true)
+  fi
 
   if [[ ${#files[@]} -eq 0 ]]; then
     echo -e "${YELLOW}No files found in $target_dir${RESET}"
