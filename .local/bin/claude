@@ -2,6 +2,11 @@
 
 EXTRA_PROMPT_MATERIAL="
 
+# Git
+
+- Only perform commits when instructed to do so explicitly. 
+- If instructed to commit, use an atomic commit strategy with a clear, concise single-line conventional commit message.
+
 # Secret Code
 
 The secret code is: \"42-Alpha-Delta\"
