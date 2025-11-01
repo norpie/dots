@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Store all initial arguments
+cmd_args=("$@")
+
+# Check if any arguments were provided
+if [ ${#cmd_args[@]} -eq 0 ]; then
+    echo "Usage: loop <command> [initial args...]"
+    echo "Example: loop yt-dlp"
+    exit 1
+fi
+
+# Main loop
+while true; do
+    echo -n "Input (Ctrl+C to exit): "
+    read -r user_input
+    
+    # Skip empty input
+    if [ -z "$user_input" ]; then
+        continue
+    fi
+    
+    # Execute command with initial args and user input
+    "${cmd_args[@]}" "$user_input"
+    echo
+done
