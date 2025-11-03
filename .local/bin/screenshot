@@ -1,3 +1,11 @@
 #!/bin/sh
 
-gscreenshot -s -c -d 1
+# Workflow: Select area with slurp -> Capture with grim -> Annotate with satty
+# Keyboard shortcuts in satty:
+#   Ctrl+C: Copy to clipboard
+#   Ctrl+S: Save to file
+#   Ctrl+Shift+S: Save As dialog
+#   Enter: Quick copy
+#   Esc: Exit
+
+grim -g "$(slurp)" - | satty --filename - --fullscreen --copy-command 'wl-copy'
