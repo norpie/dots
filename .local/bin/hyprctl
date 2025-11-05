@@ -4,13 +4,24 @@
 
 # Always get the current running instance dynamically
 # Find the instance with both .socket.sock and hyprland.lock (active instance)
+# Sort by modification time to get the most recent one
+LATEST_INSTANCE=""
+LATEST_MTIME=0
+
 for instance_dir in /run/user/1000/hypr/*/; do
     if [[ -S "${instance_dir}.socket.sock" && -f "${instance_dir}hyprland.lock" ]]; then
-        CURRENT_INSTANCE=$(basename "$instance_dir")
-        export HYPRLAND_INSTANCE_SIGNATURE="$CURRENT_INSTANCE"
-        break
+        # Get the modification time of the lock file
+        MTIME=$(stat -c %Y "${instance_dir}hyprland.lock" 2>/dev/null)
+        if [[ $MTIME -gt $LATEST_MTIME ]]; then
+            LATEST_MTIME=$MTIME
+            LATEST_INSTANCE=$(basename "$instance_dir")
+        fi
     fi
 done
+
+if [[ -n "$LATEST_INSTANCE" ]]; then
+    export HYPRLAND_INSTANCE_SIGNATURE="$LATEST_INSTANCE"
+fi
 
 # Set WAYLAND_DISPLAY from cache if available, otherwise use default
 if [[ -f ~/.cache/wayland_display ]]; then
