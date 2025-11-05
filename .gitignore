@@ -546,3 +546,6 @@ scribe-target
 .config/wireshark
 .config/cargo-dist
 .local/share/onlyoffice/desktopeditors
+.config/fish
+.config/starship.toml
+.local/share/fish
