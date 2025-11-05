@@ -34,7 +34,7 @@ thickness = 0.15
 
 [terminal.shell]
 program = "/usr/bin/env"
-args = ["zsh"]
+args = ["fish"]
 
 [mouse]
 hide_when_typing = true
