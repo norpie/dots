@@ -21,3 +21,6 @@ echo $WAYLAND_DISPLAY > ~/.cache/wayland_display
 
 # Cache Hyprland instance signature for hyprctl commands
 echo $HYPRLAND_INSTANCE_SIGNATURE > ~/.cache/hyprland_instance
+
+# Restore wallpaper from cache
+wallpaper --restore

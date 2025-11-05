@@ -19,6 +19,7 @@ function print_help() {
     echo "  --gui                    Open a GUI to select a wallpaper"
     echo "  --menu                   Open a menu to select a wallpaper"
     echo "  --set [PATH]             Set a specific wallpaper by path"
+    echo "  --restore                Restore the last set wallpaper from cache"
     echo "  --list                   List available categories"
     echo "  --help                   Display this help message"
     echo ""
@@ -26,6 +27,7 @@ function print_help() {
     echo "  wallpaper --random"
     echo "  wallpaper --random anime"
     echo "  wallpaper --set /path/to/wallpaper.jpg"
+    echo "  wallpaper --restore"
     echo "  wallpaper --list"
 }
 
@@ -76,6 +78,25 @@ function validate_image() {
     echo "$abs_path"
 }
 
+function save_wallpaper_cache() {
+    local wallpaper_path="$1"
+    local cache_file="$HOME/.cache/wallpaper"
+
+    # Remove old symlink if it exists
+    if [[ -L "$cache_file" ]] || [[ -f "$cache_file" ]]; then
+        rm -f "$cache_file"
+    fi
+
+    # Create symlink to current wallpaper
+    ln -s "$wallpaper_path" "$cache_file"
+
+    if [[ $? -eq 0 ]]; then
+        echo "Saved wallpaper to cache: $cache_file -> $wallpaper_path"
+    else
+        echo "Warning: Failed to save wallpaper cache" >&2
+    fi
+}
+
 function set_wallpaper() {
     local image_path="$1"
     local monitor="${2:-}"
@@ -105,6 +126,7 @@ function set_wallpaper() {
     
     if [[ $? -eq 0 ]]; then
         echo "Wallpaper set successfully!"
+        save_wallpaper_cache "$abs_path"
     else
         error_exit "Failed to set wallpaper via IPC"
     fi
@@ -188,6 +210,27 @@ function set_default_wallpaper() {
     fi
 }
 
+function restore_wallpaper() {
+    local cache_file="$HOME/.cache/wallpaper"
+
+    # Check if cache file exists and is a symlink
+    if [[ -L "$cache_file" ]]; then
+        local wallpaper_path=$(readlink -f "$cache_file")
+
+        if [[ -f "$wallpaper_path" ]]; then
+            echo "Restoring wallpaper from cache: $wallpaper_path"
+            set_wallpaper "$wallpaper_path"
+        else
+            echo "Cached wallpaper no longer exists: $wallpaper_path"
+            echo "Falling back to default wallpaper"
+            set_default_wallpaper
+        fi
+    else
+        echo "No cached wallpaper found. Setting default wallpaper."
+        set_default_wallpaper
+    fi
+}
+
 # Main script logic
 case "${1:-}" in
     --help|-h)
@@ -209,6 +252,9 @@ case "${1:-}" in
         ;;
     --default|-d)
         set_default_wallpaper
+        ;;
+    --restore)
+        restore_wallpaper
         ;;
     --menu|-m)
         show_menu
