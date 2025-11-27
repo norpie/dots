@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
 
-ssh-add ~/.config/ssh/identities/*
+# Add all private keys (excluding .pub files)
+for key in ~/.config/ssh/identities/*; do
+    # Skip if it's a .pub file or doesn't exist
+    [[ "$key" == *.pub ]] && continue
+    [[ ! -f "$key" ]] && continue
+
+    # Only add files with proper private key permissions (0600 or 0400)
+    perms=$(stat -c %a "$key" 2>/dev/null)
+    if [[ "$perms" == "600" || "$perms" == "400" ]]; then
+        ssh-add "$key" 2>/dev/null
+    fi
+done
 exit 0
