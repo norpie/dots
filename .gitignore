@@ -549,3 +549,7 @@ scribe-target
 .config/fish
 .config/starship.toml
 .local/share/fish
+.config/audacity
+.config/tenacity
+.local/share/audacity
+.manpath
