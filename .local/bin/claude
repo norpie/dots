@@ -7,6 +7,10 @@ EXTRA_PROMPT_MATERIAL="
 - Only perform commits when instructed to do so explicitly. 
 - If instructed to commit, use an atomic commit strategy with a clear, concise single-line conventional commit message.
 
+# Paths
+
+ALWAYS perfer absolute paths over relative paths when referring to files or directories in tool calls.
+
 # Secret Code
 
 The secret code is: \"42-Alpha-Delta\"
