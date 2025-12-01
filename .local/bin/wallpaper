@@ -21,6 +21,8 @@ function print_help() {
     echo "  --set [PATH]             Set a specific wallpaper by path"
     echo "  --restore                Restore the last set wallpaper from cache"
     echo "  --list                   List available categories"
+    echo "  --cycle [DIR]            Cycle through wallpapers in a directory"
+    echo "    --duration [SECONDS]   Duration between wallpaper changes (default: 60)"
     echo "  --help                   Display this help message"
     echo ""
     echo "Examples:"
@@ -29,6 +31,7 @@ function print_help() {
     echo "  wallpaper --set /path/to/wallpaper.jpg"
     echo "  wallpaper --restore"
     echo "  wallpaper --list"
+    echo "  wallpaper --cycle ~/Pictures/wallpapers --duration 300"
 }
 
 function error_exit() {
@@ -231,6 +234,81 @@ function restore_wallpaper() {
     fi
 }
 
+function set_wallpaper_no_cache() {
+    local image_path="$1"
+    local monitor="${2:-}"
+
+    echo "Setting wallpaper: $image_path"
+
+    # Validate the image
+    local abs_path=$(validate_image "$image_path")
+
+    # Check hyprpaper status
+    check_hyprpaper
+
+    # Use proper hyprpaper IPC commands: preload then wallpaper
+    hyprctl hyprpaper preload "$abs_path" >/dev/null
+
+    if [[ $? -ne 0 ]]; then
+        echo "Failed to preload wallpaper via IPC" >&2
+        return 1
+    fi
+
+    if [[ -n "$monitor" ]]; then
+        hyprctl hyprpaper wallpaper "$monitor,$abs_path" >/dev/null
+    else
+        hyprctl hyprpaper wallpaper ",$abs_path" >/dev/null
+    fi
+
+    if [[ $? -eq 0 ]]; then
+        echo "Wallpaper set: $(basename "$abs_path")"
+    else
+        echo "Failed to set wallpaper via IPC" >&2
+        return 1
+    fi
+}
+
+function cycle_wallpapers() {
+    local dir="$1"
+    local duration="${2:-60}"
+
+    # Validate directory
+    local abs_dir=$(get_absolute_path "$dir")
+    if [[ ! -d "$abs_dir" ]]; then
+        error_exit "Directory does not exist: $abs_dir"
+    fi
+
+    # Validate duration is a positive integer
+    if ! [[ "$duration" =~ ^[0-9]+$ ]] || [[ "$duration" -lt 1 ]]; then
+        error_exit "Duration must be a positive integer (seconds)"
+    fi
+
+    echo "Cycling wallpapers from: $abs_dir"
+    echo "Duration: ${duration}s between changes"
+    echo "Press Ctrl+C to stop"
+    echo ""
+
+    while true; do
+        # Find direct child images only (maxdepth 1)
+        local images=()
+        while IFS= read -r -d '' file; do
+            images+=("$file")
+        done < <(find "$abs_dir" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" -o -iname "*.bmp" -o -iname "*.gif" \) -print0 2>/dev/null)
+
+        if [[ ${#images[@]} -eq 0 ]]; then
+            error_exit "No supported images found in: $abs_dir"
+        fi
+
+        # Select random image
+        local random_index=$((RANDOM % ${#images[@]}))
+        local selected="${images[$random_index]}"
+
+        set_wallpaper_no_cache "$selected"
+
+        sleep "$duration"
+    done
+}
+
 # Main script logic
 case "${1:-}" in
     --help|-h)
@@ -261,6 +339,29 @@ case "${1:-}" in
         ;;
     --gui|-g)
         show_gui
+        ;;
+    --cycle|-c)
+        if [[ -z "$2" ]]; then
+            error_exit "Please provide a directory path for cycling"
+        fi
+        cycle_dir="$2"
+        cycle_duration=60
+        shift 2
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --duration)
+                    if [[ -z "$2" ]]; then
+                        error_exit "Please provide a duration value"
+                    fi
+                    cycle_duration="$2"
+                    shift 2
+                    ;;
+                *)
+                    error_exit "Unknown option for cycle: $1"
+                    ;;
+            esac
+        done
+        cycle_wallpapers "$cycle_dir" "$cycle_duration"
         ;;
     "")
         # No arguments - show help
