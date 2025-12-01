@@ -9,6 +9,7 @@ for key in ~/.config/ssh/identities/*; do
     # Only add files with proper private key permissions (0600 or 0400)
     perms=$(stat -c %a "$key" 2>/dev/null)
     if [[ "$perms" == "600" || "$perms" == "400" ]]; then
+        echo "Adding key: $key"
         ssh-add "$key" 2>/dev/null
     fi
 done
