@@ -11,14 +11,19 @@
         "hyprland/workspaces"
     ],
     "modules-right": [
-        "bluetooth",
-        "network#ethernet",
+        "custom/bt-headphones",
+        "custom/bt-keyboards",
+        "custom/bt-speakers",
+        "custom/bt-drawing",
+        "custom/bt-controller",
+        "custom/ethernet",
         "network#wifi",
         "custom/gpu",
         "memory",
         "cpu",
         "backlight",
         "custom/mouse-battery",
+        "custom/headset-battery",
         "battery",
         "group/group-power"
     ],
@@ -163,18 +168,34 @@
             "critical": 15
         }
     },
-    "bluetooth": {
-        "format": "",
-        "format-disabled": "",
-        "format-connected": "󰂯 {num_connections}",
-        "format-connected-battery": "󰂯 {device_battery_percentage}%",
-        "tooltip-format": "{controller_alias}\t{controller_address}",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-        "format-icons": {
-            "disabled": "󰂲"
-        },
+    "custom/bt-headphones": {
+        "exec": "st-bluetooth headphones",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "blueman-manager"
+    },
+    "custom/bt-keyboards": {
+        "exec": "st-bluetooth keyboards",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "blueman-manager"
+    },
+    "custom/bt-speakers": {
+        "exec": "st-bluetooth speakers",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "blueman-manager"
+    },
+    "custom/bt-drawing": {
+        "exec": "st-bluetooth drawing",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "blueman-manager"
+    },
+    "custom/bt-controller": {
+        "exec": "st-bluetooth controller",
+        "return-type": "json",
+        "interval": 5,
         "on-click": "blueman-manager"
     },
     "backlight": {
@@ -227,6 +248,12 @@
         "tooltip-format-activated": "Idle inhibitor activated - screen won't sleep",
         "tooltip-format-deactivated": "Idle inhibitor deactivated - screen may sleep"
     },
+    "custom/ethernet": {
+        "exec": "st-ethernet",
+        "return-type": "json",
+        "interval": 5,
+        "tooltip": true
+    },
     "custom/gpu": {
         "format": "{}",
         "exec": "st-gpu",
@@ -238,6 +265,11 @@
         "format": "{}",
         "exec": "st-mouse-battery",
         "interval": 15
+    },
+    "custom/headset-battery": {
+        "format": "{}",
+        "exec": "st-headset-battery",
+        "interval": 600
     },
     "wireplumber": {
         "format": "{icon} {volume}%",

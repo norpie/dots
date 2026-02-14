@@ -1,5 +1,5 @@
 * {
-    font-family: "JetBrainsMonoNL Nerd Font";
+    font-family: "JetBrainsMonoNL Nerd Font", "Noto Sans Mono CJK JP";
     font-size: 13px;
     min-height: 0;
 }
@@ -59,7 +59,7 @@ window#waybar.empty #window {
     color: #a6e3a1;
 }
 
-#clock, #pulseaudio, #mpris, #bluetooth, #battery, #backlight, #custom-power, #custom-lock, #idle_inhibitor, #custom-monitor-off, #custom-reboot, #custom-mouse-battery, #custom-gpu, #wireplumber, #network, #memory, #cpu {
+#clock, #pulseaudio, #mpris, #bluetooth, #battery, #backlight, #custom-power, #custom-lock, #idle_inhibitor, #custom-monitor-off, #custom-reboot, #custom-mouse-battery, #custom-headset-battery, #custom-gpu, #custom-ethernet, #wireplumber, #network, #memory, #cpu, #custom-bt-headphones, #custom-bt-keyboards, #custom-bt-speakers, #custom-bt-drawing, #custom-bt-controller {
     background-color: transparent;
     background-color: #1e1e2e;
     color: #cdd6f4;
@@ -76,6 +76,7 @@ window#waybar.empty #window {
 
 #mpris {
     color: #f5c2e7;
+    font-size: 12px;
 }
 
 #wireplumber {
@@ -99,8 +100,24 @@ window#waybar.empty #window {
     color: #fab387;
 }
 
-#bluetooth {
-    color: #89dceb;
+#custom-bt-headphones {
+    color: #f5c2e7;
+}
+
+#custom-bt-keyboards {
+    color: #cba6f7;
+}
+
+#custom-bt-speakers {
+    color: #fab387;
+}
+
+#custom-bt-drawing {
+    color: #94e2d5;
+}
+
+#custom-bt-controller {
+    color: #a6e3a1;
 }
 
 #custom-power {
@@ -113,6 +130,10 @@ window#waybar.empty #window {
 }
 
 #network {
+    color: #94e2d5;
+}
+
+#custom-ethernet {
     color: #94e2d5;
 }
 
@@ -148,6 +169,10 @@ window#waybar.empty #window {
 
 #custom-mouse-battery {
     color: #cba6f7;
+}
+
+#custom-headset-battery {
+    color: #89b4fa;
 }
 
 #custom-gpu {
