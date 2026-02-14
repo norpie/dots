@@ -21,6 +21,13 @@ case "$program" in
       hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1' &&
           hyprctl --instance 0 'dispatch exec hyprlock'
     ;;
+  "hyprland-plugins")
+      grep '^exec-once=hyprctl plugin load ' ~/.config/hypr/hyprland.conf | \
+          sed 's/^exec-once=//' | \
+          while read -r cmd; do
+              eval "$cmd"
+          done
+    ;;
   *)
     echo "Unsupported program: $program"
     exit 1
