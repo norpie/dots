@@ -5,4 +5,4 @@ mkdir -p $APP_PATH && cd $APP_PATH
 cmd=$(find * | rofi -dmenu -p "AppImage")
 
 cd $APP_PATH
-appimage-run $cmd
+QT_QPA_PLATFORM=xcb appimage-run $cmd
