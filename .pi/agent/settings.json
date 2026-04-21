@@ -1,0 +1,9 @@
+{
+  "lastChangelogVersion": "0.66.1",
+  "packages": [],
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-sonnet-4-6",
+  "hideThinkingBlock": false,
+  "defaultThinkingLevel": "high",
+  "theme": "catppuccin-mocha"
+}
