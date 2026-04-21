@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+depth=1
+skip_current=false
+
+usage() {
+    echo "Usage: recursively [-d|--depth N] [-s|--skip-current] <command> [args...]"
+    echo ""
+    echo "Run a command in current directory and children up to depth N."
+    echo ""
+    echo "Options:"
+    echo "  -d, --depth N      Directory depth (default: 1)"
+    echo "                     0 = current directory only"
+    echo "                     1 = current + immediate children"
+    echo "                     2 = current + children + grandchildren, etc."
+    echo "  -s, --skip-current Skip the current directory (depth 0)"
+    echo "  -h, --help         Show this help message"
+    exit 0
+}
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -d|--depth)
+            depth="$2"
+            shift 2
+            ;;
+        -s|--skip-current)
+            skip_current=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            ;;
+        --)
+            shift
+            break
+            ;;
+        -*)
+            echo "Unknown option: $1" >&2
+            exit 1
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+if [[ $# -eq 0 ]]; then
+    echo "Error: No command specified" >&2
+    usage
+fi
+
+min_depth=0
+if [[ "$skip_current" == true ]]; then
+    min_depth=1
+fi
+
+find . -mindepth "$min_depth" -maxdepth "$depth" -type d | sort | while read -r dir; do
+    echo "==> $dir"
+    (cd "$dir" && "$@")
+done
