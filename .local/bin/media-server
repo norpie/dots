@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+# Usage: media-server [start|stop|status|restart]
+# Description: stops/starts/statuses plex and all *arr services
+
+set -o pipefail
+
+SERVICES=(plex sonarr radarr readarr prowlarr tautulli qbittorrent)
+
+# Colors and symbols
+YELLOW='\033[33m'
+GREEN='\033[32m'
+RED='\033[31m'
+RESET='\033[0m'
+PENDING="●"
+SUCCESS="✓"
+FAILURE="✗"
+
+usage() {
+    echo "Usage: media-server [start|stop|status|restart]"
+    exit 1
+}
+
+# Check argument
+[[ $# -ne 1 ]] && usage
+ACTION="$1"
+
+case "$ACTION" in
+    start|stop|restart|status)
+        ;;
+    *)
+        usage
+        ;;
+esac
+
+# Create temp directory for exit codes
+TMPDIR=$(mktemp -d)
+trap "rm -rf $TMPDIR" EXIT
+
+# Get the longest service name for padding
+MAX_LEN=0
+for svc in "${SERVICES[@]}"; do
+    [[ ${#svc} -gt $MAX_LEN ]] && MAX_LEN=${#svc}
+done
+
+# Print header
+case "$ACTION" in
+    start)   echo "Starting media services..." ;;
+    stop)    echo "Stopping media services..." ;;
+    restart) echo "Restarting media services..." ;;
+    status)  echo "Checking media services..." ;;
+esac
+
+# Print initial pending status for all services
+for svc in "${SERVICES[@]}"; do
+    printf "${YELLOW}${PENDING}${RESET} %-${MAX_LEN}s\n" "$svc"
+done
+
+# Move cursor up to first service line
+printf "\033[${#SERVICES[@]}A"
+
+# Start all operations in parallel
+for i in "${!SERVICES[@]}"; do
+    svc="${SERVICES[$i]}"
+    (
+        if [[ "$ACTION" == "status" ]]; then
+            sudo systemctl is-active --quiet "$svc" 2>/dev/null
+        else
+            sudo systemctl "$ACTION" "$svc" 2>/dev/null
+        fi
+        echo $? > "$TMPDIR/$svc"
+    ) &
+done
+
+# Poll for completion and update display
+completed=0
+total=${#SERVICES[@]}
+
+while [[ $completed -lt $total ]]; do
+    for i in "${!SERVICES[@]}"; do
+        svc="${SERVICES[$i]}"
+        result_file="$TMPDIR/$svc"
+        done_file="$TMPDIR/${svc}.done"
+        
+        # Skip if already processed
+        [[ -f "$done_file" ]] && continue
+        
+        # Check if result is ready
+        if [[ -f "$result_file" ]]; then
+            exit_code=$(cat "$result_file")
+            
+            # Move to correct line
+            if [[ $i -gt 0 ]]; then
+                printf "\033[${i}B"
+            fi
+            
+            # Print result
+            if [[ $exit_code -eq 0 ]]; then
+                printf "\r${GREEN}${SUCCESS}${RESET} %-${MAX_LEN}s" "$svc"
+            else
+                printf "\r${RED}${FAILURE}${RESET} %-${MAX_LEN}s" "$svc"
+            fi
+            
+            # Move back to top
+            if [[ $i -gt 0 ]]; then
+                printf "\033[${i}A"
+            fi
+            
+            # Mark as done
+            sys-cmd touch "$done_file"
+            ((completed++))
+        fi
+    done
+    
+    # Small sleep to avoid busy waiting
+    sleep 0.05
+done
+
+# Move cursor to end
+printf "\033[${total}B\n"
