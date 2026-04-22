@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Custom ethernet module for waybar - reads directly from sysfs/ip
+# Avoids waybar's built-in network module netlink flakiness
+
+IFACE="eno1"
+STATS="/sys/class/net/$IFACE/statistics"
+
+human_bytes() {
+    local bytes=$1
+    if (( bytes >= 1073741824 )); then
+        printf "%.1f GiB/s" "$(echo "scale=1; $bytes/1073741824" | bc)"
+    elif (( bytes >= 1048576 )); then
+        printf "%.1f MiB/s" "$(echo "scale=1; $bytes/1048576" | bc)"
+    elif (( bytes >= 1024 )); then
+        printf "%.1f KiB/s" "$(echo "scale=1; $bytes/1024" | bc)"
+    else
+        printf "%d B/s" "$bytes"
+    fi
+}
+
+# Check if interface exists
+if [[ ! -d "/sys/class/net/$IFACE" ]]; then
+    echo '{"text": "", "class": "disconnected"}'
+    exit 0
+fi
+
+# Check carrier (physical link)
+carrier=$(cat "/sys/class/net/$IFACE/carrier" 2>/dev/null || echo 0)
+if [[ "$carrier" != "1" ]]; then
+    echo '{"text": "", "class": "disconnected"}'
+    exit 0
+fi
+
+# Get IP address
+ipaddr=$(ip -4 -o addr show "$IFACE" 2>/dev/null | awk '{print $4}' | head -1)
+
+# Read initial byte count
+rx1=$(cat "$STATS/rx_bytes" 2>/dev/null || echo 0)
+sleep 1
+rx2=$(cat "$STATS/rx_bytes" 2>/dev/null || echo 0)
+
+rx_rate=$(( rx2 - rx1 ))
+if (( rx_rate < 0 )); then rx_rate=0; fi
+
+bandwidth=$(human_bytes "$rx_rate")
+
+if [[ -z "$ipaddr" ]]; then
+    text="󰈁 (No IP)"
+    class="linked"
+else
+    text="󰈀 $bandwidth"
+    class="ethernet"
+fi
+
+gateway=$(ip -4 route show default dev "$IFACE" 2>/dev/null | awk '{print $3}' | head -1)
+netmask=$(ip -4 -o addr show "$IFACE" 2>/dev/null | awk '{print $4}' | head -1)
+
+tooltip="Ethernet\nInterface: $IFACE\nIP: ${ipaddr:-N/A}\nGateway: ${gateway:-N/A}\nCIDR: ${netmask:-N/A}"
+
+printf '{"text": "%s", "tooltip": "%s", "class": "%s"}\n' "$text" "$tooltip" "$class"
