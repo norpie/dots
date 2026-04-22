@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+#
+# HyperX Cloud Alpha Wireless battery status for waybar/statusbar
+#
+
+VENDOR_ID="03f0"
+PRODUCT_ID="098d"
+USAGE_PAGE="0xFF43"
+USAGE="0x0202"
+
+# Check if hidapitester is available
+if ! command -v hidapitester &> /dev/null; then
+    echo ""
+    exit 1
+fi
+
+# Send battery query and capture response
+OUTPUT=$(hidapitester \
+    --vidpid "${VENDOR_ID}:${PRODUCT_ID}" \
+    --usagePage "${USAGE_PAGE}" \
+    --usage "${USAGE}" \
+    -l 64 \
+    --timeout 1000 \
+    --open \
+    --send-output 0x21,0xbb,0x0b \
+    --read-input \
+    -b hex 2>&1)
+
+if [ $? -ne 0 ]; then
+    echo ""
+    exit 1
+fi
+
+# Extract the response line (starts with " 21 BB 0B" after "read X bytes:")
+RESPONSE=$(echo "$OUTPUT" | grep -A1 "read.*bytes:" | tail -1)
+
+if [[ -z "$RESPONSE" ]]; then
+    echo ""
+    exit 1
+fi
+
+# Extract byte 3 (4th byte) from the hex response
+BATTERY_HEX=$(echo "$RESPONSE" | awk '{print $4}')
+
+if [[ -z "$BATTERY_HEX" ]]; then
+    echo ""
+    exit 1
+fi
+
+# Convert hex to decimal
+BATTERY_LEVEL=$((16#${BATTERY_HEX}))
+
+if [[ "$BATTERY_LEVEL" -eq 0 ]]; then
+    echo ""
+    exit 1
+fi
+
+# Headphone icon with battery percentage
+echo "󰋎 $BATTERY_LEVEL%"
