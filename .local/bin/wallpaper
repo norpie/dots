@@ -112,14 +112,6 @@ function set_wallpaper() {
     # Check hyprpaper status
     check_hyprpaper
     
-    # Use proper hyprpaper IPC commands: preload then wallpaper
-    echo "Preloading wallpaper..."
-    hyprctl hyprpaper preload "$abs_path"
-    
-    if [[ $? -ne 0 ]]; then
-        error_exit "Failed to preload wallpaper via IPC"
-    fi
-    
     echo "Setting wallpaper on monitors..."
     if [[ -n "$monitor" ]]; then
         hyprctl hyprpaper wallpaper "$monitor,$abs_path"
@@ -245,14 +237,6 @@ function set_wallpaper_no_cache() {
 
     # Check hyprpaper status
     check_hyprpaper
-
-    # Use proper hyprpaper IPC commands: preload then wallpaper
-    hyprctl hyprpaper preload "$abs_path" >/dev/null
-
-    if [[ $? -ne 0 ]]; then
-        echo "Failed to preload wallpaper via IPC" >&2
-        return 1
-    fi
 
     if [[ -n "$monitor" ]]; then
         hyprctl hyprpaper wallpaper "$monitor,$abs_path" >/dev/null
