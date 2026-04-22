@@ -1,33 +1,100 @@
 #!/usr/bin/env bash
 
-# Get the list of UPower devices
-devices=$(upower -e)
+# Bluetooth category display for waybar
+# Usage: st-bluetooth <category>
+# Categories: headphones, keyboards, speakers, drawing, controller
+
+category="$1"
+
+if [[ -z "$category" ]]; then
+    echo "Usage: st-bluetooth <category>" >&2
+    echo "Categories: headphones, keyboards, speakers, drawing, controller" >&2
+    exit 1
+fi
+
+# Define device categories (using MAC addresses from macid)
+declare -A device_category
+device_category=(
+    # Headphones/Earbuds
+    ["AC:80:0A:91:63:B1"]="headphones"  # sony
+    ["BC:87:FA:44:FA:2E"]="headphones"  # bose
+    ["08:BF:A0:EE:20:FB"]="headphones"  # beans
+    ["7C:38:AD:BF:E8:B3"]="headphones"  # buds
+    ["24:24:B7:93:4B:CD"]="headphones"  # illuvatar
+    # Keyboards
+    ["F2:40:6D:AD:F4:03"]="keyboards"   # corne
+    ["E6:C9:A6:A7:E9:52"]="keyboards"   # keyboard
+    # Speakers
+    ["F8:5C:7D:9D:94:36"]="speakers"    # apollo
+    # Drawing tablet
+    ["E0:9F:2A:1C:43:2B"]="drawing"     # wacom
+    # Controller
+    ["0C:35:26:69:79:3C"]="controller"  # xbox
+)
+
+# Define category icons
+declare -A category_icon
+category_icon=(
+    ["headphones"]="󰋋"
+    ["keyboards"]="󰌌"
+    ["speakers"]="󰓃"
+    ["drawing"]="󰏪"
+    ["controller"]="󰊖"
+)
+
+icon="${category_icon[$category]}"
+if [[ -z "$icon" ]]; then
+    echo "Unknown category: $category" >&2
+    exit 1
+fi
+
+# Get connected devices
+connected=$(bluetoothctl devices Connected 2>/dev/null)
+
+if [[ -z "$connected" ]]; then
+    exit 0
+fi
 
 output=""
+tooltip=""
 
-# Loop through each device
-while IFS= read -r device; do
-    # Check if the device is a Bluetooth device (contains 'dev_' in the path)
-    if [[ $device == *"dev_"* ]]; then
-        # Get battery percentage using upower -i
-        battery_info=$(upower -i "$device" | grep -E "percentage|model")
+while IFS= read -r line; do
+    # Format: "Device XX:XX:XX:XX:XX:XX Name"
+    mac=$(echo "$line" | awk '{print $2}')
+    name=$(echo "$line" | cut -d' ' -f3-)
+    
+    # Check if this device belongs to the requested category
+    if [[ "${device_category[$mac]}" == "$category" ]]; then
+        # Try to get battery percentage from UPower
+        mac_underscore="${mac//:/_}"
+        upower_device=$(upower -e 2>/dev/null | grep -i "$mac_underscore")
         
-        # Extract model name (device friendly name)
-        model=$(echo "$battery_info" | grep "model:" | cut -d':' -f2 | xargs)
-        
-        # Extract battery percentage
-        percentage=$(echo "$battery_info" | grep "percentage:" | awk '{print $2}')
-        
-        # Output the information
-        if [[ -n $model && -n $percentage ]]; then
-            output+="$model ($percentage), "
+        if [[ -n "$upower_device" ]]; then
+            percentage=$(upower -i "$upower_device" 2>/dev/null | grep "percentage:" | awk '{print $2}' | tr -d '%')
+            if [[ -n "$percentage" ]]; then
+                output+="$icon $percentage% "
+                tooltip+="$name: $percentage%\n"
+            else
+                output+="$icon $name "
+                tooltip+="$name\n"
+            fi
+        else
+            output+="$icon $name "
+            tooltip+="$name\n"
         fi
     fi
-done <<< "$devices"
+done <<< "$connected"
 
-# Remove trailing comma and space
-output=${output%, }
+# Remove trailing space/newline
+output="${output% }"
+tooltip="${tooltip%\\n}"
 
-[[ $output ]] || exit 0
+if [[ -z "$output" ]]; then
+    exit 0
+fi
 
-echo  $output #  WH-1000XM5 (80%), Keyboard (100%)
+# Output JSON for waybar
+jq -nc \
+    --arg text "$output" \
+    --arg tooltip "$tooltip" \
+    '{text: $text, tooltip: $tooltip}'
