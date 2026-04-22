@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# File: mouse
+# Description: Wrapper script for sending mouse clicks via hyprctl dispatch.
+# Usage:
+#   mouse <button>              -- send a single click (down + up)
+#   mouse <button> --down       -- hold the button down
+#   mouse <button> --up         -- release the button
+#   mouse <button> --toggle     -- toggle hold (down if not held, up if held)
+#   mouse <button> -w <window>  -- target a specific window (class regex)
+#
+# Buttons: 1 = left, 2 = middle, 3 = right (or raw codes like 272)
+
+HOLD_DIR="${XDG_RUNTIME_DIR:-/tmp}/mouse-hold"
+mkdir -p "$HOLD_DIR"
+
+print_help() {
+    echo "Usage: mouse <button> [options]"
+    echo ""
+    echo "Buttons:"
+    echo "  1          left click"
+    echo "  2          middle click"
+    echo "  3          right click"
+    echo "  <code>     raw button code (e.g. 272)"
+    echo ""
+    echo "Options:"
+    echo "  --down     hold the button down"
+    echo "  --up       release the button"
+    echo "  --toggle   toggle hold state"
+    echo "  -w <win>   target a specific window (class regex)"
+    echo "  -h         print this help"
+}
+
+button_to_code() {
+    case "$1" in
+        1|left)   echo 272 ;;
+        2|middle) echo 274 ;;
+        3|right)  echo 273 ;;
+        *)        echo "$1" ;;
+    esac
+}
+
+if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    print_help
+    exit 0
+fi
+
+BUTTON="$1"
+shift
+
+CODE=$(button_to_code "$BUTTON")
+MODE="click"
+WINDOW=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --down)   MODE="down";   shift ;;
+        --up)     MODE="up";     shift ;;
+        --toggle) MODE="toggle"; shift ;;
+        -w)       WINDOW="$2";   shift 2 ;;
+        -h|--help) print_help; exit 0 ;;
+        *) echo "Unknown option: $1"; print_help; exit 1 ;;
+    esac
+done
+
+hold_file="$HOLD_DIR/mouse-$CODE"
+
+send() {
+    local target="${WINDOW:-activewindow}"
+    hyprctl dispatch sendshortcut ",mouse:$CODE,$target"
+}
+
+
+case "$MODE" in
+    click)
+        send
+        send
+        ;;
+    down)
+        send
+        touch "$hold_file"
+        ;;
+    up)
+        send
+        rm -f "$hold_file"
+        ;;
+    toggle)
+        if [[ -f "$hold_file" ]]; then
+            send
+            rm -f "$hold_file"
+        else
+            send
+            touch "$hold_file"
+        fi
+        ;;
+esac

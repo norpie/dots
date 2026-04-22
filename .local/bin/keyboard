@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# File: keyboard
+# Description: Wrapper script for sending key presses via hyprctl dispatch.
+# Usage:
+#   keyboard <key>                  -- send a single key press (down + up)
+#   keyboard <key> --down           -- hold the key down
+#   keyboard <key> --up             -- release the key
+#   keyboard <key> --toggle         -- toggle hold (down if not held, up if held)
+#   keyboard <key> -m <mod>         -- with modifier (SUPER, ALT, CTRL, SHIFT, etc.)
+#   keyboard <key> -w <window>      -- target a specific window (class regex)
+#
+# Keys: any key name (a, b, Return, space, etc.) or code:<number>
+
+HOLD_DIR="${XDG_RUNTIME_DIR:-/tmp}/keyboard-hold"
+mkdir -p "$HOLD_DIR"
+
+print_help() {
+    echo "Usage: keyboard <key> [options]"
+    echo ""
+    echo "Keys:"
+    echo "  a, b, z, ...     letter keys"
+    echo "  Return, space     named keys"
+    echo "  code:42           raw key code"
+    echo "  F1, F2, ...       function keys"
+    echo ""
+    echo "Options:"
+    echo "  --down            hold the key down"
+    echo "  --up              release the key"
+    echo "  --toggle          toggle hold state"
+    echo "  -m <mod>          modifier (SUPER, ALT, CTRL, SHIFT, SUPER_ALT, etc.)"
+    echo "  -w <win>          target a specific window (class regex)"
+    echo "  -h                print this help"
+}
+
+if [[ -z $1 || $1 == "-h" || $1 == "--help" ]]; then
+    print_help
+    exit 0
+fi
+
+KEY="$1"
+shift
+
+MODE="click"
+MOD=""
+WINDOW=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --down)    MODE="down";   shift ;;
+        --up)      MODE="up";     shift ;;
+        --toggle)  MODE="toggle"; shift ;;
+        -m)        MOD="$2";      shift 2 ;;
+        -w)        WINDOW="$2";   shift 2 ;;
+        -h|--help) print_help; exit 0 ;;
+        *) echo "Unknown option: $1"; print_help; exit 1 ;;
+    esac
+done
+
+# Sanitize key name for hold file (replace colons with dashes)
+SAFE_KEY="${KEY//:/-}"
+hold_file="$HOLD_DIR/key-${MOD:+${MOD}-}${SAFE_KEY}"
+
+send() {
+    local state="$1"
+    local target="${WINDOW:-activewindow}"
+    hyprctl dispatch sendkeystate "$MOD,$KEY,$state,$target"
+}
+
+shortcut() {
+    local target="${WINDOW:-activewindow}"
+    hyprctl dispatch sendshortcut "$MOD,$KEY,$target"
+}
+
+case "$MODE" in
+    click)
+        shortcut
+        ;;
+    down)
+        send down
+        touch "$hold_file"
+        ;;
+    up)
+        send up
+        rm -f "$hold_file"
+        ;;
+    toggle)
+        if [[ -f "$hold_file" ]]; then
+            send up
+            rm -f "$hold_file"
+        else
+            send down
+            touch "$hold_file"
+        fi
+        ;;
+esac
