@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-nix run github:nixos/nixpkgs#opencode -- --version
+OPENCODE_CMD="nix run github:nixos/nixpkgs#opencode --"
 
+$OPENCODE_CMD --version
 pwd
 
 # Get opencode version
-OPENCODE_VERSION=$(nix run github:nixos/nixpkgs#opencode -- --version 2>/dev/null | head -1 | tr -d '\n')
+OPENCODE_VERSION=$($OPENCODE_CMD --version 2>/dev/null | head -1 | tr -d '\n')
 if [ -z "$OPENCODE_VERSION" ]; then
     OPENCODE_VERSION="unknown"
 fi
@@ -143,4 +144,4 @@ cleanup() {
 trap cleanup EXIT INT TERM
 
 # Run opencode with all arguments
-nix run github:nixos/nixpkgs#opencode -- "$@"
+$OPENCODE_CMD "$@"
