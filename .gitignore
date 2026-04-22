@@ -568,3 +568,10 @@ scribe-target
 /.local/share/opentui/tree-sitter
 /.local/share/smassh
 /speedrunigt
+/.jdks
+/.local/share/pnpm/.tools/pnpm
+/.local/share/pnpm/store/v10
+/.pi/agent/sessions
+/.pi/agent/auth.json
+/.local/share/compendium/models
+/.config/opencode/package-lock.json
