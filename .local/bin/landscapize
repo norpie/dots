@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Convert portrait videos to 16:9 with blurred pillarboxing.
+#
+# Usage:
+#   ./portrait-to-landscape.sh input.mp4 [output.mp4] [target_height]
+#
+# Examples:
+#   ./portrait-to-landscape.sh clip.mp4
+#   ./portrait-to-landscape.sh clip.mp4 wide.mp4
+#   ./portrait-to-landscape.sh clip.mp4 wide.mp4 1080
+
+INPUT="${1:?Usage: $0 <input> [output] [target_height]}"
+OUTPUT="${2:-${INPUT%.*}_landscape.mp4}"
+TARGET_H="${3:-0}"  # 0 = keep original height
+
+if [[ ! -f "$INPUT" ]]; then
+    echo "Error: '$INPUT' not found" >&2
+    exit 1
+fi
+
+
+eval "$(ffprobe -v error -select_streams v:0 \
+    -show_entries stream=width,height \
+    -of json "$INPUT" \
+    | jq -r '.streams[0] | "SRC_W=\(.width) SRC_H=\(.height)"')"
+
+echo "Source: ${SRC_W}x${SRC_H}"
+
+if (( SRC_W >= SRC_H )); then
+    echo "Warning: video is already landscape or square (${SRC_W}x${SRC_H}), processing anyway..."
+fi
+
+# Determine output dimensions
+if (( TARGET_H > 0 )); then
+    OUT_H="$TARGET_H"
+else
+    # Round source height down to nearest even number
+    OUT_H=$(( SRC_H - (SRC_H % 2) ))
+fi
+OUT_W=$(( (OUT_H * 16 / 9 + 1) / 2 * 2 ))  # 16:9 width, rounded to even
+
+echo "Output:  ${OUT_W}x${OUT_H}"
+
+# The filter graph:
+#   [bg]  — input scaled+cropped to fill 16:9, then heavily blurred
+#   [fg]  — input scaled to fit within 16:9 (height-matched), padded to exact size
+#   overlay fg centered on bg
+ffmpeg -y -vaapi_device /dev/dri/renderD128 -i "$INPUT" \
+    -filter_complex "
+        [0:v] split [bg_in][fg_in];
+
+        [bg_in]
+            scale=320:-2,
+            boxblur=8:3,
+            scale=${OUT_W}:${OUT_H},
+            crop=${OUT_W}:${OUT_H},
+            setsar=1
+        [bg];
+
+        [fg_in]
+            scale=-2:${OUT_H}:force_original_aspect_ratio=decrease,
+            setsar=1
+        [fg];
+
+        [bg][fg] overlay=(W-w)/2:(H-h)/2:format=auto,
+        format=nv12,hwupload
+    " \
+    -c:v h264_vaapi -qp 18 \
+    -c:a copy \
+    -movflags +faststart \
+    "$OUTPUT"
+
+echo "Done → $OUTPUT"
