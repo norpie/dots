@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Usage: toggle ./some_script.sh
+# If process is running, it kills it; otherwise, it starts it.
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <script_to_toggle>"
+    exit 1
+fi
+
+SCRIPT="$1"
+SCRIPT_NAME=$(basename "$SCRIPT")
+PID=$(pgrep -f "$SCRIPT_NAME")
+if [ -n "$PID" ]; then
+    echo "Killing process $PID"
+    kill "$PID"
+else
+    echo "Starting script $SCRIPT"
+    reload "$SCRIPT"
+fi
