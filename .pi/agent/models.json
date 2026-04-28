@@ -1,0 +1,31 @@
+{
+  "providers": {
+    "textgenwebui": {
+      "baseUrl": "http://127.0.0.1:5000/v1",
+      "api": "openai-completions",
+      "apiKey": "test",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false,
+        "supportsUsageInStreaming": false,
+        "maxTokensField": "max_tokens",
+        "thinkingFormat": "qwen-chat-template"
+      },
+      "models": [
+        {
+          "id": "Qwen3.6-27B-Q4_K_M.gguf",
+          "name": "Qwen3.6-27B-Q4_K_M",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 131072,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    }
+  }
+}
