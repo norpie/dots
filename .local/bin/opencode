@@ -108,7 +108,8 @@ is_idle() {
 
 # Function to send heartbeat
 send_heartbeat() {
-    wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "opencode-wakatime/$OPENCODE_VERSION" >/dev/null 2>&1 &
+    # wakatime-cli --write --entity "$CURRENT_FILE" --project "$PROJECT_NAME" --category coding --entity-type 'app' --is-unsaved-entity --plugin "opencode-wakatime/$OPENCODE_VERSION" >/dev/null 2>&1 &
+    echo "test" > /dev/null 2>&1 &
 }
 
 # Send initial heartbeat
