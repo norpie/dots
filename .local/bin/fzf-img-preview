@@ -1,0 +1,4 @@
+#!/bin/bash
+# Usage: fzf-img-preview <image_path>
+# --colors=256 keeps sixel output under alacritty-graphics buffer limit
+chafa --format=sixels --colors=256 --size="${FZF_PREVIEW_COLUMNS}"x"${FZF_PREVIEW_LINES}" --relative=on "$1"
