@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 <file>" >&2
+    exit 1
+fi
+
+FILE="$1"
+
+echo "Watching clipboard, appending to '$FILE'. Ctrl+C to stop."
+
+wl-paste --type text/plain --watch bash -c "
+    content=\$(cat)
+    echo \"\$content\" >> '$FILE'
+    preview=\$(echo \"\$content\" | tr -d '\n' | cut -c1-30)
+    echo \"→ \${preview}...\"
+"
