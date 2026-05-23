@@ -11,7 +11,7 @@ export NIXPKGS_ALLOW_UNFREE=1
 #     npx tsgo -p packages/agent/tsconfig.build.json &&
 #     npm run build --workspace=packages/coding-agent'
 PI_LOCAL_CLI="$HOME/repos/pi/pi-mono/packages/coding-agent/dist/cli.js"
-NIX_PI_CMD="nix shell nixpkgs#nodejs --command node $PI_LOCAL_CLI"
+NIX_PI_CMD="node $PI_LOCAL_CLI"
 
 pwd
 $NIX_PI_CMD --version
