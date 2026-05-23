@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Usage: yt <url|file> [-r]
+# Description: uses yt-dlp to download videos from the given URL or file containing URLs, in a temporary directory, and then moves the downloaded files to the current directory.
+#
+# Optional rate limit flag (-r) can be used to specify the download speed limit (e.g., 5m for 5 megabytes per second).
+
+IS_FILE=false
+TARGET_DIR=$(pwd)
+TEMP_DIR=$(mktemp -d)
+FILE=$(realpath "$1")
+OPTS_STRING=""
+
+# Handle optional rate limit flag
+while getopts "r:" opt; do
+    case $opt in
+        r)
+            OPTS_STRING="$OPTS_STRING -r $OPTARG"
+            ;;
+        *)
+            echo "Usage: yt <url|file> [-r rate_limit]"
+            exit 1
+            ;;
+    esac
+done
+
+[[ -f $1 ]] && IS_FILE=true
+
+cd $TEMP_DIR
+
+if $IS_FILE; then
+    yt-dlp -a "$FILE" "$OPTS_STRING"
+else
+    yt-dlp "$1" "$OPTS_STRING"
+fi
+
+mv * "$TARGET_DIR"
