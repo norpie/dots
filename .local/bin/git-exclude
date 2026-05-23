@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# git-exclude — add files to .git/info/exclude (local git ignore)
+# Usage: git-exclude <file|pattern> [file|pattern ...]
+#        git-exclude --list
+#        git-exclude --remove <pattern>
+
+set -euo pipefail
+
+EXCLUDE_FILE=".git/info/exclude"
+
+usage() {
+    cat <<EOF
+Usage: git-exclude <file|pattern> [file|pattern ...]
+       git-exclude --list
+       git-exclude --remove <pattern>
+
+Locally exclude files from git tracking (writes to .git/info/exclude).
+
+Options:
+  --list          Show current local exclusions
+  --remove <p>    Remove a pattern from local exclusions
+  --help          Show this help message
+
+Examples:
+  git-exclude *.log
+  git-exclude .env secrets.yaml
+  git-exclude --list
+  git-exclude --remove "*.log"
+EOF
+}
+
+find_git_root() {
+    git-root | tail -1
+}
+
+list_excludes() {
+    local root
+    root=$(find_git_root)
+    local exclude_file="$root/$EXCLUDE_FILE"
+
+    if [[ ! -f "$exclude_file" ]]; then
+        echo "No local exclusions configured."
+        return 0
+    fi
+
+    echo "=== Local git exclusions ($exclude_file) ==="
+    grep -v '^\s*$' "$exclude_file" | grep -v '^\s*#' || echo "(none)"
+}
+
+remove_exclude() {
+    local pattern="$1"
+    local root
+    root=$(find_git_root)
+    local exclude_file="$root/$EXCLUDE_FILE"
+
+    if [[ ! -f "$exclude_file" ]]; then
+        echo "Error: no exclude file exists" >&2
+        exit 1
+    fi
+
+    local escaped
+    escaped=$(printf '%s\n' "$pattern" | sed 's/[.[\*^$()+?{|\\]/\\&/g')
+    local count
+    count=$(grep -cF "$pattern" "$exclude_file" 2>/dev/null || true)
+
+    if [[ "$count" -eq 0 ]]; then
+        echo "Pattern '$pattern' not found in exclusions."
+        return 0
+    fi
+
+    grep -vF "$pattern" "$exclude_file" > "${exclude_file}.tmp"
+    mv "${exclude_file}.tmp" "$exclude_file"
+    echo "Removed '$pattern' from local exclusions."
+}
+
+# --- Main ---
+
+if [[ $# -eq 0 ]]; then
+    usage
+    exit 1
+fi
+
+case "$1" in
+    --list|-l)
+        list_excludes
+        exit 0
+        ;;
+    --remove|-r)
+        if [[ $# -lt 2 ]]; then
+            echo "Error: --remove requires a pattern" >&2
+            exit 1
+        fi
+        remove_exclude "$2"
+        exit 0
+        ;;
+    --help|-h)
+        usage
+        exit 0
+        ;;
+esac
+
+# Add patterns to exclude file
+root=$(find_git_root)
+exclude_file="$root/$EXCLUDE_FILE"
+
+# Create file if it doesn't exist
+if [[ ! -f "$exclude_file" ]]; then
+    touch "$exclude_file"
+    echo "# Local git exclusions (added by git-exclude)" >> "$exclude_file"
+fi
+
+added=0
+skipped=0
+
+for pattern in "$@"; do
+    if grep -qF "$pattern" "$exclude_file" 2>/dev/null; then
+        echo "Skip (already excluded): $pattern"
+        ((skipped++)) || true
+    else
+        echo "$pattern" >> "$exclude_file"
+        echo "Excluded: $pattern"
+        ((added++)) || true
+    fi
+done
+
+if [[ $added -gt 0 ]]; then
+    echo ""
+    echo "Added $added pattern(s) to $exclude_file"
+fi
+if [[ $skipped -gt 0 ]]; then
+    echo "Skipped $skipped pattern(s) (already present)"
+fi
