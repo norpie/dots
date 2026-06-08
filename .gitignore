@@ -575,3 +575,4 @@ scribe-target
 /.pi/agent/auth.json
 /.local/share/compendium/models
 /.config/opencode/package-lock.json
+/.local/share/krita
