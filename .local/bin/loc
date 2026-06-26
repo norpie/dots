@@ -13,24 +13,45 @@ readonly RESET='\033[0m'
 VERBOSE=true
 SORT_BY_SIZE=true
 SHOW_STATS=true
-TARGET_DIR="."
+SHOW_PROGRESS=true
+ANALYZE_LINES=false
+TARGET_DIR='.'
 USE_GIT=true
 
 # Default exclusion patterns
 exclude_patterns=(
-  "**/.*"
-  "**/node_modules/*"
-  "**/__pycache__/*"
-  "**/target/*"
-  "**/bin/*"
-  "**/build/*"
-  "**/bins/*"
-  "**/obj/*"
-  "**/dist/*"
-  "**/*.db/*"
-  "**/*.lock"
-  "*.lock"
+  '**/.*'
+  '**/node_modules/*'
+  '**/__pycache__/*'
+  '**/target/*'
+  '**/bin/*'
+  '**/build/*'
+  '**/bins/*'
+  '**/obj/*'
+  '**/dist/*'
+  '**/*.db/*'
+  '**/*.lock'
+  '*.lock'
 )
+
+# Aggregates
+declare -A GROUP_TOTAL_LINES=()
+declare -A GROUP_TOTAL_FILES=()
+declare -A GROUP_TOTAL_BLANK=()
+declare -A GROUP_TOTAL_COMMENT=()
+declare -A GROUP_TOTAL_CODE=()
+declare -A GROUP_RECORDS=()
+declare -a GROUP_ORDER=()
+declare -a DISPLAY_GROUP_ORDER=()
+TOTAL_LINES=0
+TOTAL_FILES=0
+TOTAL_BLANK=0
+TOTAL_COMMENT=0
+TOTAL_CODE=0
+TARGET_DIR_ABS=''
+PROGRESS_ENABLED=false
+PROGRESS_TOTAL=0
+PROGRESS_LAST_PCT=-1
 
 show_help() {
   cat << EOF
@@ -40,20 +61,28 @@ ${BOLD}USAGE:${RESET}
   loc [OPTIONS] [DIRECTORY]
 
 ${BOLD}OPTIONS:${RESET}
-  -v, --verbose       Show per-file line counts
-  -s, --sort          Sort files by line count (descending)
-  -n, --no-stats      Don't show statistics
+  -v, --verbose       Show per-file line counts (default)
+  -s, --sort          Sort groups/files by line count (descending, default)
+  -n, --no-stats      Don't show the final totals block
   -e, --exclude PATTERN
                       Add exclusion pattern (can be used multiple times)
+  --analyze           Break lines into code / comment / blank (slower)
   --no-git            Disable git integration (git is used by default)
+  --no-progress       Disable the progress indicator
   -h, --help          Show this help message
+
+${BOLD}FEATURES:${RESET}
+  - Groups files by extension
+  - Optional code / comment / blank breakdown
+  - Respects .gitignore when git or ripgrep is available
 
 ${BOLD}EXAMPLES:${RESET}
   loc                 Count lines in current directory
   loc ~/project       Count lines in ~/project
-  loc -v              Show verbose output with all files
-  loc -v -s           Show files sorted by line count
-  loc -e "*.test.js"  Exclude additional pattern
+  loc --analyze       Show code/comment/blank breakdown
+  loc -v              Show per-file line counts
+  loc -v -s           Sort files by line count
+  loc -e '*.test.js'  Exclude additional pattern
 
 ${BOLD}DEFAULT EXCLUSIONS:${RESET}
 EOF
@@ -86,8 +115,16 @@ parse_args() {
         exclude_patterns+=("$2")
         shift 2
         ;;
+      --analyze)
+        ANALYZE_LINES=true
+        shift
+        ;;
       --no-git)
         USE_GIT=false
+        shift
+        ;;
+      --no-progress)
+        SHOW_PROGRESS=false
         shift
         ;;
       -h|--help)
@@ -107,119 +144,503 @@ parse_args() {
   done
 }
 
-count_lines() {
-  local target_dir="$1"
-
-  if [[ ! -d "$target_dir" ]]; then
-    echo -e "${RED}Error: Directory not found: $target_dir${RESET}" >&2
+resolve_target_dir() {
+  if [[ ! -d "$TARGET_DIR" ]]; then
+    echo -e "${RED}Error: Directory not found: $TARGET_DIR${RESET}" >&2
     exit 1
   fi
+  TARGET_DIR_ABS=$(cd "$TARGET_DIR" && pwd)
+}
 
-  # Get all matching files
-  local files=()
+progress_init() {
+  local total="$1"
+  PROGRESS_ENABLED=false
+  PROGRESS_TOTAL="$total"
+  PROGRESS_LAST_PCT=-1
 
-  # Try to use git if enabled and we're in a git repo
-  if [[ "$USE_GIT" == true ]] && git -C "$target_dir" rev-parse --git-dir >/dev/null 2>&1; then
-    # Use git ls-files to respect .gitignore
-    mapfile -t files < <(cd "$target_dir" && git ls-files 2>/dev/null || true)
-    # Convert to absolute paths if target_dir is not current directory
-    if [[ "$target_dir" != "." ]]; then
-      local abs_files=()
-      for file in "${files[@]}"; do
-        abs_files+=("$target_dir/$file")
-      done
-      files=("${abs_files[@]}")
-    fi
-    # Apply exclusion patterns to git files
-    local filtered_files=()
-    for file in "${files[@]}"; do
-      local excluded=false
-      for pattern in "${exclude_patterns[@]}"; do
-        # Convert glob pattern to work with case statement
-        if [[ "$file" == $pattern ]]; then
-          excluded=true
-          break
-        fi
-      done
-      if [[ "$excluded" == false ]]; then
-        filtered_files+=("$file")
-      fi
-    done
-    files=("${filtered_files[@]}")
-  else
-    # Fall back to find with exclusions
-    local find_args=()
-    for pattern in "${exclude_patterns[@]}"; do
-      find_args+=(-not -wholename "$pattern")
-    done
-    mapfile -t files < <(find "$target_dir" -type f "${find_args[@]}" 2>/dev/null || true)
-  fi
-
-  if [[ ${#files[@]} -eq 0 ]]; then
-    echo -e "${YELLOW}No files found in $target_dir${RESET}"
-    exit 0
-  fi
-
-  # Count lines
-  local wc_output=""
-  wc_output=$(wc -l "${files[@]}" 2>/dev/null || true)
-
-  # Parse output
-  local total_lines=0
-  local total_files=0
-  local -a file_counts=()
-
-  while IFS= read -r line; do
-    if [[ "$line" =~ ^[[:space:]]*([0-9]+)[[:space:]]+(.+)$ ]]; then
-      local count filepath
-      count="${BASH_REMATCH[1]}"
-      filepath="${BASH_REMATCH[2]}"
-
-      if [[ "$filepath" == "total" ]]; then
-        total_lines="$count"
-      else
-        ((total_files++)) || true
-        if [[ "$VERBOSE" == true ]]; then
-          file_counts+=("$count|$filepath")
-        fi
-      fi
-    fi
-  done <<< "$wc_output"
-
-  # Display results
-  if [[ "$VERBOSE" == true ]]; then
-    if [[ "$SORT_BY_SIZE" == true ]]; then
-      printf '%s\n' "${file_counts[@]}" | sort -t'|' -k1 -nr | while IFS='|' read -r count filepath; do
-        printf "${BLUE}%8d${RESET}  %s\n" "$count" "$filepath"
-      done
-    else
-      for entry in "${file_counts[@]}"; do
-        IFS='|' read -r count filepath <<< "$entry"
-        printf "${BLUE}%8d${RESET}  %s\n" "$count" "$filepath"
-      done
-    fi
-    echo
-  fi
-
-  # Show statistics
-  if [[ "$SHOW_STATS" == true ]]; then
-    local avg_lines=0
-    if [[ $total_files -gt 0 ]]; then
-      avg_lines=$((total_lines / total_files))
-    fi
-    echo -e "${BOLD}Statistics:${RESET}"
-    echo -e "  Total lines:  ${GREEN}${total_lines}${RESET}"
-    echo -e "  Total files:  ${GREEN}${total_files}${RESET}"
-    echo -e "  Average/file: ${GREEN}${avg_lines}${RESET}"
-  else
-    echo -e "${GREEN}${total_lines}${RESET}"
+  if [[ "$SHOW_PROGRESS" == true && -t 2 && $total -gt 0 ]]; then
+    PROGRESS_ENABLED=true
   fi
 }
 
-# Main
+progress_shorten() {
+  local text="$1" max=60
+
+  if [[ ${#text} -le $max ]]; then
+    printf '%s' "$text"
+  else
+    printf '…%s' "${text: -$((max - 1))}"
+  fi
+}
+
+progress_update() {
+  local current="$1" file="${2:-}"
+  local pct display
+
+  [[ "$PROGRESS_ENABLED" == true ]] || return 0
+
+  pct=$(( current * 100 / PROGRESS_TOTAL ))
+  if [[ $current -lt $PROGRESS_TOTAL && $pct -eq $PROGRESS_LAST_PCT ]]; then
+    return 0
+  fi
+
+  PROGRESS_LAST_PCT="$pct"
+  display="$file"
+  if [[ -n "$display" ]]; then
+    display=${display#"$TARGET_DIR_ABS"/}
+    display=$(progress_shorten "$display")
+  fi
+
+  printf "\r\033[K${BOLD}Processing${RESET} %d/%d (%d%%)%s" \
+    "$current" "$PROGRESS_TOTAL" "$pct" \
+    "${display:+  $display}" >&2
+}
+
+progress_finish() {
+  if [[ "$PROGRESS_ENABLED" == true ]]; then
+    printf '\r\033[K' >&2
+    PROGRESS_ENABLED=false
+  fi
+}
+
+file_line_count() {
+  local file="$1"
+  local count
+
+  count=$(wc -l < "$file" 2>/dev/null | tr -d '[:space:]' || true)
+  printf '%s\n' "${count:-0}"
+}
+
+file_extension() {
+  local path="$1"
+  local base ext lower
+  base=${path##*/}
+  lower=${base,,}
+
+  case "$lower" in
+    makefile|gnumakefile|dockerfile|cmakelists.txt)
+      echo '[no extension]'
+      return
+      ;;
+    *.tar.gz)
+      echo '.tar.gz'
+      return
+      ;;
+    *.tar.bz2)
+      echo '.tar.bz2'
+      return
+      ;;
+    *.tar.xz)
+      echo '.tar.xz'
+      return
+      ;;
+    *.tar.zst)
+      echo '.tar.zst'
+      return
+      ;;
+  esac
+
+  if [[ "$base" != *.* ]]; then
+    echo '[no extension]'
+    return
+  fi
+
+  if [[ "$base" == .* && "${base#.}" != *.* ]]; then
+    echo '[no extension]'
+    return
+  fi
+
+  ext=${base##*.}
+  printf '.%s\n' "${ext,,}"
+}
+
+comment_style_for_file() {
+  local path="$1"
+  local base ext lower
+  base=${path##*/}
+  lower=${base,,}
+
+  case "$lower" in
+    makefile|gnumakefile|dockerfile|cmakelists.txt|.gitignore|.dockerignore|.npmrc|.editorconfig|.pylintrc|.flake8|.prettierrc|.zshrc|.bashrc|.bash_profile|.profile|.vimrc|.env|.env.*)
+      echo 'hash'
+      return
+      ;;
+  esac
+
+  ext=$(file_extension "$path")
+  ext=${ext#.}
+
+  case "$ext" in
+    sh|bash|zsh|ksh|mksh|fish|py|rb|yml|yaml|toml|ini|cfg|conf|env|properties|r|pl|pm|ps1|psm1|gradle|groovy|tf|tfvars|nim|nix|elv|kdl|hcl|cue)
+      echo 'hash'
+      ;;
+    js|jsx|ts|tsx|c|h|cc|cpp|cxx|hh|hpp|java|cs|go|rs|kt|kts|swift|scala|dart|php|m|mm|vala|jl|proto|proto2|proto3|erl|ex|exs|f90|f95|f03)
+      echo 'slash'
+      ;;
+    css|scss|less)
+      echo 'block'
+      ;;
+    html|htm|xml|svg|xsl|vue|svelte|mustache|handlebars)
+      echo 'html'
+      ;;
+    sql)
+      echo 'sql'
+      ;;
+    lua)
+      echo 'lua'
+      ;;
+    jsonc|json5)
+      echo 'slash'
+      ;;
+    md|markdown|txt|text|rst|adoc|org|json)
+      echo 'none'
+      ;;
+    *)
+      echo 'none'
+      ;;
+  esac
+}
+
+collect_files() {
+  FILES=()
+
+  if [[ "$USE_GIT" == true ]] && git -C "$TARGET_DIR_ABS" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    local repo_root prefix rel
+    repo_root=$(git -C "$TARGET_DIR_ABS" rev-parse --show-toplevel)
+    prefix=$(git -C "$TARGET_DIR_ABS" rev-parse --show-prefix)
+
+    if [[ -n "$prefix" ]]; then
+      while IFS= read -r -d '' rel; do
+        rel=${rel#./}
+        FILES+=("$repo_root/$rel")
+      done < <(git -C "$repo_root" ls-files -z --cached --others --exclude-standard -- "$prefix")
+    else
+      while IFS= read -r -d '' rel; do
+        rel=${rel#./}
+        FILES+=("$repo_root/$rel")
+      done < <(git -C "$repo_root" ls-files -z --cached --others --exclude-standard)
+    fi
+  elif command -v rg >/dev/null 2>&1; then
+    local -a rg_args=(--files --hidden --follow -0)
+    local pattern
+    for pattern in "${exclude_patterns[@]}"; do
+      rg_args+=(-g "!$pattern")
+    done
+
+    local rel
+    while IFS= read -r -d '' rel; do
+      rel=${rel#./}
+      FILES+=("$TARGET_DIR_ABS/$rel")
+    done < <(cd "$TARGET_DIR_ABS" && rg "${rg_args[@]}")
+  else
+    while IFS= read -r -d '' rel; do
+      FILES+=("$rel")
+    done < <(find "$TARGET_DIR_ABS" -type f -print0 2>/dev/null || true)
+  fi
+
+  local filtered=()
+  local file pattern excluded
+  for file in "${FILES[@]}"; do
+    excluded=false
+    for pattern in "${exclude_patterns[@]}"; do
+      if [[ "$file" == $pattern ]]; then
+        excluded=true
+        break
+      fi
+    done
+    if [[ "$excluded" == false ]]; then
+      filtered+=("$file")
+    fi
+  done
+
+  FILES=("${filtered[@]}")
+}
+
+analyze_file() {
+  local file="$1"
+  local style line_comment1='' line_comment2='' block_start='' block_end=''
+
+  style=$(comment_style_for_file "$file")
+  case "$style" in
+    hash)
+      line_comment1='#'
+      line_comment2=';'
+      ;;
+    slash)
+      line_comment1='//'
+      block_start='/*'
+      block_end='*/'
+      ;;
+    block)
+      block_start='/*'
+      block_end='*/'
+      ;;
+    html)
+      block_start='<!--'
+      block_end='-->'
+      ;;
+    sql)
+      line_comment1='--'
+      block_start='/*'
+      block_end='*/'
+      ;;
+    lua)
+      line_comment1='--'
+      block_start='--[['
+      block_end=']]'
+      ;;
+    none)
+      ;;
+  esac
+
+  awk \
+    -v lc1="$line_comment1" \
+    -v lc2="$line_comment2" \
+    -v bs="$block_start" \
+    -v be="$block_end" '
+      {
+        line = $0
+
+        if (line ~ /^[[:space:]]*$/) {
+          blank++
+          next
+        }
+
+        work = line
+        while (1) {
+          if (in_block) {
+            pos = index(work, be)
+            if (!pos) {
+              comment++
+              next
+            }
+
+            work = substr(work, pos + length(be))
+            in_block = 0
+            if (work ~ /^[[:space:]]*$/) {
+              comment++
+              next
+            }
+            continue
+          }
+
+          trimmed = work
+          sub(/^[[:space:]]+/, "", trimmed)
+          if (trimmed == "") {
+            comment++
+            next
+          }
+
+          if (bs != "" && index(trimmed, bs) == 1) {
+            tail = substr(trimmed, length(bs) + 1)
+            if (be != "" && index(tail, be) > 0) {
+              pos = index(tail, be)
+              work = substr(tail, pos + length(be))
+              if (work ~ /^[[:space:]]*$/) {
+                comment++
+                next
+              }
+              continue
+            }
+
+            in_block = 1
+            comment++
+            next
+          }
+
+          if (lc1 != "" && index(trimmed, lc1) == 1) {
+            if (!(lc1 == "#" && index(trimmed, "#!") == 1)) {
+              comment++
+              next
+            }
+          }
+
+          if (lc2 != "" && index(trimmed, lc2) == 1) {
+            comment++
+            next
+          }
+
+          if (bs != "" && (pos = index(trimmed, bs)) > 0) {
+            prefix = substr(trimmed, 1, pos - 1)
+            if (prefix !~ /^[[:space:]]*$/) {
+              code++
+              next
+            }
+
+            tail = substr(trimmed, pos + length(bs))
+            if (be != "" && index(tail, be) > 0) {
+              pos = index(tail, be)
+              work = substr(tail, pos + length(be))
+              if (work ~ /^[[:space:]]*$/) {
+                comment++
+                next
+              }
+              continue
+            }
+
+            in_block = 1
+            comment++
+            next
+          }
+
+          code++
+          next
+        }
+      }
+      END {
+        printf "%d\t%d\t%d\n", blank + 0, comment + 0, code + 0
+      }
+    ' "$file"
+}
+
+add_record() {
+  local group="$1" lines="$2" blank="$3" comment="$4" code="$5" file="$6"
+
+  if [[ -z ${GROUP_TOTAL_LINES[$group]+x} ]]; then
+    GROUP_ORDER+=("$group")
+    GROUP_TOTAL_LINES["$group"]=0
+    GROUP_TOTAL_FILES["$group"]=0
+    GROUP_TOTAL_BLANK["$group"]=0
+    GROUP_TOTAL_COMMENT["$group"]=0
+    GROUP_TOTAL_CODE["$group"]=0
+    GROUP_RECORDS["$group"]=''
+  fi
+
+  GROUP_TOTAL_LINES["$group"]=$(( GROUP_TOTAL_LINES["$group"] + lines ))
+  GROUP_TOTAL_FILES["$group"]=$(( GROUP_TOTAL_FILES["$group"] + 1 ))
+  GROUP_TOTAL_BLANK["$group"]=$(( GROUP_TOTAL_BLANK["$group"] + blank ))
+  GROUP_TOTAL_COMMENT["$group"]=$(( GROUP_TOTAL_COMMENT["$group"] + comment ))
+  GROUP_TOTAL_CODE["$group"]=$(( GROUP_TOTAL_CODE["$group"] + code ))
+  GROUP_RECORDS["$group"]+="$lines"$'\t'"$blank"$'\t'"$comment"$'\t'"$code"$'\t'"$file"$'\n'
+
+  TOTAL_LINES=$(( TOTAL_LINES + lines ))
+  TOTAL_FILES=$(( TOTAL_FILES + 1 ))
+  TOTAL_BLANK=$(( TOTAL_BLANK + blank ))
+  TOTAL_COMMENT=$(( TOTAL_COMMENT + comment ))
+  TOTAL_CODE=$(( TOTAL_CODE + code ))
+}
+
+print_group_summary() {
+  local -a summary_records=()
+  local group
+
+  DISPLAY_GROUP_ORDER=()
+  for group in "${GROUP_ORDER[@]}"; do
+    summary_records+=(
+      "${GROUP_TOTAL_LINES[$group]}"$'\t'"$group"$'\t'"${GROUP_TOTAL_FILES[$group]}"$'\t'"${GROUP_TOTAL_CODE[$group]}"$'\t'"${GROUP_TOTAL_COMMENT[$group]}"$'\t'"${GROUP_TOTAL_BLANK[$group]}"
+    )
+  done
+
+  if [[ "$SORT_BY_SIZE" == true ]]; then
+    mapfile -t summary_records < <(printf '%s\n' "${summary_records[@]}" | sort -t$'\t' -k1,1nr -k2,2)
+  fi
+
+  for record in "${summary_records[@]}"; do
+    IFS=$'\t' read -r lines group files code comment blank <<< "$record"
+    DISPLAY_GROUP_ORDER+=("$group")
+  done
+
+  echo -e "${BOLD}By extension:${RESET}"
+  for record in "${summary_records[@]}"; do
+    IFS=$'\t' read -r lines group files code comment blank <<< "$record"
+    if [[ "$ANALYZE_LINES" == true ]]; then
+      printf "  ${BLUE}%-18s${RESET} %8d files  %8d lines  %8d code  %8d comment  %8d blank\n" \
+        "$group" "$files" "$lines" "$code" "$comment" "$blank"
+    else
+      printf "  ${BLUE}%-18s${RESET} %8d files  %8d lines\n" \
+        "$group" "$files" "$lines"
+    fi
+  done
+}
+
+print_group_files() {
+  local group="$1"
+  local records
+  local line_record
+  local -a file_records=()
+
+  records="${GROUP_RECORDS[$group]}"
+  if [[ -z "$records" ]]; then
+    return
+  fi
+
+  if [[ "$SORT_BY_SIZE" == true ]]; then
+    mapfile -t file_records < <(printf '%s' "$records" | sort -t$'\t' -k1,1nr)
+  else
+    mapfile -t file_records < <(printf '%s' "$records")
+  fi
+
+  echo -e "\n${BOLD}${group}${RESET}"
+  for line_record in "${file_records[@]}"; do
+    [[ -z "$line_record" ]] && continue
+    IFS=$'\t' read -r lines blank comment code file <<< "$line_record"
+    if [[ "$ANALYZE_LINES" == true ]]; then
+      printf "    ${BLUE}%8d${RESET}  code:%-6d comment:%-6d blank:%-6d  %s\n" \
+        "$lines" "$code" "$comment" "$blank" "$file"
+    else
+      printf "    ${BLUE}%8d${RESET}  lines  %s\n" "$lines" "$file"
+    fi
+  done
+}
+
 main() {
   parse_args "$@"
-  count_lines "$TARGET_DIR"
+  resolve_target_dir
+  collect_files
+
+  if [[ ${#FILES[@]} -eq 0 ]]; then
+    echo -e "${YELLOW}No files found in $TARGET_DIR${RESET}"
+    exit 0
+  fi
+
+  progress_init "${#FILES[@]}"
+
+  local file lines blank comment code group index=0
+  for file in "${FILES[@]}"; do
+    ((++index))
+    progress_update "$index" "$file"
+
+    if [[ "$ANALYZE_LINES" == true ]]; then
+      IFS=$'\t' read -r blank comment code < <(analyze_file "$file")
+      lines=$(( blank + comment + code ))
+    else
+      lines=$(file_line_count "$file")
+      blank=0
+      comment=0
+      code=0
+    fi
+
+    group=$(file_extension "$file")
+    add_record "$group" "$lines" "$blank" "$comment" "$code" "$file"
+  done
+
+  progress_finish
+  print_group_summary
+
+  if [[ "$VERBOSE" == true ]]; then
+    for group in "${DISPLAY_GROUP_ORDER[@]}"; do
+      print_group_files "$group"
+    done
+  fi
+
+  if [[ "$SHOW_STATS" == true ]]; then
+    local avg_lines=0
+    if [[ $TOTAL_FILES -gt 0 ]]; then
+      avg_lines=$(( TOTAL_LINES / TOTAL_FILES ))
+    fi
+
+    echo
+    echo -e "${BOLD}Statistics:${RESET}"
+    echo -e "  Total lines:   ${GREEN}${TOTAL_LINES}${RESET}"
+    echo -e "  Total files:   ${GREEN}${TOTAL_FILES}${RESET}"
+    echo -e "  Average/file:  ${GREEN}${avg_lines}${RESET}"
+
+    if [[ "$ANALYZE_LINES" == true ]]; then
+      echo -e "  Code lines:    ${GREEN}${TOTAL_CODE}${RESET}"
+      echo -e "  Comment lines: ${GREEN}${TOTAL_COMMENT}${RESET}"
+      echo -e "  Blank lines:   ${GREEN}${TOTAL_BLANK}${RESET}"
+    fi
+  fi
 }
 
 main "$@"
