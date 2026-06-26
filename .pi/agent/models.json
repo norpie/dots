@@ -1,20 +1,20 @@
 {
   "providers": {
-    "textgenwebui": {
-      "baseUrl": "http://127.0.0.1:5000/v1",
-      "api": "openai-completions",
+    "llama-server": {
+      "baseUrl": "http://127.0.0.1:5005/v1",
+      "api": "llama-server-progress",
       "apiKey": "test",
       "compat": {
         "supportsDeveloperRole": false,
         "supportsReasoningEffort": false,
-        "supportsUsageInStreaming": false,
+        "supportsUsageInStreaming": true,
         "maxTokensField": "max_tokens",
         "thinkingFormat": "qwen-chat-template"
       },
       "models": [
         {
           "id": "Qwen3.6-27B-Q4_K_M.gguf",
-          "name": "Qwen3.6-27B-Q4_K_M",
+          "name": "Qwen3.6-27B-Q4_K_M (llama-server)",
           "reasoning": true,
           "input": ["text"],
           "contextWindow": 131072,
@@ -23,6 +23,93 @@
             "output": 0,
             "cacheRead": 0,
             "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    "hipfire": {
+      "baseUrl": "http://127.0.0.1:11435/v1",
+      "api": "openai-completions",
+      "apiKey": "test",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "supportsReasoningEffort": false,
+        "supportsUsageInStreaming": true,
+        "maxTokensField": "max_tokens",
+        "thinkingFormat": "qwen-chat-template"
+      },
+      "models": [
+        {
+          "id": "qwen3.6:27b",
+          "name": "Qwen 3.6 27B",
+          "reasoning": true,
+          "input": ["text"],
+          "contextWindow": 131072,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    
+    "deepseek": {
+      "baseUrl": "https://api.deepseek.com",
+      "api": "openai-completions",
+      "apiKey": "$DEEPSEEK_API_KEY",
+      "models": [
+        {
+          "id": "deepseek-v4-pro",
+          "name": "DeepSeek V4 Pro",
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "input": ["text"],
+          "reasoning": true,
+          "thinkingLevelMap": { "minimal": null, "low": null, "medium": null, "high": "high", "xhigh": "max" },
+          "cost": {
+            "input": 1.74,
+            "output": 3.48,
+            "cacheRead": 0.145,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "requiresReasoningContentOnAssistantMessages": true,
+            "thinkingFormat": "deepseek",
+            "reasoningEffortMap": {
+              "minimal": "high",
+              "low": "high",
+              "medium": "high",
+              "high": "high",
+              "xhigh": "max"
+            }
+          }
+        },
+        {
+          "id": "deepseek-v4-flash",
+          "name": "DeepSeek V4 Flash",
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "input": ["text"],
+          "reasoning": true,
+          "thinkingLevelMap": { "minimal": null, "low": null, "medium": null, "high": "high", "xhigh": "max" },
+          "cost": {
+            "input": 0.14,
+            "output": 0.28,
+            "cacheRead": 0.028,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "requiresReasoningContentOnAssistantMessages": true,
+            "thinkingFormat": "deepseek",
+            "reasoningEffortMap": {
+              "minimal": "high",
+              "low": "high",
+              "medium": "high",
+              "high": "high",
+              "xhigh": "max"
+            }
           }
         }
       ]

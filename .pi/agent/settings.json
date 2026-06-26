@@ -1,9 +1,14 @@
 {
-  "lastChangelogVersion": "0.68.1",
-  "packages": [],
-  "defaultProvider": "github-copilot",
+  "lastChangelogVersion": "0.80.2",
+  "packages": [
+    "git:github.com/patlux/pi-chatgpt-limit"
+  ],
+  "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.4-mini",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
-  "theme": "catppuccin-mocha"
+  "theme": "catppuccin-mocha",
+  "quietStartup": true,
+  "steeringMode": "all",
+  "followUpMode": "all"
 }
