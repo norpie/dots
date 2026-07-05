@@ -576,3 +576,15 @@ scribe-target
 /.local/share/compendium/models
 /.config/opencode/package-lock.json
 /.local/share/krita
+/.config/filetypesrc
+/.config/kritadisplayrc
+/.config/kritarc
+/.hipfire
+/.hipfire_kernels
+/.local/share/argos-translate
+/.local/share/ipatcher/framework
+/.local/share/krita-sysinfo.log
+/.local/share/krita.log
+/.pi/agent/git/github.com/patlux/pi-chatgpt-limit
+/.pi/agent/trust.json
+/.templateengine/dotnetcli/8.0.420
