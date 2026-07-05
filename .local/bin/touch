@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-[[ $# -eq 0 ]] && { echo "Usage: $0 <file> [<file> ...]" >&2; exit 1 }
+[[ $# -eq 0 ]] && { echo "Usage: $0 <file> [<file> ...]" >&2; exit 1; }
 
 for var in "$@"
 do
     # Handle empty arguments
-    [[ -z "$var" ]] && { echo "Skipping empty argument" >&2; continue }
+    [[ -z "$var" ]] && { echo "Skipping empty argument" >&2; continue; }
 
     # Use -- to handle paths starting with hyphens
     dir=$(command dirname -- "$var")
