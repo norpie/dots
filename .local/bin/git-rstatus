@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Recursively check the status of git repositories in a directory until a repo is found at some depth. If a repo is found, that branch will not be checked for further subdirectories. If no repo is found, the script will continue to check subdirectories until a repo is found or all subdirectories have been checked.
+# Usage: git rstatus [dir]
+
+checked_dir="$1"
+
+if [ -z "$checked_dir" ]; then
+    checked_dir="."
+fi
+
+founds_dirs=$(find "$checked_dir" -type d -name ".git" -exec dirname {} \; 2>/dev/null)
+
+known_repos=()
+
+for dir in $founds_dirs; do
+    if [[ ! " ${known_repos[@]} " =~ " ${dir} " ]]; then
+        known_repos+=("$dir")
+    fi
+done
+
+for repo in "${known_repos[@]}"; do
+    git -C "$repo" status
+done
