@@ -84,7 +84,15 @@ case $command in
         ;;
     subroot)
         project_subroot=$(project__subroot)
-        if [[ "$project_subroot" == "$PWD" ]]; then
+        if [[ -z "$project_subroot" ]]; then
+            # project__subroot found nothing, try project__root as fallback
+            result=$(project__root)
+            if [[ $? -eq 0 && -n "$result" ]]; then
+                echo "$result"
+            elif [[ "$fallback" == true ]]; then
+                echo "$HOME"
+            fi
+        elif [[ "$project_subroot" == "$PWD" ]]; then
             result=$(project__root)
             if [[ $? -eq 0 && -n "$result" ]]; then
                 echo "$result"
