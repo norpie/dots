@@ -1,14 +1,19 @@
 {
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "packages": [
     "git:github.com/patlux/pi-chatgpt-limit"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4-mini",
+  "defaultProvider": "llama-server",
+  "defaultModel": "Qwen3.6-27B-Q4_K_M.gguf",
   "hideThinkingBlock": false,
   "defaultThinkingLevel": "high",
   "theme": "catppuccin-mocha",
   "quietStartup": true,
   "steeringMode": "all",
-  "followUpMode": "all"
+  "followUpMode": "all",
+  "enabledModels": [
+    "openai-codex/gpt-5.4-mini",
+    "openai-codex/gpt-5.5",
+    "llama-server/Qwen3.6-27B-Q4_K_M.gguf"
+  ]
 }
