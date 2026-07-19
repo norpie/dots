@@ -7,8 +7,8 @@
     interactive = true
     status = true
 [user]
-    name = norpie (Konsta Kuosmanen)
-    email = contact@norpie.dev
+    name = norpie
+    email = konstamskuosmanen@gmail.com
 [core]
     editor = nvim
     pager = delta
