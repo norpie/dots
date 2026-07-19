@@ -588,3 +588,4 @@ scribe-target
 /.pi/agent/git/github.com/patlux/pi-chatgpt-limit
 /.pi/agent/trust.json
 /.templateengine/dotnetcli/8.0.420
+/.pi/agent/models-store.json
