@@ -589,3 +589,4 @@ scribe-target
 /.pi/agent/trust.json
 /.templateengine/dotnetcli/8.0.420
 /.pi/agent/models-store.json
+/.config/fontforge
